@@ -20,7 +20,6 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.column = column;
-		this.adjList;
 	}
 
 
