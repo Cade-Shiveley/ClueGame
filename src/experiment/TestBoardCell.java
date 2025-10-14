@@ -11,6 +11,7 @@ public class TestBoardCell {
 		adjList.add(cell);
 	}
 	
+
 	public Set<TestBoardCell> getAdjList(){
 		return adjList;
 	}
@@ -19,6 +20,7 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.column = column;
+		this.adjList;
 	}
 
 
@@ -36,6 +38,14 @@ public class TestBoardCell {
 
 	public void setOccupied(boolean isOccupied) {
 		this.isOccupied = isOccupied;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getColumn() {
+		return column;
 	}
 
 
