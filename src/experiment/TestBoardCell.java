@@ -1,4 +1,5 @@
 package experiment;
+import java.util.Set;
 
 public class TestBoardCell {
 	private int row;
@@ -8,43 +9,40 @@ public class TestBoardCell {
 	private boolean isOccupied;
 	
 	public void addAdjacency (TestBoardCell cell) {
-		adjList.add(cell);
+
 	}
 	
 
 	public Set<TestBoardCell> getAdjList(){
-		return adjList;
+		return null;
 	}
 	
 	public TestBoardCell(int row, int column) {
-		super();
-		this.row = row;
+		this.row =row;
 		this.column = column;
 	}
 
 
 	public boolean isRoom() {
-		return isRoom;
+		return false;
 	}
 
 	public void setRoom(boolean isRoom) {
-		this.isRoom = isRoom;
 	}
 
 	public boolean isOccupied() {
-		return isOccupied;
+		return false;
 	}
 
 	public void setOccupied(boolean isOccupied) {
-		this.isOccupied = isOccupied;
 	}
 	
 	public int getRow() {
-		return row;
+		return 0;
 	}
 	
 	public int getColumn() {
-		return column;
+		return 0;
 	}
 
 

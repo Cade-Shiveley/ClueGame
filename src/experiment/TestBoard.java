@@ -1,6 +1,5 @@
 package experiment;
-import TestBoardCell;
-
+import java.util.Set;
 
 public class TestBoard {
 private int pathlength;
@@ -15,12 +14,11 @@ public void calcTargets(TestBoardCell startCell, int pathlength) {
 }
 
 public TestBoardCell getCell(int row, int column) {
-	return this.row;
-	return this.column;
+	return null;
 }
 
 public Set<TestBoardCell> targets(){
-	return targets;
+	return null;
 	
 }
 
