@@ -1,4 +1,5 @@
 package experiment;
+import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
@@ -11,6 +12,10 @@ private int column;
 Set<TestBoardCell> getTargets;
 private int targets;
 
+public void board() {
+
+}
+
 //calculates the cells a player can go to
 public void calcTargets(TestBoardCell startCell, int pathlength) {
 	
@@ -18,12 +23,12 @@ public void calcTargets(TestBoardCell startCell, int pathlength) {
 
 //returns current cell 
 public TestBoardCell getCell(int row, int column) {
-	return null;
+	return new TestBoardCell(0,0);
 }
 
 //returns the list of targets that were found in calc
 public Set<TestBoardCell> getTargets(){
-	return null;
+	return new HashSet<TestBoardCell>();
 	
 }
 

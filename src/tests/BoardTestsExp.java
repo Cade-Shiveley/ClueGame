@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import experiment.*;
 
 import java.util.Set;
+//assistance from TA Thomas
+
 
 public class BoardTestsExp {
 	private TestBoard board;
@@ -16,7 +18,7 @@ public class BoardTestsExp {
 	public void setUp() {
 		board = new TestBoard();
 	}
-	
+	//testing the top left 
 	@Test
 	public void AdjacencyTopLeft() {
 		TestBoardCell cell = board.getCell(0, 0);
@@ -27,6 +29,7 @@ public class BoardTestsExp {
 		Assert.assertEquals(2, testList.size());
 	}
 	
+	//testing the top right cells
 	@Test
 	public void AdjacencyBottomRight() {
 		TestBoardCell cell = board.getCell(3,  3);
@@ -36,7 +39,7 @@ public class BoardTestsExp {
 		Assert.assertTrue(testList.contains(board.getCell(2, 3)));
 		Assert.assertEquals(2, testList.size());
 	}
-	
+	//testing adjacency for right edge
 	@Test
 	public void AdjacencyRightEdge() {
 		TestBoardCell cell = board.getCell(1,  3);
@@ -48,6 +51,7 @@ public class BoardTestsExp {
 		Assert.assertEquals(3, testList.size());
 	}
 	
+	//testing adjacency on left edge
 	@Test
 	public void AdjacencyLeftEdge() {
 		TestBoardCell cell = board.getCell(2,  0);
@@ -59,6 +63,7 @@ public class BoardTestsExp {
 		Assert.assertEquals(3, testList.size());
 	}
 	
+	//testing adjancency for center of board
 	@Test
 	public void AdjacencyCenter() {
 		TestBoardCell cell = board.getCell(2,  2);
@@ -71,6 +76,7 @@ public class BoardTestsExp {
 		Assert.assertEquals(4, testList.size());
 	}
 	
+	//testing 3 roll
 	@Test
 	public void NormalRoll() {
 		TestBoardCell start = board.getCell(0,  0);
@@ -82,6 +88,7 @@ public class BoardTestsExp {
 		Assert.assertTrue(targets.contains(board.getCell(0,  3)));
 	}
 	
+	//testing varying steps on a roll
 	@Test
 	public void VaryingSteps() {
 		TestBoardCell start = board.getCell(1, 1);
@@ -94,6 +101,8 @@ public class BoardTestsExp {
 		Assert.assertNotEquals(roll2.size(), roll4.size());
 	}
 	
+	
+	//testing when there is a room involved
 	@Test
 	public void WithRoom() {
 		board.getCell(1, 2).setRoom(true);
@@ -103,6 +112,9 @@ public class BoardTestsExp {
 		Assert.assertTrue(targets.contains(board.getCell(1, 2)));
 	}
 	
+	
+	//testing when a walkway is occupied
+	//always going to pass becasue boolean statements = false always for testing
 	@Test
 	public void OccupiedWalkway() {
 		board.getCell(1,  0).setOccupied(true);
@@ -112,6 +124,7 @@ public class BoardTestsExp {
 		Assert.assertFalse(targets.contains(board.getCell(1, 0)));
 	}
 	
+	//testing when you roll a 6
 	@Test
 	public void MaxRoll() {
 		TestBoardCell start = board.getCell(0, 0);
