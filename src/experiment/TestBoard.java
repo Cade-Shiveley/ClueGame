@@ -4,13 +4,12 @@ import java.util.Set;
 
 public class TestBoard {
 	//initializes
-private int pathlength;
-private int startCell;
-private int row;
-private int column;
 //sets targets
-Set<TestBoardCell> getTargets;
-private int targets;
+Set<TestBoardCell> targets;
+private TestBoardCell[][] grid;
+private Set<TestBoardCell> visited;
+final static int COLS =4;
+final static int ROWS = 4;
 //assistance from TA Thomas
 
 
@@ -20,16 +19,20 @@ public void board() {
 
 //calculates the cells a player can go to
 public void calcTargets(TestBoardCell startCell, int pathlength) {
+	if (adjList.isOccupied) {
+		
+	}
 	
+	if(adjList.)
 }
 
 //returns current cell 
 public TestBoardCell getCell(int row, int column) {
-	return new TestBoardCell(0,0);
+	return new gird[row][column];
 }
 
 //returns the list of targets that were found in calc
-public Set<TestBoardCell> getTargets(){
+public Set<TestBoardCell> targets(){
 	return new HashSet<TestBoardCell>();
 	
 }

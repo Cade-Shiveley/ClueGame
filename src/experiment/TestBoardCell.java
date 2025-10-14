@@ -14,7 +14,7 @@ public class TestBoardCell {
 	
 	//adds adjacent cells
 	public void addAdjacency (TestBoardCell cell) {
-
+		adjList.add(cell);
 	}
 
 
@@ -23,39 +23,44 @@ public class TestBoardCell {
 		return adjList;
 	}
 	
+
 	//constructor of the board cells
 	public TestBoardCell(int row, int column) {
 		this.row =row;
 		this.column = column;
+		this.isRoom = false;
+		this.isOccupied = false;
 		adjList = new HashSet<TestBoardCell>();
 	}
 
 //returns if is room
 	public boolean isRoom() {
-		return false;
+		return isRoom;
 	}
 
 	//sets whether room
 	public void setRoom(boolean isRoom) {
+		this.isRoom = isRoom;
 	}
 
 	//checks if occupied
 	public boolean isOccupied() {
-		return false;
+		return isOccupied;
 	}
 
 	//sets as occupied
 	public void setOccupied(boolean isOccupied) {
+		this.isOccupied = isOccupied;
 	}
 	
 	//returns row
 	public int getRow() {
-		return 0;
+		return row;
 	}
 	
 	//returns column
 	public int getColumn() {
-		return 0;
+		return column;
 	}
 
 

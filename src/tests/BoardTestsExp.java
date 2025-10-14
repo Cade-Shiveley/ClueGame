@@ -81,7 +81,7 @@ public class BoardTestsExp {
 	public void NormalRoll() {
 		TestBoardCell start = board.getCell(0,  0);
 		board.calcTargets(start, 3);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<TestBoardCell> targets = board.targets();
 		
 		Assert.assertEquals(6, targets.size());
 		Assert.assertTrue(targets.contains(board.getCell(3,  0)));
@@ -93,10 +93,10 @@ public class BoardTestsExp {
 	public void VaryingSteps() {
 		TestBoardCell start = board.getCell(1, 1);
 		board.calcTargets(start, 2);
-		Set<TestBoardCell> roll2 = board.getTargets();
+		Set<TestBoardCell> roll2 = board.targets();
 		
 		board.calcTargets(start, 4);
-		Set<TestBoardCell> roll4 = board.getTargets();
+		Set<TestBoardCell> roll4 = board.targets();
 		
 		Assert.assertNotEquals(roll2.size(), roll4.size());
 	}
@@ -108,7 +108,7 @@ public class BoardTestsExp {
 		board.getCell(1, 2).setRoom(true);
 		TestBoardCell start = board.getCell(0,  2);
 		board.calcTargets(start, 2);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<TestBoardCell> targets = board.targets();
 		Assert.assertTrue(targets.contains(board.getCell(1, 2)));
 	}
 	
@@ -120,7 +120,7 @@ public class BoardTestsExp {
 		board.getCell(1,  0).setOccupied(true);
 		TestBoardCell start = board.getCell(0, 0);
 		board.calcTargets(start, 2);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<TestBoardCell> targets = board.targets();
 		Assert.assertFalse(targets.contains(board.getCell(1, 0)));
 	}
 	
@@ -129,7 +129,7 @@ public class BoardTestsExp {
 	public void MaxRoll() {
 		TestBoardCell start = board.getCell(0, 0);
 		board.calcTargets(start, 6);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<TestBoardCell> targets = board.targets();
 		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
@@ -141,4 +141,6 @@ public class BoardTestsExp {
 
 		
 	}
+	
+	
 }
