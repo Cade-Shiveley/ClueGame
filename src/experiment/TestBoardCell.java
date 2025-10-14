@@ -2,6 +2,8 @@ package experiment;
 import java.util.Set;
 import java.util.HashSet;
 
+//assistance from TA Thomas
+
 public class TestBoardCell {
 	//initializes items
 	private int row;

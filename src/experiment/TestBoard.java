@@ -11,6 +11,8 @@ private int column;
 //sets targets
 Set<TestBoardCell> getTargets;
 private int targets;
+//assistance from TA Thomas
+
 
 public void board() {
 
