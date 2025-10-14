@@ -111,4 +111,21 @@ public class BoardTestsExp {
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertFalse(targets.contains(board.getCell(1, 0)));
 	}
+	
+	@Test
+	public void MaxRoll() {
+		TestBoardCell start = board.getCell(0, 0);
+		board.calcTargets(start, 6);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
+		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
+		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(3, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(0, 2)));
+		Assert.assertTrue(targets.contains(board.getCell(2, 2)));
+		Assert.assertTrue(targets.contains(board.getCell(1, 3)));
+		Assert.assertTrue(targets.contains(board.getCell(3, 1)));
+
+		
+	}
 }
