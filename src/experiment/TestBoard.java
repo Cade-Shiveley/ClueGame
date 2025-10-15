@@ -19,7 +19,7 @@ public void board() {
 }
 
 public void findAllTargets(TestBoardCell thisCell, int numSteps) {
-	for() {
+	for(each adjCell: adjacentCells) {
 		//check if visited skip rest
 		if (visited.contains(thisCell)==true){
 			return;
@@ -28,7 +28,7 @@ public void findAllTargets(TestBoardCell thisCell, int numSteps) {
 		visited.add(thisCell);
 		
 		if (numSteps == 1) {
-			add.adjCell.targets;
+			targets.add(thisCell);
 		}else {
 			findAllTargets(adjCell, numSteps -1);
 		}
@@ -47,13 +47,12 @@ public void calcTargets(TestBoardCell startCell, int pathlength) {
 
 //returns current cell 
 public TestBoardCell getCell(int row, int column) {
-	return grid[row][column];
+	return grid[ROWS][COLS];
 }
 
 //returns the list of targets that were found in calc
 public Set<TestBoardCell> targets(){
-	return HashSet<TestBoardCell>();
-	
+	return targets;
 }
 
 
