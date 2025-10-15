@@ -10,6 +10,7 @@ private TestBoardCell[][] grid;
 private Set<TestBoardCell> visited;
 final static int COLS =4;
 final static int ROWS = 4;
+
 //assistance from TA Thomas
 
 
@@ -17,23 +18,41 @@ public void board() {
 
 }
 
-//calculates the cells a player can go to
-public void calcTargets(TestBoardCell startCell, int pathlength) {
-	if (adjList.isOccupied) {
+public void findAllTargets(TestBoardCell thisCell, int numSteps) {
+	for() {
+		//check if visited skip rest
+		if (visited.contains(thisCell)==true){
+			return;
+			
+		}
+		visited.add(thisCell);
 		
+		if (numSteps == 1) {
+			add.adjCell.targets;
+		}else {
+			findAllTargets(adjCell, numSteps -1);
+		}
+		//stack overflow for syntax how to remove stuff from setlist
+		visited.remove(thisCell);
 	}
 	
-	if(adjList.)
+	
+	
+}
+
+//calculates the cells a player can go to
+public void calcTargets(TestBoardCell startCell, int pathlength) {
+	
 }
 
 //returns current cell 
 public TestBoardCell getCell(int row, int column) {
-	return new gird[row][column];
+	return grid[row][column];
 }
 
 //returns the list of targets that were found in calc
 public Set<TestBoardCell> targets(){
-	return new HashSet<TestBoardCell>();
+	return HashSet<TestBoardCell>();
 	
 }
 
