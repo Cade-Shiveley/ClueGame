@@ -19,7 +19,7 @@ public void board() {
 }
 
 private void findAllTargets(TestBoardCell thisCell, int numSteps) {
-	for(TestBoardCell adjCell:  adjList) {
+	for(TestBoardCell adjCell:  adjList(thisCell)) {
 		//check if visited skip rest
 		if (visited.contains(thisCell)==true){
 			return;
@@ -42,12 +42,18 @@ private void findAllTargets(TestBoardCell thisCell, int numSteps) {
 
 //calculates the cells a player can go to
 public void calcTargets(TestBoardCell startCell, int pathlength) {
-	//call findAllTargets in this 
+	//call findAllTargets in this - done
+	//make sure visisted list is empty and targets
+	//add start cell to visited list
+	
+	visited.add(startCell);
+	findAllTargets(startCell, pathlength);
+	visited.remove();
 }
 
 //returns current cell 
 public TestBoardCell getCell(int row, int column) {
-	return grid[ROWS][COLS];
+	return grid[row][column];
 }
 
 //returns the list of targets that were found in calc
