@@ -1,6 +1,7 @@
 package experiment;
 import java.util.HashSet;
 import java.util.Set;
+import TestBoardCell;
 
 public class TestBoard {
 	//initializes
@@ -18,8 +19,8 @@ public void board() {
 
 }
 
-public void findAllTargets(TestBoardCell thisCell, int numSteps) {
-	for(each adjCell: adjacentCells) {
+private void findAllTargets(TestBoardCell thisCell, int numSteps) {
+	for(TestBoardCell adjCell:  adjList) {
 		//check if visited skip rest
 		if (visited.contains(thisCell)==true){
 			return;
@@ -27,6 +28,7 @@ public void findAllTargets(TestBoardCell thisCell, int numSteps) {
 		}
 		visited.add(thisCell);
 		
+	
 		if (numSteps == 1) {
 			targets.add(thisCell);
 		}else {
@@ -37,12 +39,11 @@ public void findAllTargets(TestBoardCell thisCell, int numSteps) {
 	}
 	
 	
-	
 }
 
 //calculates the cells a player can go to
 public void calcTargets(TestBoardCell startCell, int pathlength) {
-	
+	//call findAllTargets in this 
 }
 
 //returns current cell 

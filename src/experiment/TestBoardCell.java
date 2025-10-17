@@ -20,7 +20,7 @@ public class TestBoardCell {
 
 //returns all adjacent cells
 	public Set<TestBoardCell> getAdjList(){
-		
+		return adjList;
 	}
 	
 
