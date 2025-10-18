@@ -43,12 +43,12 @@ private void findAllTargets(TestBoardCell thisCell, int numSteps) {
 //calculates the cells a player can go to
 public void calcTargets(TestBoardCell startCell, int pathlength) {
 	//call findAllTargets in this - done
-	//make sure visisted list is empty and targets
+	//make sure visited list is empty and targets
 	//add start cell to visited list
 	
 	visited.add(startCell);
 	findAllTargets(startCell, pathlength);
-	visited.remove();
+	visited.remove(pathlength);
 }
 
 //returns current cell 
