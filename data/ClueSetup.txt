@@ -1,0 +1,13 @@
+//Rooms and room cards
+Room, Nether, N
+Room, End, E
+Room, Village, V
+Room, Ocean, O
+Room, Jungle, J
+Room, Mansion, M
+Room, Cave, C
+Room, Swamp, S
+Room, Fortress, F
+//Other Spaces
+Space, Unused, X
+Space, Walkway, W
