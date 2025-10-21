@@ -41,4 +41,59 @@ public void initialize()
 {
 }
 
+public void loadSetupConfig() {
+	
+}
+
+public void loadLayoutConfig() {
+	
+	
+}
+
+
+public BoardCell[][] getGrid() {
+	return grid;
+}
+public void setGrid(BoardCell[][] grid) {
+	this.grid = grid;
+}
+public int getNumRows() {
+	return numRows;
+}
+public void setNumRows(int numRows) {
+	this.numRows = numRows;
+}
+public int getNumColumns() {
+	return numColumns;
+}
+public void setNumColumns(int numColumns) {
+	this.numColumns = numColumns;
+}
+public String getLayoutConfigFile() {
+	return layoutConfigFile;
+}
+public void setLayoutConfigFile(String layoutConfigFile) {
+	this.layoutConfigFile = layoutConfigFile;
+}
+public String getSetupConfigFile() {
+	return setupConfigFile;
+}
+public void setSetupConfigFile(String setupConfigFile) {
+	this.setupConfigFile = setupConfigFile;
+}
+public Map<Character, Room> getRoomMap() {
+	return roomMap;
+}
+public void setRoomMap(Map<Character, Room> roomMap) {
+	this.roomMap = roomMap;
+}
+public static Board getTheInstance() {
+	return theInstance;
+}
+public static void setTheInstance(Board theInstance) {
+	Board.theInstance = theInstance;
+}
+
+
+
 }
