@@ -88,6 +88,7 @@ public class BoardTestsExp {
 		Assert.assertTrue(targets.contains(board.getCell(0,  3)));
 	}
 	
+
 	//testing varying steps on a roll
 	@Test
 	public void VaryingSteps() {

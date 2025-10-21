@@ -36,6 +36,7 @@ public class TestBoardCell {
 		adjList = new HashSet<TestBoardCell>();
 	}
 
+
 //returns if is room
 	public boolean isRoom() {
 		return isRoom;
