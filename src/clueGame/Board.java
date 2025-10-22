@@ -133,14 +133,7 @@ public class Board {
 				}
 			}
 		} catch (IOException e) {
-			numRows = 24;
-			numColumns = 24;
-			grid = new BoardCell[numRows][numColumns];
-			for (int r = 0; r < numRows; r++) {
-				for (int c = 0; c < numColumns; c++) {
-					grid[r][c] = new BoardCell();
-				}
-			}
+			System.out.println("Error reading layout file.");
 		}
 	}
 	
