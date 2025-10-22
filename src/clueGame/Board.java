@@ -44,7 +44,7 @@ public void initialize()
 {
 }
 
-public void setConfigFile(String, String) {
+public void setConfigFile(String layoutConfigFile, String setupConfigFile) {
 	
 }
 
