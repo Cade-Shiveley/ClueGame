@@ -40,8 +40,8 @@ public static Board getInstance() {
 /*
  * initialize the board (since we are using singleton pattern)
  */
-public void initialize()
-{
+public void initialize() {
+	//try catch loadsetupconfig and loadlayoutconfig.
 }
 
 public void setConfigFile(String layoutConfigFile, String setupConfigFile) {
@@ -49,12 +49,12 @@ public void setConfigFile(String layoutConfigFile, String setupConfigFile) {
 }
 
 public void loadSetupConfig() {
-	
+	//throw badconfig setup;
 	
 }
 
 public void loadLayoutConfig() {
-	
+	//throw badconfig setup
 	
 }
 
