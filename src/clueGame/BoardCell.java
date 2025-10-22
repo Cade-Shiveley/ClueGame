@@ -110,6 +110,12 @@ public class BoardCell {
 	public void setAdjList(Set<BoardCell> adjList) {
 		this.adjList = adjList;
 	}
+
+
+	public boolean isDoorway() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 
