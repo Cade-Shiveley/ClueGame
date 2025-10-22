@@ -206,26 +206,11 @@ public class Board {
 	}
 	
 	public Room getRoom(BoardCell cell) {
-		if (cell == null) {
-			Room dummy = new Room();
-			dummy.setName("Unknown");
-			return dummy;
-		}
 		return getRoom(cell.getInitial());
 	}
 	
 	public Room getRoom(char initial) {
-		if (roomMap == null) {
-			roomMap = new HashMap<>();
-		}
-		
-		Room room = roomMap.get(initial);
-		if (room == null) {
-			room = new Room();
-			room.setName("Unknown");
-			roomMap.put(initial, room);
-		}
-		return room;
+		return roomMap.get(initial);
 	}
 }
 
