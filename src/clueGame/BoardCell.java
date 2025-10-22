@@ -24,6 +24,17 @@ public class BoardCell {
 	private Set<BoardCell> adjList;
 	
 	
+	
+	public BoardCell() {
+		super();
+		adjList = new HashSet<>();
+		doorDirection = DoorDirection.NONE;
+		roomLabel = false;
+		roomCenter = false;
+		secretPassage = '\0';
+	}
+
+
 	public void addAdj(BoardCell adj) {
 		
 		
@@ -113,8 +124,7 @@ public class BoardCell {
 
 
 	public boolean isDoorway() {
-		// TODO Auto-generated method stub
-		return false;
+		return doorDirection != null && doorDirection != DoorDirection.NONE;
 	}
 	
 	

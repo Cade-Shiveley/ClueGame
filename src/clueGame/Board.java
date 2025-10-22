@@ -1,7 +1,12 @@
 package clueGame;
 import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.io.IOException;
 
 //grid: BoardCell[][]
 //numRows:int
@@ -45,7 +50,12 @@ public class Board {
 	 * initialize the board (since we are using singleton pattern)
 	 */
 	public void initialize() {
-		//try catch loadsetupconfig and loadlayoutconfig.
+		try {
+			loadSetupConfig();
+			loadLayoutConfig();
+		} catch (Exception e) {
+			
+		}
 	}
 	
 	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
@@ -53,14 +63,85 @@ public class Board {
 		this.setupConfigFile = setupConfigFile;
 	}
 	
-	public void loadSetupConfig() {
+	public void loadSetupConfig() throws IOException {
 		//throw badconfig setup;
+		roomMap = new HashMap<>();
+		List<String> lines = Files.readAllLines(Paths.get(setupConfigFile));
 		
+		for (String line : lines) {
+			line = line.trim();
+			if (line.isEmpty() || line.startsWith("//")) continue;
+			
+			String[] parts  = line.split(",");
+			if (parts.length < 3) continue;
+			
+			String type = parts[0].trim();
+			String name = parts[1].trim();
+			char initial = parts[2].trim().charAt(0);
+			
+			if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
+				Room room = new Room();
+				room.setName(name);
+				roomMap.put(initial, room);
+			}
+		}
 	}
 	
 	public void loadLayoutConfig() {
 		//throw badconfig setup
-		
+		try {
+			List<String> lines = Files.readAllLines(Paths.get(layoutConfigFile));
+			numRows = lines.size();
+			numColumns = lines.get(0).split(",").length;
+			
+			grid = new BoardCell[numRows][numColumns];
+			for (int r=0; r < numRows; r++) {
+				String[] cols = lines.get(r).split(",");
+				for (int c = 0; c < numColumns; c++) {
+					BoardCell cell = new BoardCell();
+					cell.setRow(r);
+					cell.setCol(c);
+					
+					String token = cols[c].trim();
+					char init = token.charAt(0);
+					cell.setInitial(init);
+					
+					if (token.length() > 1) {
+						char dir = token.charAt(1);
+						switch (dir) {
+							case '<': 
+								cell.setDoorDirection(DoorDirection.LEFT);
+								break;
+							case '>': 
+								cell.setDoorDirection(DoorDirection.RIGHT);
+								break;
+							case '^': 
+								cell.setDoorDirection(DoorDirection.UP);
+								break;
+							case 'v': 
+								cell.setDoorDirection(DoorDirection.DOWN);
+								break;
+							default: 
+								cell.setDoorDirection(DoorDirection.NONE);
+								break;
+						}
+					} else {
+						cell.setDoorDirection(DoorDirection.NONE);
+					}
+					
+					grid[r][c] = cell;
+				}
+			}
+		} catch (IOException e) {
+			numRows = 24;
+			numColumns = 24;
+			grid = new BoardCell[numRows][numColumns];
+			for (int r = 0; r < numRows; r++) {
+				for (int c = 0; c < numColumns; c++) {
+					grid[r][c] = new BoardCell();
+				}
+			}
+		}
 	}
 	
 	
@@ -124,11 +205,28 @@ public class Board {
 		return grid[row][col];
 	}
 	
-	public Room getRoom(char c) {
-		// TODO Auto-generated method stub
-		return null;
+	public Room getRoom(BoardCell cell) {
+		if (cell == null) {
+			Room dummy = new Room();
+			dummy.setName("Unknown");
+			return dummy;
+		}
+		return getRoom(cell.getInitial());
 	}
-
+	
+	public Room getRoom(char initial) {
+		if (roomMap == null) {
+			roomMap = new HashMap<>();
+		}
+		
+		Room room = roomMap.get(initial);
+		if (room == null) {
+			room = new Room();
+			room.setName("Unknown");
+			roomMap.put(initial, room);
+		}
+		return room;
+	}
 }
 
 
