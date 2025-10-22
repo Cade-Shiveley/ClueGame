@@ -1,6 +1,7 @@
 package clueGame;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
 
 //grid: BoardCell[][]
 //numRows:int
@@ -44,8 +45,9 @@ public void initialize() {
 	//try catch loadsetupconfig and loadlayoutconfig.
 }
 
-public void setConfigFile(String layoutConfigFile, String setupConfigFile) {
-	
+public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
+	this.layoutConfigFile = layoutConfigFile;
+	this.setupConfigFile = setupConfigFile;
 }
 
 public void loadSetupConfig() {
