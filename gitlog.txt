@@ -1,0 +1,127 @@
+commit a1508a0dc445dae8e8215a558674c7f8c5607d5e
+Author: Ben Roan <baroan@mines.edu>
+Date:   Mon Oct 20 14:32:07 2025 -0600
+
+    Added calcAdjacencies method and tests passing
+
+commit 78fe8c5fe8d159cbf30ed302f6640a006cdcdfb0
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 17 22:25:50 2025 -0600
+
+    Implemented board constructor
+
+commit b84b1656e8a1fb24be55d67a8bc255c71f2a60e3
+Merge: f876731 2901200
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 17 12:46:16 2025 -0600
+
+    Merge branch 'main' of https://github.com/Cade-Shiveley/ClueGame
+
+commit 29012006cf61d2eb2a65c34fb2802d92fbfa3f6b
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 17 12:46:07 2025 -0600
+
+    change
+
+commit f876731827ab1a2756ad343800b68614908f47c8
+Merge: ba0243b fe15e63
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 17 12:44:05 2025 -0600
+
+    Merged
+
+commit fe15e638f94db498eb24a8e6450ffcc2618f6c08
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 17 12:36:19 2025 -0600
+
+    Added comment
+
+commit 2acfaae8f51ef42b346c3d45fec0f58916f9f682
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 17 12:31:02 2025 -0600
+
+    adding comments about what to do
+
+commit 33a771276ca5d041499997bdc107d9a066d8e16e
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 14 19:27:04 2025 -0600
+
+    adding more to the testboard
+
+commit 7e268220c7c8582028d9b168c45338b92f3fa265
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 14 18:48:47 2025 -0600
+
+    adding the findAllTargets from pseudo
+
+commit c4f6701812fbd81a53ead8cc2a3cfbbc239395fc
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 14 10:05:10 2025 -0600
+
+    starting on 14A
+
+commit 1b38bd28b801a9b4e8e213135a12cb8595bb5997
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 14 09:27:28 2025 -0600
+
+    making sure everything is up to date
+
+commit ed7028f43733947c26d0ba9b61b6092def4829e7
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 14 09:26:09 2025 -0600
+
+    fixed the code by going to office hours on 10/14/2025 at 9:00am with TA Thomas
+
+commit b48d9dac2c086cc1896cb81ef3a655d8884b894b
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 14 08:15:27 2025 -0600
+
+    adding Cade test of max roll 6
+
+commit 7fc8e60a3a4217e10fd350cb7e51a343f152f39b
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 13 21:38:16 2025 -0600
+
+    adding comments to mine and addign ben's tests
+
+commit ba0243bb528aaf0c46288028b4e18cdbaf60c030
+Author: Ben Roan <baroan@mines.edu>
+Date:   Mon Oct 13 21:12:30 2025 -0600
+
+    Created Tests
+
+commit 981f2eb65bf90b786af5f4299af18ae504004da3
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 13 21:00:25 2025 -0600
+
+    same as above
+
+commit 1a0341d83a50b945989b13c939b924ac3d1b2cea
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 13 21:00:02 2025 -0600
+
+    misunderstood assignment so made everything return null or a empty object or 0
+
+commit 3099f474e1f6bd273baa917f8538d8cf10627a44
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 13 20:20:05 2025 -0600
+
+    changes
+
+commit cb2bcdd1d03a1c1e31ffcd3c5ed525c1aa5105a1
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 13 19:57:15 2025 -0600
+
+    check
+
+commit 43c29c62362936fc40d64c543d9b348936e8cfd8
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 13 11:57:40 2025 -0600
+
+    adding to the tests
+
+commit 621d582e6ce83ddb0f1d39ae97c1b5e424eff0f1
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Sun Oct 12 12:00:12 2025 -0600
+
+    setting up
