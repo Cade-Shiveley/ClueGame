@@ -1,4 +1,7 @@
 package clueGame;
+import java.util.Set;
+import java.util.HashSet;
+
 //row: int
 //col: int
 //initial :char
@@ -24,11 +27,13 @@ public class BoardCell {
 	public void addAdj(BoardCell adj) {
 		
 		
+		
 	}
 
 
 	public int getRow() {
 		return row;
+		
 	}
 
 

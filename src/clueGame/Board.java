@@ -1,4 +1,7 @@
 package clueGame;
+import java.util.Set;
+import java.util.HashSet;
+
 //grid: BoardCell[][]
 //numRows:int
 //numColumns: int
@@ -41,7 +44,12 @@ public void initialize()
 {
 }
 
+public void setConfigFile(String, String) {
+	
+}
+
 public void loadSetupConfig() {
+	
 	
 }
 
