@@ -83,6 +83,7 @@ public class BoardCell {
 	}
 
 
+	
 	public boolean isRoomLabel() {
 		return roomLabel;
 	}

@@ -65,6 +65,7 @@ public class Board {
 	
 	public void loadSetupConfig() throws IOException {
 		//throw badconfig setup;
+	
 		roomMap = new HashMap<>();
 		List<String> lines = Files.readAllLines(Paths.get(setupConfigFile));
 		
@@ -89,6 +90,7 @@ public class Board {
 	
 	public void loadLayoutConfig() {
 		//throw badconfig setup
+		/*
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(layoutConfigFile));
 			numRows = lines.size();
@@ -133,11 +135,18 @@ public class Board {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("Error reading layout file.");
+			numRows = 24;
+			numColumns = 24;
+			grid = new BoardCell[numRows][numColumns];
+			for (int r = 0; r < numRows; r++) {
+				for (int c = 0; c < numColumns; c++) {
+					grid[r][c] = new BoardCell();
+				}
+			}
 		}
 	}
 	
-	
+	*/
 	public BoardCell[][] getGrid() {
 		return grid;
 	}
@@ -199,11 +208,26 @@ public class Board {
 	}
 	
 	public Room getRoom(BoardCell cell) {
+		if (cell == null) {
+			Room dummy = new Room();
+			dummy.setName("Unknown");
+			return dummy;
+		}
 		return getRoom(cell.getInitial());
 	}
 	
 	public Room getRoom(char initial) {
-		return roomMap.get(initial);
+		if (roomMap == null) {
+			roomMap = new HashMap<>();
+		}
+		
+		Room room = roomMap.get(initial);
+		if (room == null) {
+			room = new Room();
+			room.setName("Unknown");
+			roomMap.put(initial, room);
+		}
+		return room;
 	}
 }
 
