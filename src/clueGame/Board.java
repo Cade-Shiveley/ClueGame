@@ -1,5 +1,8 @@
 package clueGame;
 import java.util.Set;
+
+import experiment.TestBoardCell;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -33,6 +36,10 @@ public class Board {
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap;
+	private Set<TestBoardCell> visited;
+	Set<TestBoardCell> targets; 
+
+
 	
 
 
@@ -61,6 +68,47 @@ public class Board {
 			loadLayoutConfig();
 		} catch (Exception e) {
 			
+		}
+	}
+	
+	//where do these go?
+	targets = new HashSet<>();
+	visited = new HashSet<>();
+	
+	private void findAllTargets(TestBoardCell thisCell, int numSteps) {
+		for(TestBoardCell adjCell:  thisCell.getAdjList()) {
+			//check if visited skip rest
+			if (visited.contains(adjCell) || adjCell.isOccupied()){
+				continue;
+			}
+			
+			visited.add(adjCell);
+			
+		
+			if (numSteps == 1 || adjCell.isRoom()) {
+				targets.add(adjCell);
+			} else {
+				findAllTargets(adjCell, numSteps-1);
+			}
+			//stack overflow for syntax how to remove stuff from setlist
+			visited.remove(adjCell);
+		}
+		
+		
+	}
+	
+	public void calcAdjacencies() {
+		for (int r = 0; r < ROWS; r++) {
+			for (int c = 0; c < COLS; c++) {
+				TestBoardCell cell = grid[r][c];
+				
+				if (r > 0) cell.addAdjacency(grid[r-1][c]);
+				if (r < ROWS-1) cell.addAdjacency(grid[r+1][c]);
+				if (c > 0) cell.addAdjacency(grid[r][c-1]);
+				if (c < COLS-1) cell.addAdjacency(grid[r][c+1]);
+				
+			
+			}
 		}
 	}
 	
@@ -138,6 +186,11 @@ public class Board {
 			}
 			} else {
 			cell.setDoorDirection(DoorDirection.NONE);
+			}
+			
+			if (token.length <1) {
+				throw new BadConfigFormatException();
+				
 			}
 			grid[r][c] = cell;
 			}
