@@ -124,18 +124,25 @@ public class Board {
 		//throw badconfig setup;
 	
 		roomMap = new HashMap<>();
-		List<String> lines = Files.readAllLines(Paths.get(setupConfigFile));
 		
-		for (String line : lines) {
-			line = line.trim();
-			if (line.isEmpty() || line.startsWith("//")) continue;
+		Scanner scanner = new Scanner(new FileReader(setupConfigFile));		
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			if (line.length() == 0) {
+				continue;
+			}
+			if (line.startsWith("//")) { 
+				continue;
+			}
 			
-			String[] parts  = line.split(",");
-			if (parts.length < 3) continue;
+			String parts[] = line.split(",");
+			if (parts.length < 3) {
+				continue;
+			}
 			
-			String type = parts[0].trim();
-			String name = parts[1].trim();
-			char initial = parts[2].trim().charAt(0);
+			String type = parts[0];
+			String name = parts[1];
+			char initial = parts[2].charAt(0);
 			
 			if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
 				Room room = new Room();
@@ -143,6 +150,7 @@ public class Board {
 				roomMap.put(initial, room);
 			}
 		}
+		scanner.close();
 	}
 		
 
@@ -151,14 +159,16 @@ public class Board {
 		try {
 
 			Scanner scanner = new Scanner(new FileReader(layoutConfigFile));
-
 			List<String[]> rows = new ArrayList<>();
+			
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				String[] tokens = line.split(",");
 				rows.add(tokens);
 			}
-				
+			
+			scanner.close();
+			
 			numRows = rows.size();
 			numColumns = rows.get(0).length;
 			grid = new BoardCell[numRows][numColumns];
@@ -167,6 +177,9 @@ public class Board {
 				String[] cols = rows.get(r);
 				for (int c = 0; c < numColumns; c++) {
 					String token = cols[c];
+					if (token.length() == 0) {
+						continue;
+					}
 					
 					BoardCell cell = new BoardCell();
 					cell.setRow(r);
@@ -174,6 +187,15 @@ public class Board {
 						
 					char init = token.charAt(0);
 					cell.setInitial(init);
+					
+					Room room = getRoom(init);
+					if (room != null && !room.getName().equals("Walkway") && !room.getName().equals("Unused")) {
+						cell.setRoom(true);
+					}
+					else {
+						cell.setRoom(false);
+					}
+					
 					
 					if (token.length() > 1) {
 						char dir = token.charAt(1);
