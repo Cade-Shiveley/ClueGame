@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.io.IOException;
 
 //grid: BoardCell[][]
 //numRows:int
@@ -19,6 +18,11 @@ import java.io.IOException;
 //+initialize():void
 //+loadSetupConfig():void
 //+loadLayoutConfig(): void
+
+//https://www.geeksforgeeks.org/java/handle-an-ioexception-in-java/
+//
+
+
 public class Board {
 
 	private BoardCell[][] grid;
@@ -63,7 +67,7 @@ public class Board {
 		this.setupConfigFile = setupConfigFile;
 	}
 	
-	public void loadSetupConfig() throws IOException {
+	public void loadSetupConfig() throws Exception {
 		//throw badconfig setup;
 	
 		roomMap = new HashMap<>();
@@ -90,7 +94,7 @@ public class Board {
 	
 	public void loadLayoutConfig() {
 		//throw badconfig setup
-		/*
+		
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(layoutConfigFile));
 			numRows = lines.size();
@@ -134,19 +138,12 @@ public class Board {
 					grid[r][c] = cell;
 				}
 			}
-		} catch (IOException e) {
-			numRows = 24;
-			numColumns = 24;
-			grid = new BoardCell[numRows][numColumns];
-			for (int r = 0; r < numRows; r++) {
-				for (int c = 0; c < numColumns; c++) {
-					grid[r][c] = new BoardCell();
-				}
-			}
-		}
+		} catch (Exception e) {
+			throw new BadConfigFormatException();
+			
+	}
 	}
 	
-	*/
 	public BoardCell[][] getGrid() {
 		return grid;
 	}

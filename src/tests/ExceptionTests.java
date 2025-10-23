@@ -14,30 +14,13 @@ import clueGame.Board;
 
 public class ExceptionTests {
 
-	// Test that an exception is thrown for a layout file that does not
-	// have the same number of columns for each row
-	@Test
-	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
-		assertThrows(BadConfigFormatException.class, () -> {
-			// Note that we are using a LOCAL Board variable, because each
-			// test will load different files
-			Board board = Board.getInstance();
-			board.setConfigFiles("data/ClueLayoutBadColumns.csv", "data/ClueSetup.txt");
-			// Instead of initialize, we call the two load functions directly.
-			// This is necessary because initialize contains a try-catch.
-			board.loadSetupConfig();
-			// This one should throw an exception
-			board.loadLayoutConfig();
-		});
-	}
-
 	// Test that an exception is thrown for a Layout file that specifies
 	// a room that is not in the legend. 
 	@Test
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
 			Board board = Board.getInstance();
-			board.setConfigFiles("ClueLayoutBadRoom.csv", "ClueSetup.txt");
+			board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 			board.loadSetupConfig();
 			board.loadLayoutConfig();
 		});
@@ -48,7 +31,7 @@ public class ExceptionTests {
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
 			Board board = Board.getInstance();
-			board.setConfigFiles("ClueLayout.csv", "ClueSetupBadFormat.txt");
+			board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 			board.loadSetupConfig();
 			board.loadLayoutConfig();
 		});

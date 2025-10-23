@@ -27,6 +27,7 @@ public class Room {
 	public void setLabelCell(BoardCell labelCell) {
 		this.labelCell = labelCell;
 	}
+
 	
 	
 }
