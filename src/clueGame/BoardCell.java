@@ -36,9 +36,8 @@ public class BoardCell {
 
 
 	public void addAdj(BoardCell adj) {
-		
-		
-		
+		adjList.add(cell);
+
 	}
 
 
