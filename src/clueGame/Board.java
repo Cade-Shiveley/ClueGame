@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.io.FileReader;
 
 //grid: BoardCell[][]
 //numRows:int
@@ -91,53 +93,56 @@ public class Board {
 			}
 		}
 	}
-	
-	public void loadLayoutConfig() {
-		//throw badconfig setup
 		
-		try {
-			List<String> lines = Files.readAllLines(Paths.get(layoutConfigFile));
-			numRows = lines.size();
-			numColumns = lines.get(0).split(",").length;
-			
-			grid = new BoardCell[numRows][numColumns];
-			for (int r=0; r < numRows; r++) {
-				String[] cols = lines.get(r).split(",");
-				for (int c = 0; c < numColumns; c++) {
-					BoardCell cell = new BoardCell();
-					cell.setRow(r);
-					cell.setCol(c);
-					
-					String token = cols[c].trim();
-					char init = token.charAt(0);
-					cell.setInitial(init);
-					
-					if (token.length() > 1) {
-						char dir = token.charAt(1);
-						switch (dir) {
-							case '<': 
-								cell.setDoorDirection(DoorDirection.LEFT);
-								break;
-							case '>': 
-								cell.setDoorDirection(DoorDirection.RIGHT);
-								break;
-							case '^': 
-								cell.setDoorDirection(DoorDirection.UP);
-								break;
-							case 'v': 
-								cell.setDoorDirection(DoorDirection.DOWN);
-								break;
-							default: 
-								cell.setDoorDirection(DoorDirection.NONE);
-								break;
-						}
-					} else {
-						cell.setDoorDirection(DoorDirection.NONE);
-					}
-					
-					grid[r][c] = cell;
-				}
+		public void loadLayoutConfig() {
+			//throw badconfig setup
+			try {
+			Scanner scanner = new Scanner(new FileReader(layoutConfigFile));
+
+			List<String[]> rows = new ArrayList<>();
+			while (scanner.hasNext()) {
+			String line = scanner.nextLine();
+			String[] tokens = line.split(",");
+			rows.add(tokens);
 			}
+			numRows = rows.size();
+			numColumns = rows.get(0).length;
+			grid = new BoardCell[numRows][numColumns];
+			for (int r = 0; r < numRows; r++) {
+			String[] cols = rows.get(r);
+			for (int c = 0; c < numColumns; c++) {
+			String token = cols[c];
+			BoardCell cell = new BoardCell();
+			cell.setRow(r);
+			cell.setCol(c);
+			char init = token.charAt(0);
+			cell.setInitial(init);
+			if (token.length() > 1) {
+			char dir = token.charAt(1);
+			switch (dir) {
+			case '<':
+			cell.setDoorDirection(DoorDirection.LEFT);
+			break;
+			case '>':
+			cell.setDoorDirection(DoorDirection.RIGHT);
+			break;
+			case '^':
+			cell.setDoorDirection(DoorDirection.UP);
+			break;
+			case 'v':
+			cell.setDoorDirection(DoorDirection.DOWN);
+			break;
+			default:
+			cell.setDoorDirection(DoorDirection.NONE);
+			break;
+			}
+			} else {
+			cell.setDoorDirection(DoorDirection.NONE);
+			}
+			grid[r][c] = cell;
+			}
+			}
+
 		} catch (Exception e) {
 			throw new BadConfigFormatException();
 			

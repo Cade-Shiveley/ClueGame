@@ -8,4 +8,7 @@ room they know they're in a room and in comparison if they're on a walkway
 the boolean would return false and they would therefor know that they're
 on a walkway. There's also a test that confirms the room label
 matches the actual room so for example that village matches the v label 
-in the board.
+in the board. For the boardtestsexp that was last weeks test to practice with 
+the algorithm and confirm that it works in a smaller board so that it can then
+be easily implemented further when we have a bigger board so then we just
+have to get the adjacent correct and then the actual algorithm will work.
