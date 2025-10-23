@@ -268,11 +268,6 @@ public class Board {
 	}
 	
 	public Room getRoom(BoardCell cell) {
-		if (cell == null) {
-			Room dummy = new Room();
-			dummy.setName("Unknown");
-			return dummy;
-		}
 		return getRoom(cell.getInitial());
 	}
 	
