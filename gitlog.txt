@@ -1,3 +1,118 @@
+commit 84807f7625faa73a3c0d39c49f64c9d4b1b53348
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 19:47:30 2025 -0600
+
+    Formatting
+
+commit af28c7eba1a531e0a82943f6b852d1b87091c300
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Wed Oct 22 19:13:08 2025 -0600
+
+    ben's changes
+
+commit 1c4dd8d1928dde1358f52341584546895137ad6f
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Wed Oct 22 19:01:37 2025 -0600
+
+    adding the tests.txt file
+
+commit 920416b26ef85a3d8bba3651ba57a2c29fc980eb
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Wed Oct 22 18:27:14 2025 -0600
+
+    changes
+
+commit 2d045df655f2d63dc499ae4ec01a8e7269c9d047
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 16:22:38 2025 -0600
+
+    Updated try/catch in loadLayoutConfig()
+
+commit 251b93b0c6fcad9f017c26178b5c31ced60c118d
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 16:09:18 2025 -0600
+
+    Upadated placeholder values
+
+commit f0e0956085ced91ed62b09ed81f35dfcb739a649
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 15:57:49 2025 -0600
+
+    Updated loadSetupConfig and loadLayoutConfig methods to get tests failing instead of erroring
+
+commit a48adb947db4f41e29d961190d443ce9e2d8da9a
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 13:36:46 2025 -0600
+
+    Added getCell, isRoomLabel, getRoom, and isDoorway methods
+
+commit 8c15095b87ee0eb2f83ac7e7f4f8a831fd6cee41
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 12:42:25 2025 -0600
+
+    First failure
+
+commit 4544d5cefaef118f588d26d985c0c18ef14bdb2c
+Merge: 13ae8a0 99b5979
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 12:35:07 2025 -0600
+
+    Merge branch 'main' of https://github.com/Cade-Shiveley/ClueGame
+
+commit 13ae8a0ba73e1612a0bb4b1ecf56c8f62defdb55
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 12:34:49 2025 -0600
+
+    Updated setConfigFiles
+
+commit 9d5152c83cd1f843df2b72f0ed1a089c037f51d9
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 12:33:27 2025 -0600
+
+    Updated setConfigFiles
+
+commit 99b597931897462455aab19b3c81cedc992f4379
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Wed Oct 22 12:32:42 2025 -0600
+
+    confirm
+
+commit cc204b0f05e3a368b4d9d89b6d0a984dccca9e9f
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Wed Oct 22 12:18:30 2025 -0600
+
+    board adj target test
+
+commit 349b25d4193b78988a93679debcac24120bef6ee
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 21 11:48:20 2025 -0600
+
+    adding getters and setters to try to make tests pass
+
+commit ba583006ec96f30cd4ef4f9618689b6c507ebcc0
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 21 10:59:57 2025 -0600
+
+    making it so that the FileInitTest is testing our board values
+
+commit 8a254d0f143f2337f46193bf568a2bacd5048348
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 21 10:37:11 2025 -0600
+
+    adding to the classes from what the UML diagram tells to add for skeleton
+
+commit 3fdb73675ae86f8e6a2773da28ce857408add0c5
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 21 10:16:48 2025 -0600
+
+    adding our clue csv and xlsv
+
+commit d1a16d0403fd0bee393738b28c7b1b03b64ad5e1
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 21 10:08:33 2025 -0600
+
+    adding the files for C15A
+
 commit a1508a0dc445dae8e8215a558674c7f8c5607d5e
 Author: Ben Roan <baroan@mines.edu>
 Date:   Mon Oct 20 14:32:07 2025 -0600
