@@ -22,6 +22,10 @@ public class BoardCell {
 	private boolean roomCenter;
 	private char secretPassage;
 	private Set<BoardCell> adjList;
+	private boolean isRoom;
+	private boolean isOccupied;
+	
+
 	
 	
 	
@@ -31,13 +35,41 @@ public class BoardCell {
 		doorDirection = DoorDirection.NONE;
 		roomLabel = false;
 		roomCenter = false;
+<<<<<<< HEAD
 		secretPassage = ' ';
+=======
+		secretPassage = 'C';
+		
+>>>>>>> ebda696deda50fc58eb7ca799029abf468d3a6b2
 	}
 
 
 	public void addAdj(BoardCell adj) {
-		adjList.add(cell);
+		adjList.add(adj);
 
+	}
+
+	
+
+	public boolean isRoom() {
+		return isRoom;
+	}
+
+
+	public void setRoom(boolean isRoom) {
+		this.isRoom = isRoom;
+	}
+	
+	
+
+
+	public boolean isOccupied() {
+		return isOccupied;
+	}
+
+
+	public void setOccupied(boolean isOccupied) {
+		this.isOccupied = isOccupied;
 	}
 
 
