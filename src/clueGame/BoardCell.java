@@ -31,7 +31,7 @@ public class BoardCell {
 		doorDirection = DoorDirection.NONE;
 		roomLabel = false;
 		roomCenter = false;
-		secretPassage = "CO";
+		secretPassage = ' ';
 	}
 
 
