@@ -61,6 +61,7 @@ public class TestBoard {
 				if (c > 0) cell.addAdjacency(grid[r][c-1]);
 				if (c < COLS-1) cell.addAdjacency(grid[r][c+1]);
 				
+			
 			}
 		}
 	}

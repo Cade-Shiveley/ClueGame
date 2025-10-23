@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 //grid: BoardCell[][]
 //numRows:int
@@ -36,8 +37,8 @@ public class Board {
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap;
-	private Set<TestBoardCell> visited;
-	Set<TestBoardCell> targets; 
+	private Set<BoardCell> visited;
+	Set<BoardCell> targets; 
 
 
 	
@@ -52,6 +53,8 @@ public class Board {
 	// constructor is private to ensure only one can be created
 	private Board() {
 	       super() ;
+	       targets = new HashSet<>();
+	       visited = new HashSet<>();
 	}
 	
 	// this method returns the only Board
@@ -71,12 +74,10 @@ public class Board {
 		}
 	}
 	
-	//where do these go?
-	targets = new HashSet<>();
-	visited = new HashSet<>();
+
 	
-	private void findAllTargets(TestBoardCell thisCell, int numSteps) {
-		for(TestBoardCell adjCell:  thisCell.getAdjList()) {
+	private void findAllTargets(BoardCell thisCell, int numSteps) {
+		for(BoardCell adjCell:  thisCell.getAdjList()) {
 			//check if visited skip rest
 			if (visited.contains(adjCell) || adjCell.isOccupied()){
 				continue;
@@ -96,16 +97,17 @@ public class Board {
 		
 		
 	}
+
 	
 	public void calcAdjacencies() {
-		for (int r = 0; r < ROWS; r++) {
-			for (int c = 0; c < COLS; c++) {
-				TestBoardCell cell = grid[r][c];
+		for (int r = 0; r < numRows; r++) {
+			for (int c = 0; c < numColumns; c++) {
+				BoardCell cell = grid[r][c];
 				
-				if (r > 0) cell.addAdjacency(grid[r-1][c]);
-				if (r < ROWS-1) cell.addAdjacency(grid[r+1][c]);
-				if (c > 0) cell.addAdjacency(grid[r][c-1]);
-				if (c < COLS-1) cell.addAdjacency(grid[r][c+1]);
+				if (r > 0) cell.addAdj(grid[r-1][c]);
+				if (r < numRows-1) cell.addAdj(grid[r+1][c]);
+				if (c > 0) cell.addAdj(grid[r][c-1]);
+				if (c < numColumns-1) cell.addAdj(grid[r][c+1]);
 				
 			
 			}
@@ -142,7 +144,7 @@ public class Board {
 		}
 	}
 		
-		public void loadLayoutConfig() {
+		public void loadLayoutConfig() throws BadConfigFormatException {
 			//throw badconfig setup
 			try {
 			Scanner scanner = new Scanner(new FileReader(layoutConfigFile));
@@ -188,7 +190,7 @@ public class Board {
 			cell.setDoorDirection(DoorDirection.NONE);
 			}
 			
-			if (token.length <1) {
+			if (token.length() <1) {
 				throw new BadConfigFormatException();
 				
 			}
