@@ -124,39 +124,24 @@ public class Board {
 		//throw badconfig setup;
 	
 		roomMap = new HashMap<>();
+		List<String> lines = Files.readAllLines(Paths.get(setupConfigFile));
 		
-		try {
-			Scanner scanner = new Scanner(new FileReader(setupConfigFile));		
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				if (line.length() == 0) {
-					continue;
-				}
-				if (line.startsWith("//")) { 
-					continue;
-				}
-				
-				String parts[] = line.split("\\s*,\\s*");
-				if (parts.length != 3) {
-					scanner.close();
-					throw new BadConfigFormatException("Invalid line in setup file");
-				}
-				
-				String type = parts[0];
-				String name = parts[1];
-				char initial = parts[2].charAt(0);
-				
-				if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
-					Room room = new Room();
-					room.setName(name);
-					roomMap.put(initial, room);
-				}
+		for (String line : lines) {
+			line = line.trim();
+			if (line.isEmpty() || line.startsWith("//")) continue;
+			
+			String[] parts  = line.split(",");
+			if (parts.length < 3) continue;
+			
+			String type = parts[0].trim();
+			String name = parts[1].trim();
+			char initial = parts[2].trim().charAt(0);
+			
+			if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
+				Room room = new Room();
+				room.setName(name);
+				roomMap.put(initial, room);
 			}
-			
-			scanner.close();
-			
-		} catch (Exception e) {
-			throw new BadConfigFormatException("Error reading setup file");
 		}
 	}
 		
@@ -166,44 +151,33 @@ public class Board {
 		try {
 
 			Scanner scanner = new Scanner(new FileReader(layoutConfigFile));
+
 			List<String[]> rows = new ArrayList<>();
-			
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				String[] tokens = line.split(",");
 				rows.add(tokens);
 			}
-			
-			scanner.close();
-			
+				
 			numRows = rows.size();
 			numColumns = rows.get(0).length;
 			grid = new BoardCell[numRows][numColumns];
 				
 			for (int r = 0; r < numRows; r++) {
 				String[] cols = rows.get(r);
-				
-				if (cols.length != numColumns) {
-					throw new BadConfigFormatException("Inconsistent column count in layout file at row " + r);
-				}
-				
 				for (int c = 0; c < numColumns; c++) {
 					String token = cols[c];
-					if (token.length() == 0) {
-						continue;
-					}
 					
 					BoardCell cell = new BoardCell();
 					cell.setRow(r);
 					cell.setCol(c);
 						
-					char initial = token.charAt(0);
-					cell.setInitial(initial);
+					char init = token.charAt(0);
+					cell.setInitial(init);
 					
 					if (token.length() > 1) {
-						char info = token.charAt(1);
-						
-						switch (info) {
+						char dir = token.charAt(1);
+						switch (dir) {
 							case '<':
 								cell.setDoorDirection(DoorDirection.LEFT);
 								break;
@@ -216,45 +190,20 @@ public class Board {
 							case 'v':
 								cell.setDoorDirection(DoorDirection.DOWN);
 								break;
-							case '#':
-								cell.setRoomLabel(true);
-								Room labelRoom = getRoom(initial);
-								if (labelRoom != null) {
-									labelRoom.setLabelCell(cell);
-								}
-								break;
-							case '*':
-								cell.setRoomCenter(true);
-								Room centerRoom = getRoom(initial);
-								if (centerRoom != null) {
-									centerRoom.setCenterCell(cell);
-								}
-								break;
 							default:
-								if (Character.isLetter(info)) {
-									cell.setSecretPassage(info);
-								}
 								cell.setDoorDirection(DoorDirection.NONE);
 								break;
 						}
 					} else {
 						cell.setDoorDirection(DoorDirection.NONE);
 					}
-					
-					Room room = getRoom(initial);
-					if (room != null && !room.getName().equals("Walkway") && !room.getName().equals("Unused")) {
-						cell.setRoom(true);
-					}
-					else {
-						cell.setRoom(false);
-					}
-					
+				
 					grid[r][c] = cell;
 				}
 			}
 
 		} catch (Exception e) {
-			throw new BadConfigFormatException("Error reading layout file");
+			throw new BadConfigFormatException();
 		}
 	}
 	
@@ -319,6 +268,11 @@ public class Board {
 	}
 	
 	public Room getRoom(BoardCell cell) {
+		if (cell == null) {
+			Room dummy = new Room();
+			dummy.setName("Unknown");
+			return dummy;
+		}
 		return getRoom(cell.getInitial());
 	}
 	
