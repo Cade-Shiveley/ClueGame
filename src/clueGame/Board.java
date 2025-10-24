@@ -190,8 +190,6 @@ public class Board {
 							case 'v':
 								cell.setDoorDirection(DoorDirection.DOWN);
 								break;
-<<<<<<< HEAD
-=======
 							case '#':
 								cell.setRoomLabel(true);
 								Room labelRoom = getRoom(initial);
@@ -208,7 +206,6 @@ public class Board {
 								}
 								cell.setDoorDirection(DoorDirection.NONE);
 								break;
->>>>>>> 2fe0b9a2d13380b5981194777654a3925843d675
 							default:
 								cell.setDoorDirection(DoorDirection.NONE);
 								break;
