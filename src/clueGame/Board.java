@@ -173,7 +173,7 @@ public class Board {
 					cell.setCol(c);
 						
 					char initial = token.charAt(0);
-					cell.setInitial(initial);
+					cell.setInitial(initial);\t
 					
 					if (token.length() > 1) {
 						char dir = token.charAt(1);
