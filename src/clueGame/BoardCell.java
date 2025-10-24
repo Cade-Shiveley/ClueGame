@@ -35,7 +35,7 @@ public class BoardCell {
 		doorDirection = DoorDirection.NONE;
 		roomLabel = false;
 		roomCenter = false;
-		secretPassage = 'C';
+		secretPassage = ' ';
 		
 	}
 
@@ -152,7 +152,7 @@ public class BoardCell {
 
 
 	public boolean isDoorway() {
-		return false;
+		return doorDirection != DoorDirection.NONE;
 	}
 	
 	

@@ -124,6 +124,7 @@ public class Board {
 		//throw badconfig setup;
 	
 		roomMap = new HashMap<>();
+		try {
 		List<String> lines = Files.readAllLines(Paths.get(setupConfigFile));
 		
 		for (String line : lines) {
@@ -141,10 +142,16 @@ public class Board {
 				Room room = new Room();
 				room.setName(name);
 				roomMap.put(initial, room);
+			}else {
+				throw new BadConfigFormatException();
 			}
-		}
-	}
 		
+			
+	}
+	}catch (Exception e) {
+		throw new BadConfigFormatException();
+	}
+	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException {
 		//throw badconfig setup
