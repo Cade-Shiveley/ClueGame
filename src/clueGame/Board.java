@@ -125,32 +125,39 @@ public class Board {
 	
 		roomMap = new HashMap<>();
 		
-		Scanner scanner = new Scanner(new FileReader(setupConfigFile));		
-		while (scanner.hasNextLine()) {
-			String line = scanner.nextLine();
-			if (line.length() == 0) {
-				continue;
-			}
-			if (line.startsWith("//")) { 
-				continue;
+		try {
+			Scanner scanner = new Scanner(new FileReader(setupConfigFile));		
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				if (line.length() == 0) {
+					continue;
+				}
+				if (line.startsWith("//")) { 
+					continue;
+				}
+				
+				String parts[] = line.split("\\s*,\\s*");
+				if (parts.length != 3) {
+					scanner.close();
+					throw new BadConfigFormatException("Invalid line in setup file");
+				}
+				
+				String type = parts[0];
+				String name = parts[1];
+				char initial = parts[2].charAt(0);
+				
+				if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
+					Room room = new Room();
+					room.setName(name);
+					roomMap.put(initial, room);
+				}
 			}
 			
-			String parts[] = line.split(",");
-			if (parts.length < 3) {
-				continue;
-			}
+			scanner.close();
 			
-			String type = parts[0];
-			String name = parts[1];
-			char initial = parts[2].charAt(0);
-			
-			if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
-				Room room = new Room();
-				room.setName(name);
-				roomMap.put(initial, room);
-			}
+		} catch (Exception e) {
+			throw new BadConfigFormatException("Error reading setup file");
 		}
-		scanner.close();
 	}
 		
 
@@ -175,6 +182,11 @@ public class Board {
 				
 			for (int r = 0; r < numRows; r++) {
 				String[] cols = rows.get(r);
+				
+				if (cols.length != numColumns) {
+					throw new BadConfigFormatException("Inconsistent column count in layout file at row " + r);
+				}
+				
 				for (int c = 0; c < numColumns; c++) {
 					String token = cols[c];
 					if (token.length() == 0) {
@@ -185,21 +197,13 @@ public class Board {
 					cell.setRow(r);
 					cell.setCol(c);
 						
-					char init = token.charAt(0);
-					cell.setInitial(init);
-					
-					Room room = getRoom(init);
-					if (room != null && !room.getName().equals("Walkway") && !room.getName().equals("Unused")) {
-						cell.setRoom(true);
-					}
-					else {
-						cell.setRoom(false);
-					}
-					
+					char initial = token.charAt(0);
+					cell.setInitial(initial);
 					
 					if (token.length() > 1) {
-						char dir = token.charAt(1);
-						switch (dir) {
+						char info = token.charAt(1);
+						
+						switch (info) {
 							case '<':
 								cell.setDoorDirection(DoorDirection.LEFT);
 								break;
@@ -212,20 +216,45 @@ public class Board {
 							case 'v':
 								cell.setDoorDirection(DoorDirection.DOWN);
 								break;
+							case '#':
+								cell.setRoomLabel(true);
+								Room labelRoom = getRoom(initial);
+								if (labelRoom != null) {
+									labelRoom.setLabelCell(cell);
+								}
+								break;
+							case '*':
+								cell.setRoomCenter(true);
+								Room centerRoom = getRoom(initial);
+								if (centerRoom != null) {
+									centerRoom.setCenterCell(cell);
+								}
+								break;
 							default:
+								if (Character.isLetter(info)) {
+									cell.setSecretPassage(info);
+								}
 								cell.setDoorDirection(DoorDirection.NONE);
 								break;
 						}
 					} else {
 						cell.setDoorDirection(DoorDirection.NONE);
 					}
-				
+					
+					Room room = getRoom(initial);
+					if (room != null && !room.getName().equals("Walkway") && !room.getName().equals("Unused")) {
+						cell.setRoom(true);
+					}
+					else {
+						cell.setRoom(false);
+					}
+					
 					grid[r][c] = cell;
 				}
 			}
 
 		} catch (Exception e) {
-			throw new BadConfigFormatException();
+			throw new BadConfigFormatException("Error reading layout file");
 		}
 	}
 	
