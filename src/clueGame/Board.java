@@ -172,8 +172,8 @@ public class Board {
 					cell.setRow(r);
 					cell.setCol(c);
 						
-					char init = token.charAt(0);
-					cell.setInitial(init);
+					char initial = token.charAt(0);
+					cell.setInitial(initial);
 					
 					if (token.length() > 1) {
 						char dir = token.charAt(1);
