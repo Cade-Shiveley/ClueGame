@@ -190,6 +190,25 @@ public class Board {
 							case 'v':
 								cell.setDoorDirection(DoorDirection.DOWN);
 								break;
+<<<<<<< HEAD
+=======
+							case '#':
+								cell.setRoomLabel(true);
+								Room labelRoom = getRoom(initial);
+								if (labelRoom != null) {
+									labelRoom.setLabelCell(cell);
+								}
+								cell.setDoorDirection(DoorDirection.NONE);
+								break;
+							case '*':
+								cell.setRoomCenter(true);
+								Room centerRoom = getRoom(initial);
+								if (centerRoom != null) {
+									centerRoom.setCenterCell(cell);
+								}
+								cell.setDoorDirection(DoorDirection.NONE);
+								break;
+>>>>>>> 2fe0b9a2d13380b5981194777654a3925843d675
 							default:
 								cell.setDoorDirection(DoorDirection.NONE);
 								break;
