@@ -222,6 +222,7 @@ public class Board {
 								if (labelRoom != null) {
 									labelRoom.setLabelCell(cell);
 								}
+								cell.setDoorDirection(DoorDirection.NONE);
 								break;
 							case '*':
 								cell.setRoomCenter(true);
@@ -229,6 +230,7 @@ public class Board {
 								if (centerRoom != null) {
 									centerRoom.setCenterCell(cell);
 								}
+								cell.setDoorDirection(DoorDirection.NONE);
 								break;
 							default:
 								if (Character.isLetter(info)) {
