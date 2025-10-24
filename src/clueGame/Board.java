@@ -87,10 +87,10 @@ public class Board {
 			visited.add(adjCell);
 			
 		
-			if (numSteps == 1 || adjCell.isRoom()) {
-				targets.add(adjCell);
+			if (adjCell.getInitial() == 'W' || adjCell.getInitial() == 'X') {
+				adjCell.setRoom(false);
 			} else {
-				findAllTargets(adjCell, numSteps-1);
+				adjCell.setRoom(true);
 			}
 			//stack overflow for syntax how to remove stuff from setlist
 			visited.remove(adjCell);
@@ -173,7 +173,7 @@ public class Board {
 					cell.setCol(c);
 						
 					char initial = token.charAt(0);
-					cell.setInitial(initial);\t
+					cell.setInitial(initial);
 					
 					if (token.length() > 1) {
 						char dir = token.charAt(1);
