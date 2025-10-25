@@ -24,6 +24,7 @@ public class BoardCell {
 	private Set<BoardCell> adjList;
 	private boolean isRoom;
 	private boolean isOccupied;
+	private boolean isDoorway;
 	
 
 	
@@ -152,7 +153,12 @@ public class BoardCell {
 
 
 	public boolean isDoorway() {
-		return doorDirection != DoorDirection.NONE;
+		return isDoorway;
+	}
+
+
+	public void setDoorway(boolean isDoorway) {
+		this.isDoorway = isDoorway;
 	}
 	
 	

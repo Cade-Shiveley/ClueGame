@@ -122,30 +122,30 @@ public class Board {
 	
 	public void loadSetupConfig() throws Exception {
 		//throw badconfig setup;
-	
 		roomMap = new HashMap<>();
 		try {
-		List<String> lines = Files.readAllLines(Paths.get(setupConfigFile));
-		
-		for (String line : lines) {
-			line = line.trim();
-			if (line.isEmpty() || line.startsWith("//")) continue;
-			
-			String[] parts  = line.split(",");
-			if (parts.length < 3) continue;
-			
-			String type = parts[0].trim();
-			String name = parts[1].trim();
-			char initial = parts[2].trim().charAt(0);
-			
-			if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space")) {
-				Room room = new Room();
-				room.setName(name);
-				roomMap.put(initial, room);
-			} else {
-				throw new BadConfigFormatException();
-			}
-		
+			Scanner scanner = new Scanner(new FileReader(setupConfigFile));		
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine().trim();
+				if (line.isEmpty() || line.startsWith("//")) {
+					continue;
+				}
+				
+				String parts[] = line.split(",");
+				if (parts.length != 3) {
+					scanner.close();
+					throw new BadConfigFormatException("Invalid line in setup file");
+				}
+				
+				String type = parts[0].trim();
+				String name = parts[1].trim();
+				char initial = parts[2].trim().charAt(0);
+				
+				if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space") || type.equalsIgnoreCase("Walkway")) {
+					Room room = new Room();
+					room.setName(name);
+					roomMap.put(initial, room);
+				}
 			}
 		} catch (Exception e) {
 			throw new BadConfigFormatException();
@@ -157,20 +157,26 @@ public class Board {
 		try {
 
 			Scanner scanner = new Scanner(new FileReader(layoutConfigFile));
-
 			List<String[]> rows = new ArrayList<>();
+			
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				String[] tokens = line.split(",");
-				rows.add(tokens);
+				String[] cols = line.split("\\s*,\\s*");
+				rows.add(cols);
 			}
-				
+						
 			numRows = rows.size();
 			numColumns = rows.get(0).length;
 			grid = new BoardCell[numRows][numColumns];
 				
 			for (int r = 0; r < numRows; r++) {
+				
 				String[] cols = rows.get(r);
+				if (cols.length != numColumns) {
+					scanner.close();
+					throw new BadConfigFormatException("Column number not consistent in layout file");
+				}
+				
 				for (int c = 0; c < numColumns; c++) {
 					String token = cols[c];
 					
@@ -180,6 +186,10 @@ public class Board {
 						
 					char initial = token.charAt(0);
 					cell.setInitial(initial);
+					cell.setRoom((initial != 'W' && initial != 'X'));
+					
+					cell.setDoorDirection(DoorDirection.NONE);
+					cell.setDoorway(false);
 					
 					if (token.length() > 1) {
 						char dir = token.charAt(1);
@@ -213,16 +223,23 @@ public class Board {
 								cell.setDoorDirection(DoorDirection.NONE);
 								break;
 							default:
-								cell.setDoorDirection(DoorDirection.NONE);
+								if (Character.isLetter(dir)) {
+									cell.setSecretPassage(dir);
+								}
 								break;
 						}
-					} else {
-						cell.setDoorDirection(DoorDirection.NONE);
+						
+						if (dir == '<' || dir == '>' || dir == 'v' || dir == '^') {
+							cell.setDoorway(true);
+						}
 					}
 				
 					grid[r][c] = cell;
 				}
+				
 			}
+			
+			scanner.close();
 
 		} catch (Exception e) {
 			throw new BadConfigFormatException();
@@ -291,25 +308,14 @@ public class Board {
 	
 	public Room getRoom(BoardCell cell) {
 		if (cell == null) {
-			Room dummy = new Room();
-			dummy.setName("Unknown");
-			return dummy;
+			return null;
 		}
+		
 		return getRoom(cell.getInitial());
 	}
 	
 	public Room getRoom(char initial) {
-		if (roomMap == null) {
-			roomMap = new HashMap<>();
-		}
-		
-		Room room = roomMap.get(initial);
-		if (room == null) {
-			room = new Room();
-			room.setName("Unknown");
-			roomMap.put(initial, room);
-		}
-		return room;
+		return roomMap.get(initial);
 	}
 }
 

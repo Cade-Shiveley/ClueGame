@@ -17,10 +17,11 @@ import clueGame.BoardCell;
 import clueGame.DoorDirection;
 import clueGame.Room;
 
+
 public class FileInitTests {
 	// Constants that I will use to test whether the file was loaded correctly
 	public static final int LEGEND_SIZE = 11;
-	public static final int NUM_ROWS = 24;
+	public static final int NUM_ROWS = 25;
 	public static final int NUM_COLUMNS = 24;
 
 	// NOTE: I made Board static because I only want to set it up one
@@ -60,20 +61,20 @@ public class FileInitTests {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		BoardCell cell = board.getCell(7, 9);
-		assertTrue(cell.isDoorway());
-		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		cell = board.getCell(3, 4);
+		BoardCell cell = board.getCell(4, 3);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
-		cell = board.getCell(6, 3);
+		cell = board.getCell(8, 19);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
-		cell = board.getCell(8, 16);
+		cell = board.getCell(17, 8);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.DOWN, cell.getDoorDirection());
+		cell = board.getCell(14, 7);
+		assertTrue(cell.isDoorway());
+		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
 		// Test that walkways are not doors
-		cell = board.getCell(2, 5);
+		cell = board.getCell(3, 9);
 		assertFalse(cell.isDoorway());
 	}
 	
@@ -104,7 +105,7 @@ public class FileInitTests {
 		assertFalse( cell.isDoorway()) ;
 
 		// this is a label cell to test
-		cell = board.getCell(0, 0);
+		cell = board.getCell(1, 2);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Nether" ) ;
