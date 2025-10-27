@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class Board {
 
-	private BoardCell[][] grid;
+	private BoardCell[][] grid; //
 	private int numRows;
 	private int numColumns;
 	private String layoutConfigFile;
@@ -228,7 +228,7 @@ public class Board {
 								}
 								break;
 						}
-						
+						//set so it's not none if dir != doordirection.1
 						if (dir == '<' || dir == '>' || dir == 'v' || dir == '^') {
 							cell.setDoorway(true);
 						}
@@ -318,6 +318,3 @@ public class Board {
 		return roomMap.get(initial);
 	}
 }
-
-
-
