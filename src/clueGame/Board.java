@@ -37,6 +37,7 @@ public class Board {
 	private int numColumns;
 	private String layoutConfigFile;
 	private String setupConfigFile;
+	//make final?
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> visited;
 	Set<BoardCell> targets; 
@@ -75,16 +76,22 @@ public class Board {
 		}
 	}
 	
-
+	public void calcTargets(BoardCell startCell, int pathlength) {
+		targets.clear();
+		visited.clear();
+		visited.add(startCell);
+		findAllTargets(startCell,pathlength);
+	}
 	
-	private void findAllTargets(BoardCell thisCell, int numSteps) {
-		for(BoardCell adjCell:  thisCell.getAdjList()) {
+	private void findAllTargets(BoardCell startCell, int numSteps) {
+		for(BoardCell adjCell:  startCell.getAdjList()) {
 			//check if visited skip rest
 			if (visited.contains(adjCell) || adjCell.isOccupied()){
 				continue;
 			}
 			
 			visited.add(adjCell);
+				
 			
 		
 			if (adjCell.getInitial() == 'W' || adjCell.getInitial() == 'X') {
@@ -113,6 +120,13 @@ public class Board {
 			
 			}
 		}
+	}
+	
+	public void helpingCalc(BoardCell from,  int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
+		if(from.isWalkway() && toCell.isWalkway) {
+			adjLIst.add(toCell);
+		}
+		
 	}
 	
 	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
