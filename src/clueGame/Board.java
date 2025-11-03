@@ -40,7 +40,8 @@ public class Board {
 	//make final?
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> visited;
-	Set<BoardCell> targets; 
+	Set<BoardCell> targets;
+	private Set<BoardCell> adjList;
 
 
 	
@@ -123,7 +124,7 @@ public class Board {
 	
 	public void helpingCalc(BoardCell from,  int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
 		if(from.isWalkway() && toCell.isWalkway) {
-			adjLIst.add(toCell);
+			adjList.add(toCell);
 		}
 		
 	}
@@ -332,12 +333,10 @@ public class Board {
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col) {
-		// TODO Auto-generated method stub
-		return null;
+		return adjList;
 	}
 
 	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
-		return null;
+		return targets;
 	}
 }
