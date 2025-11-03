@@ -160,6 +160,11 @@ public class BoardCell {
 	public void setDoorway(boolean isDoorway) {
 		this.isDoorway = isDoorway;
 	}
+
+
+	public boolean isWalkway() {
+		return initial == 'W';
+	}
 	
 	
 
