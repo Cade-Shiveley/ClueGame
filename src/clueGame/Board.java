@@ -111,7 +111,7 @@ public class Board {
 		for (int r = 0; r < numRows; r++) {
 			for (int c = 0; c < numColumns; c++) {
 				BoardCell cell = grid[r][c];
-				
+				git 
 				if (r > 0) cell.addAdj(grid[r-1][c]);
 				if (r < numRows-1) cell.addAdj(grid[r+1][c]);
 				if (c > 0) cell.addAdj(grid[r][c-1]);
