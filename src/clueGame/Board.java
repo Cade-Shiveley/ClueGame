@@ -72,6 +72,7 @@ public class Board {
 		try {
 			loadSetupConfig();
 			loadLayoutConfig();
+			calcAdjacencies(); 
 		} catch (Exception e) {
 			
 		}
@@ -122,8 +123,8 @@ public class Board {
 		}
 	}
 	
-	public void helpingCalc(BoardCell from,  int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
-		if(from.isWalkway() && toCell.isWalkway) {
+	public void helpingCalc(BoardCell from, BoardCell toCell,  int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
+		if(from.isWalkway() && toCell.isWalkway()) {
 			adjList.add(toCell);
 		}
 		
@@ -333,7 +334,7 @@ public class Board {
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col) {
-		return adjList;
+		return grid[row][col].getAdjList();
 	}
 
 	public Set<BoardCell> getTargets() {
