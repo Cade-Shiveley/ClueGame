@@ -111,7 +111,6 @@ public class Board {
 		for (int r = 0; r < numRows; r++) {
 			for (int c = 0; c < numColumns; c++) {
 				BoardCell cell = grid[r][c];
-				git 
 				if (r > 0) cell.addAdj(grid[r-1][c]);
 				if (r < numRows-1) cell.addAdj(grid[r+1][c]);
 				if (c > 0) cell.addAdj(grid[r][c-1]);
@@ -330,5 +329,15 @@ public class Board {
 	
 	public Room getRoom(char initial) {
 		return roomMap.get(initial);
+	}
+
+	public Set<BoardCell> getAdjList(int row, int col) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Set<BoardCell> getTargets() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
