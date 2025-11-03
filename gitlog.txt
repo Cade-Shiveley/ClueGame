@@ -1,3 +1,157 @@
+commit b59a276ecdc0bfc4b8852edb8716e6bbd84cbe98
+Merge: a41f3da 502766e
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 31 17:52:00 2025 -0600
+
+    Merge branch 'main' of https://github.com/Cade-Shiveley/ClueGame
+
+commit a41f3dabb6839ba74a71c7280e287a159700dcdb
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 31 17:51:51 2025 -0600
+
+    Cleaned repo
+
+commit 502766eecf4c016f2816c67d3a54b09d11282322
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 28 09:42:01 2025 -0600
+
+    test
+
+commit 3e102a1694428c84ed04f7af0ac4e0660f90b7fc
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 28 09:41:33 2025 -0600
+
+    helper function added
+
+commit 40f711f0e6c2762b581f1b38581b3e12b204d430
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Tue Oct 28 09:21:51 2025 -0600
+
+    adding the calcTargets class to clear targets and visited and add the startcell
+
+commit 7c34bdb62241680542713d1b8b176c9cce096829
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Mon Oct 27 12:35:07 2025 -0600
+
+    adding refactoring comments from C17-A in class
+
+commit 861cce31ae63a18bf695ef7389966abdd4dccf65
+Author: Ben Roan <baroan@mines.edu>
+Date:   Mon Oct 27 12:34:30 2025 -0600
+
+    All tests passing
+
+commit 9dd08f6c7151c2f37963a0437fc960f69de6d810
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 24 21:17:14 2025 -0600
+
+    All but testRooms() working
+
+commit ac759ac52941ed989921d6a7afe58b8ecf9ad1ea
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 24 12:01:15 2025 -0600
+
+    Updated loadSetupConfig()
+
+commit ebbec9916b7bcb3a097a63180a7ac3e58dfd80bb
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 24 11:35:28 2025 -0600
+
+    trying to get code to work
+
+commit 9a6324d1343df77b76f919e0c43264851a19621e
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 24 11:17:05 2025 -0600
+
+    fixing logic
+
+commit ea2b7cf275e3aac29dfb4c7dd2efc2caa0d17678
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 24 11:06:54 2025 -0600
+
+    test
+
+commit f2b1c39b4d09062e1917c1fc1158fb610c01761c
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 24 08:31:28 2025 -0600
+
+    Fixed
+
+commit 75040eb96c1c2b66f3723a6fc262022388f48d04
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 24 08:28:04 2025 -0600
+
+    adding ;
+
+commit a2832848557355ade8403d818decdaba63aef34c
+Merge: 2262afb 2fe0b9a
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 24 08:21:03 2025 -0600
+
+    pls
+
+commit 2262afbdb4b0ae5f2205010f6d45bc074e14d1e0
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Fri Oct 24 08:18:05 2025 -0600
+
+    test
+
+commit 2fe0b9a2d13380b5981194777654a3925843d675
+Author: Ben Roan <baroan@mines.edu>
+Date:   Fri Oct 24 08:17:06 2025 -0600
+
+    testRoomLabels() and testNumberOfDoorways() passing
+
+commit cf178270a70afa4a035bd91d351f2c2536e5a1b7
+Author: Ben Roan <baroan@mines.edu>
+Date:   Thu Oct 23 18:24:59 2025 -0600
+
+    testRoomLabels() passing
+
+commit 8735a9f8fecff09bbef5be0e049c25f13ffb7216
+Author: Ben Roan <baroan@mines.edu>
+Date:   Thu Oct 23 16:46:58 2025 -0600
+
+    Some updates to loadSetupConfig() and loadLayoutConfig()
+
+commit ca5c552147dfe2582db8a148297d99235a8d12f8
+Author: Ben Roan <baroan@mines.edu>
+Date:   Thu Oct 23 16:22:09 2025 -0600
+
+    testNumberOfDoorways() passing
+
+commit 22ffd86800aec91b1a7aa1460b1081bbd9de5984
+Merge: 3b13d50 ebda696
+Author: Ben Roan <baroan@mines.edu>
+Date:   Thu Oct 23 15:59:33 2025 -0600
+
+    Merge fix
+
+commit 3b13d50b7405863704dc0c695cd21c06c6d149e1
+Merge: d071f6f 26e2e20
+Author: Ben Roan <baroan@mines.edu>
+Date:   Thu Oct 23 15:56:46 2025 -0600
+
+    Merge fix
+
+commit ebda696deda50fc58eb7ca799029abf468d3a6b2
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Thu Oct 23 15:55:58 2025 -0600
+
+    pls
+
+commit 26e2e201ed16c2b51b1eb613e6eb2d84b7a21da8
+Author: Cade Shiveley <cade_shiveley@mines.edu>
+Date:   Thu Oct 23 15:37:39 2025 -0600
+
+    adding changes
+
+commit d071f6fe169def1bfc423e34517ccc15751172a6
+Author: Ben Roan <baroan@mines.edu>
+Date:   Wed Oct 22 19:52:41 2025 -0600
+
+    Updated log
+
 commit 84807f7625faa73a3c0d39c49f64c9d4b1b53348
 Author: Ben Roan <baroan@mines.edu>
 Date:   Wed Oct 22 19:47:30 2025 -0600
