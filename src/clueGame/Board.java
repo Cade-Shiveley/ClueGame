@@ -138,27 +138,41 @@ public class Board {
 							roomCell = grid[r-1][c];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
+							room.getCenterCell().addAdj(cell);
 							break;
 						case DOWN:
 							roomCell = grid[r+1][c];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
+							room.getCenterCell().addAdj(cell);
 							break;
 						case LEFT:
 							roomCell = grid[r][c-1];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
+							room.getCenterCell().addAdj(cell);
 							break;
 						case RIGHT:
 							roomCell = grid[r][c+1];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
+							room.getCenterCell().addAdj(cell);
 							break;
 						default:
 							break;
 								
 					}
 				}
+			}
+		}
+		
+		for (Room room : roomMap.values()) {
+			BoardCell center = room.getCenterCell();
+			if (center.getSecretPassage() != ' ') {
+				char destInitial = center.getSecretPassage();
+				Room destRoom = roomMap.get(destInitial);
+				center.addAdj(destRoom.getCenterCell());
+				destRoom.getCenterCell().addAdj(center);
 			}
 		}
 	}

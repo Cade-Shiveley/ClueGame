@@ -68,12 +68,12 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(16, 15)));
 		assertTrue(testList.contains(board.getCell(17, 14)));
 		
-		testList = board.getAdjList(10, 19);
+		testList = board.getAdjList(8, 19);
 		assertEquals(4, testList.size());
 		assertTrue(testList.contains(board.getCell(9, 19)));
-		assertTrue(testList.contains(board.getCell(10, 18)));
-		assertTrue(testList.contains(board.getCell(11, 21)));
-		assertTrue(testList.contains(board.getCell(11, 19)));
+		assertTrue(testList.contains(board.getCell(8, 18)));
+		assertTrue(testList.contains(board.getCell(7, 19)));
+		assertTrue(testList.contains(board.getCell(9, 21)));
 	}
 	
 	// Test a variety of walkway scenarios
