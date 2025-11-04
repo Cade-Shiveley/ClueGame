@@ -41,13 +41,7 @@ public class Board {
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> visited;
 	Set<BoardCell> targets;
-	private Set<BoardCell> adjList;
-
-
 	
-
-
-
 	/*
 	* variable and methods used for singleton pattern
 	*/
@@ -113,12 +107,58 @@ public class Board {
 		for (int r = 0; r < numRows; r++) {
 			for (int c = 0; c < numColumns; c++) {
 				BoardCell cell = grid[r][c];
-				if (r > 0) cell.addAdj(grid[r-1][c]);
-				if (r < numRows-1) cell.addAdj(grid[r+1][c]);
-				if (c > 0) cell.addAdj(grid[r][c-1]);
-				if (c < numColumns-1) cell.addAdj(grid[r][c+1]);
+				Set<BoardCell> adjList = cell.getAdjList();
 				
-			
+				if (r > 0) {
+					if (grid[r-1][c].isWalkway() || grid[r-1][c].isDoorway()) {
+						cell.addAdj(grid[r-1][c]);
+					}
+				}
+				if (r < numRows - 1) {
+					if (grid[r+1][c].isWalkway() || grid[r+1][c].isDoorway()) {
+						cell.addAdj(grid[r+1][c]);
+					}
+				}
+				if (c > 0) {
+					if (grid[r][c-1].isWalkway() || grid[r][c-1].isDoorway()) {
+						cell.addAdj(grid[r][c-1]);
+					}
+				}
+				if (c < numColumns - 1) {
+					if (grid[r][c+1].isWalkway() || grid[r][c+1].isDoorway()) {
+						cell.addAdj(grid[r][c+1]);
+					}
+				}
+				
+				if (cell.isDoorway()) {
+					BoardCell roomCell = null;
+					Room room = null;
+					switch(cell.getDoorDirection()) {
+						case UP:
+							roomCell = grid[r-1][c];
+							room = Board.getInstance().getRoom(roomCell.getInitial());
+							cell.addAdj(room.getCenterCell());
+							break;
+						case DOWN:
+							roomCell = grid[r+1][c];
+							room = Board.getInstance().getRoom(roomCell.getInitial());
+							cell.addAdj(room.getCenterCell());
+							break;
+						case LEFT:
+							roomCell = grid[r][c-1];
+							room = Board.getInstance().getRoom(roomCell.getInitial());
+							cell.addAdj(room.getCenterCell());
+							break;
+						case RIGHT:
+							roomCell = grid[r][c+1];
+							room = Board.getInstance().getRoom(roomCell.getInitial());
+							cell.addAdj(room.getCenterCell());
+							break;
+						default:
+							break;
+								
+					}
+				}
 			}
 		}
 	}
