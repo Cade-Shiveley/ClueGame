@@ -122,33 +122,31 @@ public class Board {
 							roomCell = grid[r-1][c];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
-							room.getCenterCell().addAdj(cell);
+							//room.getCenterCell().addAdj(cell);
 							break;
 						case DOWN:
 							roomCell = grid[r+1][c];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
-							room.getCenterCell().addAdj(cell);
+							//room.getCenterCell().addAdj(cell);
 							break;
 						case LEFT:
 							roomCell = grid[r][c-1];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
-							room.getCenterCell().addAdj(cell);
+							//room.getCenterCell().addAdj(cell);
 							break;
 						case RIGHT:
 							roomCell = grid[r][c+1];
 							room = Board.getInstance().getRoom(roomCell.getInitial());
 							cell.addAdj(room.getCenterCell());
-							room.getCenterCell().addAdj(cell);
+							//room.getCenterCell().addAdj(cell);
 							break;
 						default:
 							break;
 								
 					}
 				}
-				
-			
 			}
 		}
 		
@@ -165,14 +163,13 @@ public class Board {
 	
 	public void helpingCalc(BoardCell from, BoardCell to) {
 		//if from cell can move to to cell add to adjacency
-		if(from.isWalkway()) {
-			if(to.isWalkway()|| to.isDoorway()) {
-				from.addAdj(to);
-			}
-		
+	//	if(from.isWalkway()) {
+		//	if(to.isWalkway()|| to.isDoorway()) {
+			//	from.addAdj(to);
+			
 
 		
-	}
+		//	}
 	
 	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
 		this.layoutConfigFile = layoutConfigFile;
