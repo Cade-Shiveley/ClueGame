@@ -75,6 +75,7 @@ public class Board {
     }
 
     private void findAllTargets(BoardCell startCell, int numSteps) {
+    	//assistance from TA Brandon
         for (BoardCell adjCell : startCell.getAdjList()) {
             // check if visited skip rest
             if (visited.contains(adjCell) || adjCell.isOccupied()) {
@@ -82,12 +83,6 @@ public class Board {
             }
 
             visited.add(adjCell);
-
-            if (adjCell.getInitial() == 'W' || adjCell.getInitial() == 'X') {
-                adjCell.setRoom(false);
-            } else {
-                adjCell.setRoom(true);
-            }
             
             if (numSteps == 1 || adjCell.isRoom()) {
             	targets.add(adjCell);
