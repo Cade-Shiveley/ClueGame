@@ -88,6 +88,12 @@ public class Board {
             } else {
                 adjCell.setRoom(true);
             }
+            
+            if (numSteps == 1 || adjCell.isRoom()) {
+            	targets.add(adjCell);
+            }else {
+            	findAllTargets(adjCell,numSteps-1);
+            }
 
             // stack overflow for syntax how to remove stuff from setlist
             visited.remove(adjCell);
