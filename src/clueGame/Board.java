@@ -18,7 +18,7 @@ import java.io.FileReader;
 // layoutConfigFIle:string
 // setupConfigFile: string
 // roomMap: Map<Character,Room>
-// theInstance: static Board
+// the: static Board
 
 // +initialize():void
 // +loadSetupConfig():void
@@ -37,7 +37,6 @@ public class Board {
     private Map<Character, Room> roomMap;
     private Set<BoardCell> visited;
     Set<BoardCell> targets;
-
 
     /*
      * variable and methods used for singleton pattern
@@ -133,22 +132,22 @@ public class Board {
                         case UP:
                             roomCell = grid[r - 1][c];
                             room = Board.getInstance().getRoom(roomCell.getInitial());
-                            //cell.addAdj(room.getCenterCell());
+                            cell.addAdj(room.getCenterCell());
                             break;
                         case DOWN:
                             roomCell = grid[r + 1][c];
                             room = Board.getInstance().getRoom(roomCell.getInitial());
-                            //cell.addAdj(room.getCenterCell());
+                            cell.addAdj(room.getCenterCell());
                             break;
                         case LEFT:
                             roomCell = grid[r][c - 1];
                             room = Board.getInstance().getRoom(roomCell.getInitial());
-                            //cell.addAdj(room.getCenterCell());
+                            cell.addAdj(room.getCenterCell());
                             break;
                         case RIGHT:
                             roomCell = grid[r][c + 1];
                             room = Board.getInstance().getRoom(roomCell.getInitial());
-                            //cell.addAdj(room.getCenterCell());
+                            cell.addAdj(room.getCenterCell());
                             break;
                         default:
                             break;
