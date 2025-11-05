@@ -108,27 +108,11 @@ public class Board {
 			for (int c = 0; c < numColumns; c++) {
 				BoardCell cell = grid[r][c];
 				Set<BoardCell> adjList = cell.getAdjList();
-				
-				if (r > 0) {
-					if (grid[r-1][c].isWalkway() || grid[r-1][c].isDoorway()) {
-						cell.addAdj(grid[r-1][c]);
-					}
-				}
-				if (r < numRows - 1) {
-					if (grid[r+1][c].isWalkway() || grid[r+1][c].isDoorway()) {
-						cell.addAdj(grid[r+1][c]);
-					}
-				}
-				if (c > 0) {
-					if (grid[r][c-1].isWalkway() || grid[r][c-1].isDoorway()) {
-						cell.addAdj(grid[r][c-1]);
-					}
-				}
-				if (c < numColumns - 1) {
-					if (grid[r][c+1].isWalkway() || grid[r][c+1].isDoorway()) {
-						cell.addAdj(grid[r][c+1]);
-					}
-				}
+				if (cell.isWalkway()||cell.isDoorway()||cell.isRoomCenter())
+					if (r>0) helpingCalc(cell,grid[r-1][c]);
+					if(r<numRows-1)helpingCalc(cell,grid[r+1][c]);
+					if(c>0)helpingCalc(cell,grid[r][c-1]);
+					if(c<numColumns-1)helpingCalc(cell,grid[r][c+1]);
 				
 				if (cell.isDoorway()) {
 					BoardCell roomCell = null;
@@ -163,6 +147,8 @@ public class Board {
 								
 					}
 				}
+				
+			
 			}
 		}
 		
@@ -177,10 +163,14 @@ public class Board {
 		}
 	}
 	
-	public void helpingCalc(BoardCell from, BoardCell toCell,  int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
-		if(from.isWalkway() && toCell.isWalkway()) {
-			adjList.add(toCell);
-		}
+	public void helpingCalc(BoardCell from, BoardCell to) {
+		//if from cell can move to to cell add to adjacency
+		if(from.isWalkway()) {
+			if(to.isWalkway()|| to.isDoorway()) {
+				from.addAdj(to);
+			}
+		
+
 		
 	}
 	
