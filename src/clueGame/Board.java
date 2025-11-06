@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.FileReader;
+import clueGame.Room;
 
 // grid: BoardCell[][]
 // numRows:int
@@ -78,9 +79,13 @@ public class Board {
     	//assistance from TA Brandon
         for (BoardCell adjCell : startCell.getAdjList()) {
             // check if visited skip rest
-            if (visited.contains(adjCell) || adjCell.isOccupied()) {
+        	
+        	//check if vistied, occupied, and when you're in a room turn over
+            if (visited.contains(adjCell) || adjCell.isOccupied() && !adjCell.isRoom()) {
                 continue;
             }
+            
+
 
             visited.add(adjCell);
             
