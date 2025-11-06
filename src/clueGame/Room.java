@@ -7,6 +7,7 @@ public class Room {
 	private String name;
 	private BoardCell centerCell;
 	private BoardCell labelCell;
+	private Room secretPassage;
 	
 	
 	public String getName() {
@@ -32,7 +33,14 @@ public class Room {
 	public void setLabelCell(BoardCell labelCell) {
 		this.labelCell = labelCell;
 	}
-
+	
+	public Room getSecretPassage() {
+		return secretPassage;
+	}
+	
+	public void setSecretPassage(Room secretPassage) {
+		this.secretPassage = secretPassage;
+	}
 	
 	
 }

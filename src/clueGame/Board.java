@@ -95,6 +95,7 @@ public class Board {
         }
     }
 
+    
     public void calcAdjacencies() {
         for (int r = 0; r < numRows; r++) {
             for (int c = 0; c < numColumns; c++) {
@@ -132,38 +133,43 @@ public class Board {
                     switch (cell.getDoorDirection()) {
                         case UP:
                             roomCell = grid[r - 1][c];
-                            room = Board.getInstance().getRoom(roomCell.getInitial());
+                            room = getRoom(roomCell.getInitial());
                             cell.addAdj(room.getCenterCell());
+                            room.getCenterCell().addAdj(cell);
                             break;
                         case DOWN:
                             roomCell = grid[r + 1][c];
-                            room = Board.getInstance().getRoom(roomCell.getInitial());
+                            room = getRoom(roomCell.getInitial());
                             cell.addAdj(room.getCenterCell());
+                            room.getCenterCell().addAdj(cell);
                             break;
                         case LEFT:
                             roomCell = grid[r][c - 1];
-                            room = Board.getInstance().getRoom(roomCell.getInitial());
+                            room = getRoom(roomCell.getInitial());
                             cell.addAdj(room.getCenterCell());
-                            break;
+                            room.getCenterCell().addAdj(cell);
+
+                           break;
                         case RIGHT:
                             roomCell = grid[r][c + 1];
-                            room = Board.getInstance().getRoom(roomCell.getInitial());
+                            room = getRoom(roomCell.getInitial());
                             cell.addAdj(room.getCenterCell());
+                            room.getCenterCell().addAdj(cell);
                             break;
                         default:
                             break;
                     }
                 }
-            }
-        }
+                
+                    if (cell.isRoomCenter()) {
+                        Room room = getRoom(cell);
+                        Room destRoom = room.getSecretPassage();
+                        
+                        if (destRoom != null && destRoom.getCenterCell() != null) {
+                        	cell.addAdj(destRoom.getCenterCell());
+                        }
+                    }
 
-        for (Room room : roomMap.values()) {
-            BoardCell center = room.getCenterCell();
-            if (center.getSecretPassage() != ' ') {
-                char destInitial = center.getSecretPassage();
-                Room destRoom = roomMap.get(destInitial);
-                center.addAdj(destRoom.getCenterCell());
-                destRoom.getCenterCell().addAdj(center);
             }
         }
     }
@@ -243,6 +249,7 @@ public class Board {
                     cell.setRoom((initial != 'W' && initial != 'X'));
                     cell.setDoorDirection(DoorDirection.NONE);
                     cell.setDoorway(false);
+                    cell.setSecretPassage(' ');
 
                     if (token.length() > 1) {
                         char dir = token.charAt(1);
@@ -278,7 +285,12 @@ public class Board {
                                 break;
                             default:
                                 if (Character.isLetter(dir)) {
-                                    cell.setSecretPassage(dir);
+                                	char destInitial = token.charAt(1);
+                                	Room currentRoom = getRoom(initial);
+                                	Room destRoom = getRoom(destInitial);
+                                	if (currentRoom != null && destRoom != null) {
+                                		currentRoom.setSecretPassage(destRoom);
+                                	}
                                 }
                                 break;
                         }
