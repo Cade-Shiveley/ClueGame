@@ -36,7 +36,7 @@ public class BoardAdjTargetTest {
 		Set<BoardCell> testList = board.getAdjList(2, 21);
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(4, 20)));
-		assertTrue(testList.contains(board.getCell(21, 0)));
+		assertTrue(testList.contains(board.getCell(23, 1)));
 		
 		testList = board.getAdjList(21, 11);
 		assertEquals(4, testList.size());
