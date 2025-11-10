@@ -242,6 +242,7 @@ public class Board {
                     scanner.close();
                     throw new BadConfigFormatException("Column number not consistent in layout file");
                 }
+               
 
                 for (int c = 0; c < numColumns; c++) {
                     String token = cols[c];
