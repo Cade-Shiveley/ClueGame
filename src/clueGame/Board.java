@@ -100,7 +100,7 @@ public class Board {
         }
     }
 
-    
+    //calculates and assigns all valid movement adjacencies for each cell
     public void calcAdjacencies() {
         for (int r = 0; r < numRows; r++) {
             for (int c = 0; c < numColumns; c++) {
@@ -179,7 +179,7 @@ public class Board {
         }
     }
 
-    //this is a helper function in order to assist with the helping class
+    //this is a helper function in order to assist with the calculating targets
     public void helpingCalc(BoardCell from, BoardCell toCell, int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
         if (from.isWalkway() && toCell.isWalkway()) {
             adjList.add(toCell);
