@@ -36,7 +36,7 @@ public class Board {
     private String setupConfigFile;
     // make final?
     private Map<Character, Room> roomMap;
-    private Set<BoardCell> visited;
+    private Set<BoardCell> visitedCells;
     Set<BoardCell> targets;
 
     /*
@@ -48,7 +48,7 @@ public class Board {
     private Board() {
         super();
         targets = new HashSet<>();
-        visited = new HashSet<>();
+        visitedCells = new HashSet<>();
     }
 
     // this method returns the only Board
@@ -70,8 +70,8 @@ public class Board {
 
     public void calcTargets(BoardCell startCell, int pathlength) {
         targets.clear();
-        visited.clear();
-        visited.add(startCell);
+        visitedCells.clear();
+        visitedCells.add(startCell);
         findAllTargets(startCell, pathlength);
     }
 
@@ -81,13 +81,13 @@ public class Board {
             // check if visited skip rest
         	
         	//check if vistied, occupied, and when you're in a room turn over
-            if (visited.contains(adjCell) || adjCell.isOccupied() && !adjCell.isRoom()) {
+            if (visitedCells.contains(adjCell) || adjCell.isOccupied() && !adjCell.isRoom()) {
                 continue;
             }
             
 
 
-            visited.add(adjCell);
+            visitedCells.add(adjCell);
             
             if (numSteps == 1 || adjCell.isRoom()) {
             	targets.add(adjCell);
@@ -96,7 +96,7 @@ public class Board {
             }
 
             // stack overflow for syntax how to remove stuff from setlist
-            visited.remove(adjCell);
+            visitedCells.remove(adjCell);
         }
     }
 
