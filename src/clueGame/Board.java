@@ -52,7 +52,7 @@ public class Board {
     }
 
     // this method returns the only Board
-    public static Board getInstance() {
+    public static Board instance() {
         return theInstance;
     }
 
