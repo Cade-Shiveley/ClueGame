@@ -303,7 +303,7 @@ public class Board {
                                 break;
                         }
 
-                        if (dir == '<' || dir == '>' || dir == 'v' || dir == '^') {
+                        if (isDoorDirection(dir)) {
                             cell.setDoorway(true);
                         }
                     }
@@ -317,6 +317,11 @@ public class Board {
         } catch (Exception e) {
             throw new BadConfigFormatException("Exception with loading the layout.");
         }
+    }
+    
+    private boolean isDoorDirection(char dir) {
+    	return dir == '<' || dir == '>' || dir == 'v' || dir == '^';
+    	
     }
 
     public BoardCell[][] getGrid() {
