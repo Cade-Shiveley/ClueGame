@@ -315,7 +315,7 @@ public class Board {
             scanner.close();
 
         } catch (Exception e) {
-            throw new BadConfigFormatException();
+            throw new BadConfigFormatException("Exception with loading the layout.");
         }
     }
 
