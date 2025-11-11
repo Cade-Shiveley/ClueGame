@@ -219,7 +219,7 @@ public class Board {
                 }
             }
         } catch (Exception e) {
-            throw new BadConfigFormatException();
+            throw new BadConfigFormatException("Error loading setup configuration");
         }
     }
 
