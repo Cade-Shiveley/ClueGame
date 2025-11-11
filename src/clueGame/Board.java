@@ -65,6 +65,7 @@ public class Board {
             loadLayoutConfig();
             calcAdjacencies();
         } catch (Exception e) {
+        	System.out.println("Error with initialization.");
         }
     }
 
