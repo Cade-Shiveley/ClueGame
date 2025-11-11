@@ -38,6 +38,8 @@ public class Board {
     private Map<Character, Room> roomMap;
     private Set<BoardCell> visitedCells;
     Set<BoardCell> targets;
+    private static final char WALKWAY = 'W';
+    private static final char UNUSED = 'X';
 
     /*
      * variable and methods used for singleton pattern
@@ -254,7 +256,7 @@ public class Board {
 
                     char initial = token.charAt(0);
                     cell.setInitial(initial);
-                    cell.setRoom((initial != 'W' && initial != 'X'));
+                    cell.setRoom((initial != WALKWAY && initial != UNUSED));
                     cell.setDoorDirection(DoorDirection.NONE);
                     cell.setDoorway(false);
                     cell.setSecretPassage(' ');
