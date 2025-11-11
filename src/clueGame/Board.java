@@ -179,6 +179,7 @@ public class Board {
         }
     }
 
+    //this is a helper function in order to assist with the helping class
     public void helpingCalc(BoardCell from, BoardCell toCell, int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
         if (from.isWalkway() && toCell.isWalkway()) {
             adjList.add(toCell);
