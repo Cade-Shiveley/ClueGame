@@ -65,6 +65,7 @@ public class Board {
             loadLayoutConfig();
             calcAdjacencies();
         } catch (Exception e) {
+        	
         }
     }
 
@@ -183,6 +184,10 @@ public class Board {
         if (from.isWalkway() && toCell.isWalkway()) {
             adjList.add(toCell);
         }
+    }
+    
+    public void deal() {
+    	
     }
 
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
