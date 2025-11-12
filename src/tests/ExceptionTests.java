@@ -19,7 +19,7 @@ public class ExceptionTests {
 	@Test
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
-			Board board = Board.getInstance();
+			Board board = Board.instance();
 			board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 			board.loadSetupConfig();
 			board.loadLayoutConfig();
@@ -30,7 +30,7 @@ public class ExceptionTests {
 	@Test
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
-			Board board = Board.getInstance();
+			Board board = Board.instance();
 			board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 			board.loadSetupConfig();
 			board.loadLayoutConfig();

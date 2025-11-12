@@ -36,8 +36,10 @@ public class Board {
     private String setupConfigFile;
     // make final?
     private Map<Character, Room> roomMap;
-    private Set<BoardCell> visited;
+    private Set<BoardCell> visitedCells;
     Set<BoardCell> targets;
+    private static final char WALKWAY = 'W';
+    private static final char UNUSED = 'X';
 
     /*
      * variable and methods used for singleton pattern
@@ -48,11 +50,11 @@ public class Board {
     private Board() {
         super();
         targets = new HashSet<>();
-        visited = new HashSet<>();
+        visitedCells = new HashSet<>();
     }
 
     // this method returns the only Board
-    public static Board getInstance() {
+    public static Board instance() {
         return theInstance;
     }
 
@@ -65,14 +67,14 @@ public class Board {
             loadLayoutConfig();
             calcAdjacencies();
         } catch (Exception e) {
-        	
+        	System.out.println("Error with initialization.");
         }
     }
 
     public void calcTargets(BoardCell startCell, int pathlength) {
         targets.clear();
-        visited.clear();
-        visited.add(startCell);
+        visitedCells.clear();
+        visitedCells.add(startCell);
         findAllTargets(startCell, pathlength);
     }
 
@@ -82,13 +84,13 @@ public class Board {
             // check if visited skip rest
         	
         	//check if vistied, occupied, and when you're in a room turn over
-            if (visited.contains(adjCell) || adjCell.isOccupied() && !adjCell.isRoom()) {
+            if (visitedCells.contains(adjCell) || adjCell.isOccupied() && !adjCell.isRoom()) {
                 continue;
             }
             
 
 
-            visited.add(adjCell);
+            visitedCells.add(adjCell);
             
             if (numSteps == 1 || adjCell.isRoom()) {
             	targets.add(adjCell);
@@ -97,11 +99,11 @@ public class Board {
             }
 
             // stack overflow for syntax how to remove stuff from setlist
-            visited.remove(adjCell);
+            visitedCells.remove(adjCell);
         }
     }
 
-    
+    //calculates and assigns all valid movement adjacencies for each cell
     public void calcAdjacencies() {
         for (int r = 0; r < numRows; r++) {
             for (int c = 0; c < numColumns; c++) {
@@ -180,6 +182,7 @@ public class Board {
         }
     }
 
+    //this is a helper function in order to assist with the calculating targets
     public void helpingCalc(BoardCell from, BoardCell toCell, int row, int col, DoorDirection dir, Set<BoardCell> adjList) {
         if (from.isWalkway() && toCell.isWalkway()) {
             adjList.add(toCell);
@@ -222,7 +225,7 @@ public class Board {
                 }
             }
         } catch (Exception e) {
-            throw new BadConfigFormatException();
+            throw new BadConfigFormatException("Error loading setup configuration");
         }
     }
 
@@ -257,7 +260,7 @@ public class Board {
 
                     char initial = token.charAt(0);
                     cell.setInitial(initial);
-                    cell.setRoom((initial != 'W' && initial != 'X'));
+                    cell.setRoom((initial != WALKWAY && initial != UNUSED));
                     cell.setDoorDirection(DoorDirection.NONE);
                     cell.setDoorway(false);
                     cell.setSecretPassage(' ');
@@ -306,7 +309,7 @@ public class Board {
                                 break;
                         }
 
-                        if (dir == '<' || dir == '>' || dir == 'v' || dir == '^') {
+                        if (isDoorDirection(dir)) {
                             cell.setDoorway(true);
                         }
                     }
@@ -318,8 +321,13 @@ public class Board {
             scanner.close();
 
         } catch (Exception e) {
-            throw new BadConfigFormatException();
+            throw new BadConfigFormatException("Exception with loading the layout.");
         }
+    }
+    
+    private boolean isDoorDirection(char dir) {
+    	return dir == '<' || dir == '>' || dir == 'v' || dir == '^';
+    	
     }
 
     public BoardCell[][] getGrid() {
