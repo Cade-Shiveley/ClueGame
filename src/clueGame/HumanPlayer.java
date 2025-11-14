@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(String name, Color color, BoardCell startingCell) {
-		super(name, color, startingCell);
+	public HumanPlayer(String playerName, Color color, int row, int col) {
+		super(playerName, color, row, col);
 	}
 }

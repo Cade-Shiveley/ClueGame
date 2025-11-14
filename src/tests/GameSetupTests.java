@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.Card;
+import clueGame.CardType;
 import clueGame.Player;
 import clueGame.Solution;
 import experiment.TestBoard;
@@ -55,7 +57,7 @@ public class GameSetupTests {
 		Player computer1 = board.getPlayers().get(1);
 		
 		assertEquals("Herobrine", computer1.getName());
-		assertEquals("Black", computer1.getColor());
+		assertEquals("Magenta", computer1.getColor());
 		
 		BoardCell expectedStart1 = board.getCell(0, 17);
 		assertEquals(expectedStart1, computer1.getLocation());
@@ -63,7 +65,7 @@ public class GameSetupTests {
 		Player computer2 = board.getPlayers().get(2);
 		
 		assertEquals("Villager", computer2.getName());
-		assertEquals("Brown", computer2.getColor());
+		assertEquals("Orange", computer2.getColor());
 		
 		BoardCell expectedStart2 = board.getCell(13, 23);
 		assertEquals(expectedStart2, computer2.getLocation());
@@ -88,13 +90,13 @@ public class GameSetupTests {
 	@Test
 	public void cardsDealt() {
 		List<Player> players = board.getPlayers();
-		Set<Card> deck = board.getDeck();
+		List<Card> deck = board.getDeck();
 		
 		for (Player p : players) {
 			assertEquals(3, p.getHand().size());
 		}
 		
-		Set<Card> dealtCards = new HashSet<>();
+		List<Card> dealtCards = new ArrayList<>();
 		int countDealt = 0;
 		
 		for (Player p : players) {

@@ -7,9 +7,12 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.awt.Color;
 import java.io.FileReader;
 import clueGame.Room;
 
@@ -40,7 +43,7 @@ public class Board {
     Set<BoardCell> targets;
     private static final char WALKWAY = 'W';
     private static final char UNUSED = 'X';
-    private Set<Card> deck = new HashSet<>();
+    private List<Card> deck = new ArrayList<>();
     private Solution answer;
     private List<Player> players = new ArrayList<>();
 
@@ -68,7 +71,14 @@ public class Board {
         try {
             loadSetupConfig();
             loadLayoutConfig();
+            
+            for (Player p : players) {
+            	BoardCell startCell = getCell(p.getStartRow(), p.getStartCol());
+            	p.initializeLocation(startCell);
+            }
+            
             calcAdjacencies();
+            deal();
         } catch (Exception e) {
         	System.out.println("Error with initialization.");
         }
@@ -97,7 +107,7 @@ public class Board {
             
             if (numSteps == 1 || adjCell.isRoom()) {
             	targets.add(adjCell);
-            }else {
+            } else {
             	findAllTargets(adjCell,numSteps-1);
             }
 
@@ -193,7 +203,43 @@ public class Board {
     }
     
     public void deal() {
+    	List<Card> playerCards = new ArrayList<>();
+    	List <Card> roomCards = new ArrayList<>();
+    	List<Card> weaponCards = new ArrayList<>();
     	
+    	for (Card c : deck) {
+    		switch (c.getCardType()) {
+    			case PERSON:
+    				playerCards.add(c);
+    				break;
+    			case ROOM:
+    				roomCards.add(c);
+    				break;
+    			case WEAPON:
+    				weaponCards.add(c);
+    				break;
+    		}
+    	}
+    	
+    	Random rand = new Random();
+    	Card person = playerCards.get(rand.nextInt(playerCards.size()));
+    	Card room = roomCards.get(rand.nextInt(roomCards.size()));
+    	Card weapon = weaponCards.get(rand.nextInt(weaponCards.size()));
+    	
+    	answer = new Solution(room, person, weapon);
+    	
+    	List<Card> remaining = new ArrayList<>(deck);
+    	remaining.remove(person);
+    	remaining.remove(room);
+    	remaining.remove(weapon);
+    	
+    	Collections.shuffle(remaining, rand);
+    	
+    	int pIdx = 0;
+    	for (Card c : remaining) {
+    		players.get(pIdx).updateHand(c);
+    		pIdx = (pIdx + 1) % players.size();
+    	}
     }
 
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
@@ -203,6 +249,9 @@ public class Board {
 
     public void loadSetupConfig() throws Exception {
         roomMap = new HashMap<>();
+        players = new ArrayList<>();
+        deck = new ArrayList<>();
+        
         try {
             Scanner scanner = new Scanner(new FileReader(setupConfigFile));
             while (scanner.hasNextLine()) {
@@ -211,25 +260,87 @@ public class Board {
                     continue;
                 }
 
-                String parts[] = line.split(",");
-                if (parts.length != 3) {
-                    scanner.close();
-                    throw new BadConfigFormatException("Invalid line in setup file");
+                String parts[] = line.split(",\\s*");
+                for (int i = 0; i < parts.length; i++) {
+                	parts[i] = parts[i].trim();
+                }
+                
+                String type = parts[0];
+                
+                if (type.equalsIgnoreCase("Space")) {
+                	char initial = parts[2].charAt(0);
+                	
+                	if (initial == 'X') {
+                		Room unused = new Room();
+                		unused.setName(parts[1]);
+                		roomMap.put(initial, unused);
+                	}
+                	
+                	continue;
                 }
 
-                String type = parts[0].trim();
-                String name = parts[1].trim();
-                char initial = parts[2].trim().charAt(0);
-
-                if (type.equalsIgnoreCase("Room") || type.equalsIgnoreCase("Space") || type.equalsIgnoreCase("Walkway")) {
-                    Room room = new Room();
+                if (type.equalsIgnoreCase("Room")) {
+                	String name = parts[1];
+                    char initial = parts[2].charAt(0);
+                    
+                	Room room = new Room();
                     room.setName(name);
                     roomMap.put(initial, room);
+                    
+                    deck.add(new Card(name, CardType.ROOM));   
+                    
+                    continue;
                 }
+                
+                if (type.equalsIgnoreCase("Player")) {
+                	String playerName = parts[1];
+                	String colorName = parts[2];
+                	String playerType = parts[3];
+                	int row = Integer.parseInt(parts[4]);
+                	int col = Integer.parseInt(parts[5]);
+                
+                
+	                Color color = convertColor(colorName);
+	                
+	                Player p;
+	                if (playerType.equalsIgnoreCase("Human")) {
+	                	p = new HumanPlayer(playerName, color, row, col);
+	                } else {
+	                	p = new ComputerPlayer(playerName, color, row, col);
+	                }
+	                
+	                players.add(p);
+	                
+	                deck.add(new Card(playerName, CardType.PERSON));
+	                
+	                continue;
+                }
+                
+                if (type.equalsIgnoreCase("Weapon")) {
+                	String name = parts[1];
+                	deck.add(new Card(name, CardType.WEAPON));
+                	continue;
+                }
+               
             }
+            
+            scanner.close();
+            
         } catch (Exception e) {
             throw new BadConfigFormatException("Error loading setup configuration");
         }
+    }
+    
+    private Color convertColor(String name) {
+    	switch (name.toLowerCase()) {
+    		case "blue": return Color.BLUE;
+    		case "black": return Color.BLACK;
+    		case "orange": return Color.ORANGE;
+    		case "magenta": return Color.MAGENTA;
+    		case "green": return Color.GREEN;
+    		case "yellow": return Color.YELLOW;
+    		default: return Color.GRAY;
+    	}
     }
 
     public void loadLayoutConfig() throws BadConfigFormatException {
@@ -412,7 +523,7 @@ public class Board {
         return targets;
     }
     
-    public Set<Card> getDeck() {
+    public List<Card> getDeck() {
     	return deck;
     }
     

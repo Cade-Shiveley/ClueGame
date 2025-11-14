@@ -10,17 +10,40 @@ public abstract class Player {
 	private BoardCell location;
 	private Set<Card> hand = new HashSet<>();
 	
+	private int startRow;
+	private int startCol;
 	
-	public Player(String name, Color color, BoardCell startingCell) {
+	
+	public Player(String name, Color color, int startRow, int startCol) {
 		super();
 		this.name = name;
 		this.color = color;
-		this.location = startingCell;
+		this.startRow = startRow;
+		this.startCol = startCol;
 	}
 
+	public void initializeLocation(BoardCell cell) {
+		this.location = cell;
+	}
+	
+	public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getStartCol() {
+		return startCol;
+	}
+
+	public void setStartCol(int startCol) {
+		this.startCol = startCol;
+	}
 
 	public void updateHand(Card card) {
-		
+		hand.add(card);
 	}
 
 
