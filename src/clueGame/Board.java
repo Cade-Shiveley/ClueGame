@@ -40,6 +40,9 @@ public class Board {
     Set<BoardCell> targets;
     private static final char WALKWAY = 'W';
     private static final char UNUSED = 'X';
+    private Set<Card> deck = new HashSet<>();
+    private Solution answer;
+    private List<Player> players = new ArrayList<>();
 
     /*
      * variable and methods used for singleton pattern
@@ -407,5 +410,17 @@ public class Board {
 
     public Set<BoardCell> getTargets() {
         return targets;
+    }
+    
+    public Set<Card> getDeck() {
+    	
+    }
+    
+    public List<Player> getPlayers() {
+    	
+    }
+    
+    public Solution getSolution() {
+    	
     }
 }

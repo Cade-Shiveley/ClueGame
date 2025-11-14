@@ -11,3 +11,17 @@ Room, Fortress, F
 //Other Spaces
 Space, Unused, X
 Space, Walkway, W
+//Players
+Player, Steve, Blue, Human, 4, 0
+Player, Herobrine, Black, Computer, 0, 17
+Player, Villager, Brown, Computer, 13, 23
+Player, Enderman, Purple, Computer, 20, 23
+Player, Zombie, Green, Computer, 24, 6
+Player, Chicken Jockey, Yellow, 18, 0
+//Weapons
+Weapon, Diamond Sword
+Weapon, Trident
+Weapon, Bow
+Weapon, Netherite Axe
+Weapon, Lava Bucket
+Weapon, Fist
