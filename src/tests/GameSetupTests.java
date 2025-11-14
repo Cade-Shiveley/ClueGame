@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
 import clueGame.BoardCell;
+import clueGame.Card;
+import clueGame.Player;
+import clueGame.Solution;
 import experiment.TestBoard;
 
 public class GameSetupTests {
@@ -27,39 +31,81 @@ public class GameSetupTests {
 		board.initialize();
 	}
 	
-	@BeforeEach
-	public void setUp() {
-		board = new TestBoard();
-	}
-	
-	
 	@Test
 	public void peopleLoadedIn() {
+		assertEquals(6, board.getPlayers().size());
 		
+		assertEquals("Steve", board.getPlayers().get(0).getName());
+		assertEquals("Chicken Jockey", board.getPlayers().get(5).getName());
 	}
 	
 	@Test
 	public void humanInitialized() {
+		Player human = board.getPlayers().get(0);
 		
+		assertEquals("Steve", human.getName());
+		assertEquals("Blue", human.getColor());
+		
+		BoardCell expectedStart = board.getCell(4, 0);
+		assertEquals(expectedStart, human.getLocation());
 	}
 	
 	@Test
 	public void computerInitialized() {
+		Player computer1 = board.getPlayers().get(1);
 		
+		assertEquals("Herobrine", computer1.getName());
+		assertEquals("Black", computer1.getColor());
+		
+		BoardCell expectedStart1 = board.getCell(0, 17);
+		assertEquals(expectedStart1, computer1.getLocation());
+		
+		Player computer2 = board.getPlayers().get(2);
+		
+		assertEquals("Villager", computer2.getName());
+		assertEquals("Brown", computer2.getColor());
+		
+		BoardCell expectedStart2 = board.getCell(13, 23);
+		assertEquals(expectedStart2, computer2.getLocation());
 	}
 	
 	@Test
 	public void deckCreated() {
+		int deckSize = 21;
 		
+		assertEquals(deckSize, board.getDeck().size());
 	}
 	
 	@Test
 	public void solutionDealt() {
+		Solution answer = board.getSolution();
 		
+		assertTrue(answer.getPerson().getCardType() == CardType.PERSON);
+		assertTrue(answer.getRoom().getCardType() == CardType.ROOM);
+		assertTrue(answer.getWeapon().getCardType() == CardType.WEAPON);
 	}
 	
 	@Test
 	public void cardsDealt() {
+		List<Player> players = board.getPlayers();
+		Set<Card> deck = board.getDeck();
+		
+		for (Player p : players) {
+			assertEquals(3, p.getHand().size());
+		}
+		
+		Set<Card> dealtCards = new HashSet<>();
+		int countDealt = 0;
+		
+		for (Player p : players) {
+			for (Card c : p.getHand()) {
+				dealtCards.add(c);
+				countDealt++;
+			}
+		}
+		
+		assertEquals(countDealt, dealtCards.size());
+		assertEquals(18, dealtCards.size());
 		
 	}
 }

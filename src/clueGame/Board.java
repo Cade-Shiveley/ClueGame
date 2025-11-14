@@ -413,14 +413,14 @@ public class Board {
     }
     
     public Set<Card> getDeck() {
-    	
+    	return deck;
     }
     
     public List<Player> getPlayers() {
-    	
+    	return players;
     }
     
     public Solution getSolution() {
-    	
+    	return answer;
     }
 }

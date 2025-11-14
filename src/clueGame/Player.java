@@ -52,6 +52,16 @@ public abstract class Player {
 	public void setLocation(BoardCell location) {
 		this.location = location;
 	}
+
+
+	public Set<Card> getHand() {
+		return hand;
+	}
+
+
+	public void setHand(Set<Card> hand) {
+		this.hand = hand;
+	}
 	
 	
 }
