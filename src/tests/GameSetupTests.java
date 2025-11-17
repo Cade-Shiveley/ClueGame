@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class GameSetupTests {
 		Player human = board.getPlayers().get(0);
 		
 		assertEquals("Steve", human.getName());
-		assertEquals("Blue", human.getColor());
+		assertEquals(Color.blue, human.getColor());
 		
 		BoardCell expectedStart = board.getCell(4, 0);
 		assertEquals(expectedStart, human.getLocation());
@@ -57,7 +58,7 @@ public class GameSetupTests {
 		Player computer1 = board.getPlayers().get(1);
 		
 		assertEquals("Herobrine", computer1.getName());
-		assertEquals("Magenta", computer1.getColor());
+		assertEquals(Color.MAGENTA, computer1.getColor());
 		
 		BoardCell expectedStart1 = board.getCell(0, 17);
 		assertEquals(expectedStart1, computer1.getLocation());
@@ -65,7 +66,7 @@ public class GameSetupTests {
 		Player computer2 = board.getPlayers().get(2);
 		
 		assertEquals("Villager", computer2.getName());
-		assertEquals("Orange", computer2.getColor());
+		assertEquals(Color.ORANGE, computer2.getColor());
 		
 		BoardCell expectedStart2 = board.getCell(13, 23);
 		assertEquals(expectedStart2, computer2.getLocation());
