@@ -35,5 +35,44 @@ public class ComputerAITest {
 			// Initialize will load config files 
 			board.initialize();
 			}
-
-}
+		
+		@Test
+		public void testRoomMatchesLocation() {
+			
+		}
+		
+		@Test
+		public void testNotSeenWeaponSelected() {
+			
+		}
+		
+		@Test
+		public void testNotSeenPersonSelected() {
+			
+		}
+		
+		@Test
+		public void testMultipleWeaponsOneSelected() {
+			
+		}
+		
+		@Test
+		public void testMultiplePeopleOneSelected() {
+			
+		}
+		
+		@Test
+		public void testNoRoomRandomSelect() {
+			
+		}
+		
+		@Test 
+		public void testRoomNotSeenSelected() {
+			
+		}
+		
+		@Test
+		public void testTargetSelectedRandomly() {
+			
+		}
+}	
