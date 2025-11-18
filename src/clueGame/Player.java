@@ -9,6 +9,7 @@ public abstract class Player {
 	private Color color;
 	private BoardCell location;
 	private Set<Card> hand = new HashSet<>();
+	private Set<Card> seenCards = new HashSet<>();
 	
 	private int startRow;
 	private int startCol;
@@ -21,6 +22,19 @@ public abstract class Player {
 		this.startRow = startRow;
 		this.startCol = startCol;
 	}
+	
+	public void updateHand(Card Card) {
+		
+	}
+
+	public void updateSeen(Card seenCard) {
+		
+	}
+	
+	public Card disproveSuggestion(Solution solution) {
+		
+	}
+	
 
 	public void initializeLocation(BoardCell cell) {
 		this.location = cell;

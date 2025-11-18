@@ -342,6 +342,17 @@ public class Board {
     		default: return Color.GRAY;
     	}
     }
+    
+    public boolean checkAccusation(Solution accusation) {
+		return false;
+    	
+    }
+    
+    
+    public Card handleSuggestion(Player accusing, Solution solution) {
+		return null;
+    	
+    }
 
     public void loadLayoutConfig() throws BadConfigFormatException {
         try {
