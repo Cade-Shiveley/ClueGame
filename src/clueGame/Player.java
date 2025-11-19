@@ -24,7 +24,7 @@ public abstract class Player {
 	}
 	
 	public void updateHand(Card Card) {
-		
+		hand.add(Card);
 	}
 
 	public void updateSeen(Card seenCard) {
@@ -54,10 +54,6 @@ public abstract class Player {
 
 	public void setStartCol(int startCol) {
 		this.startCol = startCol;
-	}
-
-	public void updateHand(Card card) {
-		hand.add(card);
 	}
 
 
