@@ -449,6 +449,20 @@ public class Board {
             throw new BadConfigFormatException("Exception with loading the layout.");
         }
     }
+    /*
+    Check for board clicked on
+    Get current Player
+    Get cell at clicked position
+    Check if current player is human
+    If no do nothing
+    If yes check if valid target is clicked on
+    If target not valid throw error
+    If target is valid move player to target
+    If position is room center player makes suggestion
+    Handle suggestion
+    Update the results display
+    */
+
     
     private boolean isDoorDirection(char dir) {
     	return dir == '<' || dir == '>' || dir == 'v' || dir == '^';
