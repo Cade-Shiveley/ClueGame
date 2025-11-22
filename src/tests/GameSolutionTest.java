@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
@@ -125,14 +126,21 @@ public class GameSolutionTest {
 		//test for handle suggestion
 		@Test
 		public void testNoDisprove() {
-			Player player1s = new Player("Enderman", Color.BLACK, 20,23);
+			Player players1= new Player("Enderman", Color.BLACK, 20,23);
 			Player players2 = new Player("Herobrine", Color.MAGENTA, 0,17);
 			
 			players1.giveCard(new Card("Diamond Sword", CardType.WEAPON);
 			players2.giveCard(new Card("Nether", CardType.ROOM));
 			
-			board.TestPlayers(players);
 			
+			List<Player> players = new ArrayList<>();
+			
+			players.add(players1);
+			players.add(players2);
+			
+			board.TestPlayers(players);
+
+
 			Solution attempt = new Solution("Enderman", "Bow", "Cave");
 			
 			assertNull(board.handleSuggestion(players1, attempt));
@@ -141,16 +149,74 @@ public class GameSolutionTest {
 		
 		@Test
 		public void testSuggestingPlayer() {
+			Player players1 = new Player("Steve", Color.BLUE, 4,0);
+			Player players2 = new Player("Enderman", Color.BLACK, 20,23);
+			Player players3 = new Player("Herobrine", Color.MAGENTA, 0,17);
 			
+			players1.giveCard("Bow", CardType.WEAPON);
+			players2.giveCard("Nether", CardType.ROOM);
+			players3.giveCard("Villager", CardType.PERSON);
+			
+			List<Player> players = new ArrayList<>();
+			
+			players.add(players1);
+			players.add(players2);
+			players.add(players3);
+			
+			board.setPlayers(players);
+			
+			Solution attempt = new Solution("Steve", "Bow", "End");
+
 		}
 		
 		@Test
 		public void testSuggestingHuman() {
+			Player human = new Player("Steve", Color.BLUE, 4,0);
+			Player players2 = new Player("Enderman", Color.BLACK, 20,23);
+			Player players3 = new Player("Herobrine", Color.MAGENTA, 0,17);
 			
+			human.giveCard(new Card("End", CardType.ROOM);
+			
+			players2.giveCard(new Card("Bow", CardType.WEAPON);
+			players3.giveCard(new Card("Enderman", CardType.PERSON);
+			
+			List<Player> players = new ArrayList<>();
+			
+			players.add(human);
+			players.add(players2);
+			players.add(players3);
+			
+			board.setPlayers(players);
+			
+			Solution suggestion = new Solution("Zombie", "Diamond Sword", "End");
+			
+			assertNull(board.handleSuggestion(human, suggestion));
 		}
 		
 		@Test
 		public void testTwoPlayerDisprove() {
+			Player players1 = new Player("Steve", Color.BLUE, 4,0);
+			Player players2 = new Player("Enderman", Color.BLACK, 20,23);
+			Player players3 = new Player("Herobrine", Color.MAGENTA, 0,17);
+			
+			Card matchWeapon = new Card("Bow", CardType.WEAPON);
+			Card matchRoom = new Card("End", CardType.ROOM);
+			
+			players1.giveCard(matchWeapon);
+			players2.giveCard(matchRoom);
+			
+			
+			List<Player> players = new ArrayList<>();
+			
+			players.add(players1);
+			players.add(players2);
+			players.add(players3);
+			
+			board.setPlayers(players);
+			
+			Solution attempt = new Solution("Steve", "Bow", "End");
+			
+			assertEquals(matchWeapon, board.handleSuggestion(players1, attempt));
 			
 		}
 }
