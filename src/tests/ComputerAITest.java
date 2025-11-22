@@ -105,7 +105,9 @@ public class ComputerAITest {
 		public void testMultiplePeopleOneSelected() {
 			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
 
-			List<Card> person = List.of(new Card("Zombie", CardType.PERSON), new Card("Herobrine", CardType.PERSON), new Card("Enderman", CardType.PERSON))
+			List<Card> person = List.of(new Card("Zombie", CardType.PERSON), new Card("Herobrine", CardType.PERSON), new Card("Enderman", CardType.PERSON));
+			Card picked = Villager.picked(person);
+			assertTrue(person.contains(picked));
 		}
 		
 		@Test
