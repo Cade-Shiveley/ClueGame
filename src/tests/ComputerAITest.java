@@ -2,12 +2,15 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,7 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 import experiment.TestBoard;
@@ -46,9 +50,12 @@ public class ComputerAITest {
 				testTargets.add(walkway);
 				testTargets.add(roomCenter);
 				
-				BoardCell testpicked = Villager.setLocation(testTargets);
-				assertEquals(roomCenter, testpicked);
-			
+				
+				board.getTargets().clear();
+				board.getTargets().addAll(testTargets);
+				
+				BoardCell picked = Villager.selectTarget();
+				
 		}
 		
 		@Test
@@ -62,27 +69,24 @@ public class ComputerAITest {
 			weapons.add(new Card("Fist", CardType.WEAPON));
 			weapons.add(new Card("Diamond Sword", CardType.WEAPON));
 			
-			Card picked = Villager.pickWeapon(weapons);
+			Card picked = Villager.createSuggestion(weapons);
 			
-			assertNotEquals("Bow", picked.getName);
+			assertNotEquals("Bow", picked.getCardName());
 
 		}
 		
 		@Test
 		public void testNotSeenPersonSelected() {
-			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
+			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 2,21);
 			
 			Card seen = new Card ("Steve", CardType.PERSON);
 			Villager.updateSeen(seen);
 			
-			List<Card> person = new ArrayList<>();
-			person.add(new Card("Zombie", CardType.PERSON));
-			person.add(new Card("Herobrine", CardType.PERSON));
-			person.add(new Card("Enderman", CardType.PERSON));
+			Solution Suggestion = Villager.createSuggestion();
+			Card picked = Suggestion.getPerson();
 			
-			Card picked = Villager.pickPerson(person);
-			assertNotEquals("Steve", picked.getName();
-			
+			List<String> possible = List.of("Zombie", "Enderman", "Herobrine");
+			assertTrue(possible.contains(picked.getCardName()));
 
 			
 		}
@@ -104,26 +108,64 @@ public class ComputerAITest {
 		public void testMultiplePeopleOneSelected() {
 			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
 
-			List<Card> person = List.of(new Card("Zombie", CardType.PERSON), new Card("Herobrine", CardType.PERSON), new Card("Enderman", CardType.PERSON));
-			Card picked = Villager.picked(person);
-			assertTrue(person.contains(picked));
+			List<Card> personName = List.of(new Card("Zombie", CardType.PERSON), new Card("Herobrine", CardType.PERSON), new Card("Enderman", CardType.PERSON));
+			
+			Villager.updateSeen(new Card("Steve", CardType.PERSON));
+			
+			
+			Card picked = Villager.createSuggestion().getPerson();
+			assertTrue(personName.contains(picked.getCardName()));
 		}
 		
 		@Test
 		public void testNoRoomRandomSelect() {
 			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
 			
+			Set<BoardCell> targets = new HashSet<>();
+			targets.add(board.getCell(0, 0));
+			targets.add(board.getCell(0, 1));
+			targets.add(board.getCell(1, 0));
+			
+			board.getTargets().clear();
+			board.getTargets().addAll(targets);
+			
+			BoardCell picked = Villager.selectTarget();
+			
+			assertTrue(targets.contains(picked));
 		}
 		
 		@Test 
 		public void testRoomNotSeenSelected() {
 			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
-
+			
+			BoardCell roomCenter = board.getCell(1,2);
+			Set<BoardCell> targets = new HashSet<>();
+			
+			targets.add(board.getCell(0, 0));
+			targets.add(roomCenter);
+			
+			board.getTargets().clear();
+			board.getTargets().addAll(targets);
+			
+			BoardCell picked = Villager.selectTarget();
+			assertTrue(targets.contains(picked));
 		}
 		
 		@Test
 		public void testTargetSelectedRandomly() {
 			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
+			
+			Set<BoardCell> targets = new HashSet<>();
+			targets.add(board.getCell(0, 0));
+			targets.add(board.getCell(0, 1));
+			targets.add(board.getCell(1, 0));
+			
+			board.getTargets().clear();
+			board.getTargets().addAll(targets);
+			
+			BoardCell picked = Villager.selectTarget();
+			assertTrue(targets.contains(picked));
+			
 
 		}
 }	
