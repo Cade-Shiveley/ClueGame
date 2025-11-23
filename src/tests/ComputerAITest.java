@@ -108,13 +108,11 @@ public class ComputerAITest {
 		public void testMultiplePeopleOneSelected() {
 			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
 
-			List<Card> personName = List.of(new Card("Zombie", CardType.PERSON), new Card("Herobrine", CardType.PERSON), new Card("Enderman", CardType.PERSON));
-			
 			Villager.updateSeen(new Card("Steve", CardType.PERSON));
 			
-			
+			List<String> allPeople = List.of("Herobrine", "Enderman", "Zombie", "Chicken Jockey");
 			Card picked = Villager.createSuggestion().getPerson();
-			assertTrue(personName.contains(picked.getCardName()));
+			assertTrue(allPeople.contains(picked.getCardName()));
 		}
 		
 		@Test

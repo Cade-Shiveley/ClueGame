@@ -12,7 +12,15 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class GUI extends JFrame {
-	private JTextField myName;
+	private JTextField guess;
+	private JTextField guessresult;
+	private JTextField dieRoll;
+	private JTextField currentPlayer;
+	
+	private JButton Next;
+	private JButton makeAccusation;
+	
+	
 	public GUI() {
 		setTitle("ClueGame");
 		setSize(300,100);
@@ -20,16 +28,9 @@ public class GUI extends JFrame {
 		createLayout();
 		
 	}
+	pr
 	
-	private void createLayout() {
-		JLabel nameLabel = new JLabel("something");
-		myName = new JTextField(20);
-		add(nameLabel,BorderLayout.NORTH);
-		add(myName,BorderLayout.CENTER);
-		
-		JButton nameButton = new JButton("Next");
-		add(nameButton,BorderLayout.SOUTH);
-	}
+
 	public static void main(String[] args) {
 		GUI gui = new GUI();
 		gui.setVisible(true);
