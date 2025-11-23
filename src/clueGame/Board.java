@@ -344,14 +344,24 @@ public class Board {
     }
     
     public boolean checkAccusation(Solution accusation) {
-		return false;
+		return accusation.equals(answer);
     	
     }
     
     
     public Card handleSuggestion(Player accusing, Solution solution) {
+		int startIndex = players.indexOf(accusing);
+		
+		for (int i = 1; i < players.size(); i++) {
+			Player current = players.get((startIndex + i) % players.size());
+			Card counter = current.disproveSuggestion(solution);
+			
+			if (counter != null) {
+				return counter;
+			}
+		}
+		
 		return null;
-    	
     }
 
     public void loadLayoutConfig() throws BadConfigFormatException {
