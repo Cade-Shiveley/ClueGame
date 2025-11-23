@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
@@ -24,6 +25,10 @@ import experiment.TestBoard;
 public class GameSolutionTest {
 
 		private static Board board;
+		private static List<Player> players;
+		private static Card roomCard;
+		private static Card personCard;
+		private static Card weaponCard;
 		
 		@BeforeAll
 		public static void setUp() {
@@ -33,7 +38,17 @@ public class GameSolutionTest {
 			board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");		
 			// Initialize will load config files 
 			board.initialize();
+			players = board.getPlayers();
+			
+			for (Card c : board.getDeck()) {
+				switch (c.getCardType()) {
+					case ROOM: roomCard = c;
+					case PERSON: personCard = c;
+					case WEAPON: weaponCard = c;
+				}
 			}
+		}
+		
 		
 		
 		//test for accusation
@@ -45,81 +60,80 @@ public class GameSolutionTest {
 		
 		@Test
 		public void testAccusationWrongPerson() {
-			Solution solution = board.getSolution();
-			Solution incorrect = new Solution("incorrect", correct.weapon(), correct.room());
+			Solution correct = board.getSolution();
+			Solution incorrect = new Solution(correct.getRoom(), new Card("I", CardType.PERSON), correct.getWeapon());
 			assertFalse(board.checkAccusation(incorrect));
 		}
 		
 		@Test
 		public void testAccusationWrongWeapon() {
-			Solution solution = board.getSolution();
-			Solution incorrect = new Solution(correct.person(), "incorrect", correct.room());
+			Solution correct = board.getSolution();
+			Solution incorrect = new Solution(correct.getRoom(), correct.getPerson(), new Card("F", CardType.WEAPON));
 			assertFalse(board.checkAccusation(incorrect));
 		}
 		
 		@Test
 		public void testAccusationWrongRoom() {
-			Solution solution = board.getSolution();
-			Solution incorrect = new Solution(correct.person(), correct.weapon(), "incorrect");
+			Solution correct = board.getSolution();
+			Solution incorrect = new Solution(new Card("H", CardType.ROOM), correct.getPerson(), correct.getWeapon());
 			assertFalse(board.checkAccusation(incorrect));
 		}
 		
 		//test for disprve suggestion
 		@Test
 		public void testOneMatchedCard() {
-			Player player = new Player("Steve", Color.blue, 0,0);
+			Player steve = players.get(0);
 			
-			Card weapon = new Card("Bow", CardType.WEAPON);
-			Card room = new Card("Nether", CardType.ROOM);
-			Card person = new Card("Villager", CardType.PERSON);
+			steve.getHand().clear();
+			Card match = new Card("Nether", CardType.ROOM);
+			steve.updateHand(match);
 			
-			player.giveCard(room);
+			Solution suggestion = new Solution(match, personCard, weaponCard);
+			Card result = steve.disproveSuggestion(suggestion);
 			
-			Solution attempt = new Solution("Diamond Sword", "Nether", "Enderman");
-
-			
-			Card returned = player.disproveSuggestion(attempt);
-			
-			assertEquals(weapon,returned);
-			
-			
+			assertEquals(match, result);
 		}
 		
 		@Test
 		public void testMultipleMatchedCard() {
-			Player player = new Player("Steve", Color.blue, 0,0);
+			Player steve = players.get(0);
 			
-			Card weapon = new Card("Bow", CardType.WEAPON);
-			Card room = new Card("Nether", CardType.ROOM);
-			Card person = new Card("Villager", CardType.PERSON);
+			steve.getHand().clear();
+			Card match1 = new Card("Nether", CardType.ROOM);
+			Card match2 = new Card("Bow", CardType.WEAPON);
+			steve.updateHand(match1);
+			steve.updateHand(match2);
 			
-			player.giveCard(room);
-			player.giveCard(weapon);
-			player.giveCard(person);
+			Solution suggestion = new Solution(match1, personCard, match2);
+			boolean foundMatch1 = false;
+			boolean foundMatch2 = false;
 			
-			Solution attempt = new Solution("Bow", "Nether", "Enderman");
+			for (int i = 0; i < 100; i++) {
+				Card result = steve.disproveSuggestion(suggestion);
+				if (result.equals(match1)) {
+					foundMatch1 = true;
+				}
+				if (result.equals(match2)) {
+					foundMatch2 = true;
+				}
+				if (foundMatch1 && foundMatch2) {
+					break;
+				}
+			}
 			
-			Card result = player.disproveSuggestion(attempt);
-			
-			assertTrue(result == weapon || result == room);
-			
-				
-			
+			assertTrue(foundMatch1 && foundMatch2);
 		}
 		
 		@Test
 		public void testNoMatchedCard() {
-			Player player = new Player("Steve", Color.BLUE, 0,0);
+			Player steve = players.get(0);
 			
-			player.giveCard(new Card("Bow", CardType.WEAPON));
-			player.giveCard(new Card("Nether", CardType.ROOM));
-			player.giveCard(new Card("Enderman", CardType.PERSON));
+			steve.getHand().clear();
 			
+			Solution suggestion = new Solution(roomCard, personCard, weaponCard);
+			Card result = steve.disproveSuggestion(suggestion);
 			
-			Solution attempt = new Solution("Villager", "Diamond Sword", "Mansion");
-			
-			assertNull(player.disproveSuggestion(attempt);)
-			
+			assertNull(result);
 		}
 		
 		//test for handle suggestion

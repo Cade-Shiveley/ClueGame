@@ -1,7 +1,10 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public abstract class Player {
@@ -28,11 +31,30 @@ public abstract class Player {
 	}
 
 	public void updateSeen(Card seenCard) {
-		
+		if (seenCard != null) {
+			seenCards.add(seenCard);
+		}
 	}
 	
+	public Set<Card> getSeenCards() {
+		return seenCards;
+	}
+
 	public Card disproveSuggestion(Solution solution) {
+		Set<Card> matches = new HashSet<>();
 		
+		for (Card c : hand) {
+			if (c.equals(solution.getPerson()) || c.equals(solution.getRoom()) || c.equals(solution.getWeapon())) {
+				matches.add(c);
+			}
+		}
+		
+		if (matches.isEmpty()) {
+			return null;
+		}
+		
+		List<Card> list = new ArrayList<>(matches);
+		return list.get(new Random().nextInt(list.size()));
 	}
 	
 
