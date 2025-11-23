@@ -24,7 +24,6 @@ import experiment.TestBoard;
 
 public class ComputerAITest {
 
-	public ComputerAITest() {
 		private static Board board;
 		
 		@BeforeAll
