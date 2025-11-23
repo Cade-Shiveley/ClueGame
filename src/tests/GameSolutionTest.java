@@ -18,6 +18,8 @@ import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 import experiment.TestBoard;
@@ -139,32 +141,85 @@ public class GameSolutionTest {
 		//test for handle suggestion
 		@Test
 		public void testNoDisprove() {
-			Player player1s = new Player("Enderman", Color.BLACK, 20,23);
-			Player players2 = new Player("Herobrine", Color.MAGENTA, 0,17);
+			Player players1 = new ComputerPlayer("Enderman", Color.BLACK, 20,23);
+			Player players2 = new ComputerPlayer("Herobrine", Color.MAGENTA, 0,17);
 			
-			players1.giveCard(new Card("Diamond Sword", CardType.WEAPON);
-			players2.giveCard(new Card("Nether", CardType.ROOM));
+			players1.updateHand(new Card("Diamond Sword", CardType.WEAPON));
+			players2.updateHand(new Card("Nether", CardType.ROOM));
 			
-			board.TestPlayers(players);
+			List<Player> testPlayers = new ArrayList<>();
+			testPlayers.add(players1);
+			testPlayers.add(players2);
 			
-			Solution attempt = new Solution("Enderman", "Bow", "Cave");
+			board.getPlayers().clear();
+			board.getPlayers().addAll(testPlayers);
 			
-			assertNull(board.handleSuggestion(players1, attempt));
+			Solution suggestion = new Solution(roomCard, personCard, weaponCard);
+
+			assertNull(board.handleSuggestion(players1, suggestion));
 			
 		}
 		
 		@Test
 		public void testSuggestingPlayer() {
+			Player players1 = new ComputerPlayer("Enderman", Color.BLACK, 20,23);
+			Player players2 = new ComputerPlayer("Herobrine", Color.MAGENTA, 0,17);
 			
+			Card match = new Card("Bow", CardType.WEAPON);
+			//player one has the card
+			players1.updateHand(match);
+			
+			players2.getHand().clear();
+			
+			
+			board.getPlayers().clear();
+			board.getPlayers().add(players1);
+			board.getPlayers().add(players2);
+			
+			Solution suggestion = new Solution(match, personCard, weaponCard);
+			assertNull(board.handleSuggestion(players1, suggestion));
 		}
 		
 		@Test
 		public void testSuggestingHuman() {
+			Player humanPlayer = new HumanPlayer("Steve", Color.BLUE, 4,0);
+			Player players2 = new ComputerPlayer("Herobrine", Color.MAGENTA, 0,17);
 			
+			Card match = new Card("Bow", CardType.WEAPON);
+			humanPlayer.updateHand(match);
+			players2.getHand().clear();
+			
+			board.getPlayers().clear();
+			board.getPlayers().add(humanPlayer);
+			board.getPlayers().add(players2);
+			
+			Solution suggestion = new Solution(roomCard, match, personCard);
+			
+			assertNull(board.handleSuggestion(humanPlayer, suggestion));
+
 		}
 		
 		@Test
 		public void testTwoPlayerDisprove() {
+			Player players1 = new ComputerPlayer("Enderman", Color.BLACK, 20,23);
+			Player players2 = new ComputerPlayer("Herobrine", Color.MAGENTA, 0,17);
+			Player players3 = new ComputerPlayer("Steve", Color.BLUE, 4,0);
 			
+			Card matchWeapon = new Card("Bow", CardType.WEAPON);
+			Card matchRoom = new Card("Nether", CardType.ROOM);
+			
+			players1.updateHand(matchWeapon);
+			players2.updateHand(matchRoom);
+			
+			board.getPlayers().clear();
+			board.getPlayers().add(players1);
+			board.getPlayers().add(players2);
+			board.getPlayers().add(players3);
+			
+			Solution suggestion = new Solution(matchRoom, personCard, matchWeapon);
+			
+			Card result = board.handleSuggestion(players1, suggestion);
+			//even though there's two disproves, the room should disprove first
+			assertEquals(matchRoom, result);
 		}
 }
