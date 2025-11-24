@@ -98,8 +98,11 @@ public class GUI extends JFrame {
 		JLabel current = new JLabel("Whose turn?");
 		
 		
+		
 		player = new JTextField(10);
 		player.setPreferredSize(new Dimension(50,20));
+		add(current,BorderLayout.CENTER);
+		add(player,BorderLayout.CENTER);
 
 		
 		panel.add(current);
