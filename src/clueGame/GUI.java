@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -148,30 +149,39 @@ public class GUI extends JFrame {
 	public static void main(String[] args) {
 		GUI gui = new GUI();
 		gui.setVisible(true);
+		//panel.setTurn(new ComputerPlayer("Enderman",Color.))
+		gui.setGuess("I have no guess!");
+		gui.setGuessResult("So you have nothing");
+		gui.setCurrentPlayer(new ComputerPlayer("Enderman",Color.BLACK, 20,23));
+		
+		
 	}
 
 
 
-	public void setGuess(JTextField guess) {
-		this.guess = guess;
+	public void setGuess(String text) {
+		guessing.setText(text);
 	}
 
 
 
-	public void setGuessResult(JTextField guessResult) {
-		this.guessResult = guessResult;
+	public void setGuessResult(String text) {
+		result.setText(text);
 	}
 
 
 
-	public void setDieRoll(JTextField dieRoll) {
-		this.dieRoll = dieRoll;
+	public void setDieRoll(int roll) {
+		number.setText(""+roll);
 	}
 
 
 
-	public void setCurrentPlayer(JTextField currentPlayer) {
-		this.currentPlayer = currentPlayer;
+	public void setCurrentPlayer(Player players) {
+		player.setText(players.getName());
+		player.setBackground(players.getColor());
+		player.setForeground(Color.WHITE);
+		player.repaint();
 	}
 
 
