@@ -42,7 +42,7 @@ public class GUI extends JFrame {
 	
 
 	
-	private JPanel bigPanel() {
+	public JPanel bigPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2,1));
 		panel.add(panel1());
