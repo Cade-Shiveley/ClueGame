@@ -15,10 +15,21 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class RightSideGUI extends JFrame {
+	
+	private JTextField pInHand;
+	private JTextField pSeen;
+	private JTextField rInHand;
+	private JTextField rSeen;
+	private JTextField wInHand;
+	private JTextField wSeen;
+	
 	public JPanel rightSideGUI() {
 		JPanel panel = new JPanel();
 		panel.add(KnownCards());
 		return panel;
+		
+
+
 		
 	}
 	
@@ -61,9 +72,9 @@ public class RightSideGUI extends JFrame {
 		
 		
 		JLabel peopleInHand = new JLabel("In Hand: ");
-		JTextField pInHand = new JTextField(5);
+		pInHand = new JTextField(5);
 		JLabel peopleSeen = new JLabel("Seen: ");
-		JTextField pSeen = new JTextField(5);
+		pSeen = new JTextField(5);
 		
 		peopleInHand.setPreferredSize(new Dimension(200,75));
 		peopleSeen.setPreferredSize(new Dimension(200,75));
@@ -84,9 +95,9 @@ public class RightSideGUI extends JFrame {
 
 		
 		JLabel roomsInHand = new JLabel("In Hand: ");
-		JTextField rInHand = new JTextField(5);
+		rInHand = new JTextField(5);
 		JLabel roomsSeen = new JLabel("Seen: ");
-		JTextField rSeen= new JTextField(5);
+		rSeen= new JTextField(5);
 		
 		roomsInHand.setPreferredSize(new Dimension(200,75));
 		roomsSeen.setPreferredSize(new Dimension(200,75));
@@ -107,9 +118,9 @@ public class RightSideGUI extends JFrame {
 
 		
 		JLabel weaponsInHand = new JLabel("In Hand: ");
-		JTextField wInHand = new JTextField(5);
+		wInHand = new JTextField(5);
 		JLabel weaponsSeen = new JLabel("Seen: ");
-		JTextField wSeen = new JTextField(5);
+		wSeen = new JTextField(5);
 		
 		weaponsInHand.setPreferredSize(new Dimension(200,75));
 		weaponsSeen.setPreferredSize(new Dimension(200,75));
@@ -129,6 +140,31 @@ public class RightSideGUI extends JFrame {
 
 		
 	}
+
+	public void setpInHand(JTextField pInHand) {
+		this.pInHand = pInHand;
+	}
+
+	public void setpSeen(JTextField pSeen) {
+		this.pSeen = pSeen;
+	}
+
+	public void setrInHand(JTextField rInHand) {
+		this.rInHand = rInHand;
+	}
+
+	public void setrSeen(JTextField rSeen) {
+		this.rSeen = rSeen;
+	}
+
+	public void setwInHand(JTextField wInHand) {
+		this.wInHand = wInHand;
+	}
+
+	public void setwSeen(JTextField wSeen) {
+		this.wSeen = wSeen;
+	}
+	
 	
 	
 }
