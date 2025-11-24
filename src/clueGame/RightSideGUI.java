@@ -42,6 +42,7 @@ public class RightSideGUI extends JFrame {
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Known Cards)")));
 		panel.setLayout(new GridLayout(3,1));
 		
+		
 		panel.setPreferredSize(new Dimension(150,400));
 		
 		panel.add(people(),BorderLayout.NORTH);
@@ -56,17 +57,22 @@ public class RightSideGUI extends JFrame {
 	private JPanel people() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("People")));
-		panel.setLayout(new GridLayout(2,1));
+		panel.setLayout(new GridLayout(4,1));
 		
 		
 		JLabel peopleInHand = new JLabel("In Hand: ");
+		JTextField pInHand = new JTextField(5);
 		JLabel peopleSeen = new JLabel("Seen: ");
+		JTextField pSeen = new JTextField(5);
+		
 		peopleInHand.setPreferredSize(new Dimension(200,75));
 		peopleSeen.setPreferredSize(new Dimension(200,75));
 
 		
 		panel.add(peopleInHand);
+		panel.add(pInHand);
 		panel.add(peopleSeen);
+		panel.add(pSeen);
 		
 		return panel;
 	}
@@ -74,18 +80,22 @@ public class RightSideGUI extends JFrame {
 	private JPanel rooms() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Rooms")));
-		panel.setLayout(new GridLayout(2,1));
+		panel.setLayout(new GridLayout(4,1));
 
 		
 		JLabel roomsInHand = new JLabel("In Hand: ");
+		JTextField rInHand = new JTextField(5);
 		JLabel roomsSeen = new JLabel("Seen: ");
+		JTextField rSeen= new JTextField(5);
 		
 		roomsInHand.setPreferredSize(new Dimension(200,75));
 		roomsSeen.setPreferredSize(new Dimension(200,75));
 		
 
 		panel.add(roomsInHand);
+		panel.add(rInHand);
 		panel.add(roomsSeen);
+		panel.add(rSeen);
 		
 		return panel;
 	}
@@ -93,11 +103,13 @@ public class RightSideGUI extends JFrame {
 	private JPanel weapons() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Weapons")));
-		panel.setLayout(new GridLayout(2,1));
+		panel.setLayout(new GridLayout(4,1));
 
 		
 		JLabel weaponsInHand = new JLabel("In Hand: ");
+		JTextField wInHand = new JTextField(5);
 		JLabel weaponsSeen = new JLabel("Seen: ");
+		JTextField wSeen = new JTextField(5);
 		
 		weaponsInHand.setPreferredSize(new Dimension(200,75));
 		weaponsSeen.setPreferredSize(new Dimension(200,75));
@@ -105,7 +117,9 @@ public class RightSideGUI extends JFrame {
 
 
 		panel.add(weaponsInHand);
+		panel.add(wInHand);
 		panel.add(weaponsSeen);
+		panel.add(wSeen);
 		
 		return panel;
 	}
