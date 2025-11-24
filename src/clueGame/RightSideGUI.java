@@ -39,7 +39,7 @@ public class RightSideGUI extends JFrame {
 	}
 	private JPanel KnownCards() {
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Known Cards)")));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Known Cards")));
 		panel.setLayout(new GridLayout(3,1));
 		
 		

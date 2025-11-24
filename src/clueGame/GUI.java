@@ -45,6 +45,7 @@ public class GUI extends JFrame {
 	public JPanel bigPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2,1));
+		
 		panel.add(panel1());
 		panel.add(panel2());
 		return panel;

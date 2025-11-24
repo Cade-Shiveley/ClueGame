@@ -17,15 +17,17 @@ import javax.swing.border.TitledBorder;
 public class MainGUI extends JFrame{
 	
 	public MainGUI() {
-		setSize(1000,1000);
+		setSize(800,650);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
+		
 		
 		GUI bottomGUI = new GUI();
 		RightSideGUI rightGUI = new RightSideGUI();
 		
 		add(bottomGUI.bigPanel(),BorderLayout.SOUTH);
 		add(rightGUI.rightSideGUI(), BorderLayout.EAST);
+		
+		setVisible(true);
 	}
 	
 	
