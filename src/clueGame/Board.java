@@ -73,8 +73,7 @@ public class Board {
             loadLayoutConfig();
             
             for (Player p : players) {
-            	BoardCell startCell = getCell(p.getStartRow(), p.getStartCol());
-            	p.initializeLocation(startCell);
+            	p.setLocation(p.getStartRow(), p.getStartCol());
             }
             
             calcAdjacencies();
@@ -543,6 +542,7 @@ public class Board {
         if (cell == null) {
             return null;
         }
+        
         return getRoom(cell.getInitial());
     }
 

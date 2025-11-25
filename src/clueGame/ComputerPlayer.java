@@ -16,7 +16,13 @@ public class ComputerPlayer extends Player {
 		Board board = Board.instance();
 		
 		BoardCell cell = getLocation();
-		Card roomCard = new Card(board.getRoom(cell).getName(), CardType.ROOM);
+		Room currentRoom = board.getRoom(cell);
+		
+		if (currentRoom == null) {
+			return new Solution(null, null, null);
+		}
+		
+		Card roomCard = new Card(currentRoom.getName(), CardType.ROOM);
 		
 		List<Card> unseenPeople = new ArrayList<>();
 		List<Card> unseenWeapons = new ArrayList<>();
@@ -33,8 +39,11 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
-		Random rand = new Random();
+		if (unseenPeople.isEmpty() || unseenWeapons.isEmpty()) {
+			return new Solution(null, null, null);
+		}
 		
+		Random rand = new Random();
 		Card person = unseenPeople.get(rand.nextInt(unseenPeople.size()));
 		Card weapon = unseenWeapons.get(rand.nextInt(unseenWeapons.size()));
 		

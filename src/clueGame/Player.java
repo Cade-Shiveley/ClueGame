@@ -118,5 +118,7 @@ public abstract class Player {
 		this.hand = hand;
 	}
 	
-	
+	public void setLocation(int row, int col) {
+		this.location = Board.instance().getCell(row, col);
+	}
 }

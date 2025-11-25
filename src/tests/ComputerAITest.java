@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -29,6 +30,7 @@ import experiment.TestBoard;
 public class ComputerAITest {
 
 		private static Board board;
+		private static ComputerPlayer Villager;
 		
 		@BeforeAll
 		public static void setUp() {
@@ -38,57 +40,69 @@ public class ComputerAITest {
 			board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");		
 			// Initialize will load config files 
 			board.initialize();
+			
+			for (Player p : board.getPlayers()) {
+				if (p instanceof ComputerPlayer) {
+					Villager = (ComputerPlayer) p;
+					break;
+				}
 			}
+
+			assertNotNull(Villager);
+		}
 		
 		@Test
 		public void testRoomMatchesLocation() {
-			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5, 5);
-				BoardCell walkway = board.getCell(4, 2);
-				BoardCell roomCenter = board.getCell(1, 2);
-				
-				Set<BoardCell> testTargets = new HashSet<>();
-				testTargets.add(walkway);
-				testTargets.add(roomCenter);
-				
-				
-				board.getTargets().clear();
-				board.getTargets().addAll(testTargets);
-				
-				BoardCell picked = Villager.selectTarget();
-				
+			Villager.setLocation(2, 1);
+			
+			Solution s = Villager.createSuggestion();
+			
+			assertEquals(board.getRoom(board.getCell(2, 1)).getName(), s.getRoom().getCardName());
 		}
 		
 		@Test
 		public void testNotSeenWeaponSelected() {
-			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
-			
-			Card seen = new Card("Bow", CardType.WEAPON);
-			
-			List <Card> weapons = new ArrayList<>();
-			weapons.add(new Card("Bow", CardType.WEAPON));
-			weapons.add(new Card("Fist", CardType.WEAPON));
-			weapons.add(new Card("Diamond Sword", CardType.WEAPON));
-			
-			Card picked = Villager.createSuggestion(weapons);
-			
-			assertNotEquals("Bow", picked.getCardName());
+			Villager.getSeenCards().clear();
+			Villager.getHand().clear();
 
+			Villager.updateSeen(new Card("Diamond Sword", CardType.WEAPON));
+			Villager.updateSeen(new Card("Trident", CardType.WEAPON));
+			Villager.updateSeen(new Card("Netherite Axe", CardType.WEAPON));
+			Villager.updateSeen(new Card("Lava Bucket", CardType.WEAPON));
+			Villager.updateSeen(new Card("Fist", CardType.WEAPON));
+			
+			List<String> unseenWeapons = new ArrayList<>();
+			for (Card c : board.getDeck()) {
+				if ( c.getCardType() == CardType.WEAPON && !Villager.getSeenCards().contains(c)) {
+					unseenWeapons.add(c.getCardName());
+				}
+			}
+			
+			Solution s = Villager.createSuggestion();
+			
+			assertEquals(unseenWeapons.get(0), s.getWeapon().getCardName());
 		}
 		
 		@Test
 		public void testNotSeenPersonSelected() {
-			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 2,21);
+			Villager.getSeenCards().clear();
+			Villager.getHand().clear();
 			
-			Card seen = new Card ("Steve", CardType.PERSON);
-			Villager.updateSeen(seen);
+			System.out.println("Cell 2,1 is center? " + board.getCell(2,1).isRoomCenter());
+			System.out.println("Room: " + board.getRoom(board.getCell(2,1)));
 			
-			Solution Suggestion = Villager.createSuggestion();
-			Card picked = Suggestion.getPerson();
+			Villager.updateSeen(new Card("Steve", CardType.PERSON));
 			
-			List<String> possible = List.of("Zombie", "Enderman", "Herobrine");
-			assertTrue(possible.contains(picked.getCardName()));
-
+			List<String> unseenPeople = new ArrayList<>();
+			for (Card c : board.getDeck()) {
+				if (c.getCardType() == CardType.PERSON && !Villager.getSeenCards().contains(c)) {
+					unseenPeople.add(c.getCardName());
+				}
+			}
 			
+			Solution s = Villager.createSuggestion();
+						
+			assertTrue(unseenPeople.contains(s.getPerson().getCardName()));
 		}
 		
 		@Test
@@ -96,23 +110,45 @@ public class ComputerAITest {
 			
 			//https://www.geeksforgeeks.org/java/initializing-a-list-in-java/
 		
-			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
+			Villager.getSeenCards().clear();
+			Villager.getHand().clear();
 			
-			List<Card> weapons = List.of(new Card("Bow",CardType.WEAPON), new Card("Fist", CardType.WEAPON), new Card("Diamond Sword", CardType.WEAPON));
-			 
-			//confused on this part now
-
+			Villager.updateSeen(new Card("Diamond Sword", CardType.WEAPON));
+			Villager.updateSeen(new Card("Bow", CardType.WEAPON));
+			
+			Villager.setLocation(2, 1);
+			
+			Set<String> unseenWeapons = new HashSet<>();
+			for (Card c : board.getDeck()) {
+				if (c.getCardType() == CardType.WEAPON && !Villager.getSeenCards().contains(c)) {
+					unseenWeapons.add(c.getCardName());
+				}
+			}
+			
+			Solution s = Villager.createSuggestion();
+		
+			assertTrue(unseenWeapons.contains(s.getWeapon().getCardName()));
 		}
 		
 		@Test
 		public void testMultiplePeopleOneSelected() {
-			ComputerPlayer Villager = new ComputerPlayer ("Villager", Color.ORANGE, 5,5);
+			Villager.getSeenCards().clear();
+			Villager.getHand().clear();
 
 			Villager.updateSeen(new Card("Steve", CardType.PERSON));
 			
-			List<String> allPeople = List.of("Herobrine", "Enderman", "Zombie", "Chicken Jockey");
+			Villager.setLocation(2, 1);
+			
+			Set<String> unseenPeople = new HashSet<>();
+			for (Card c : board.getDeck()) {
+				if (c.getCardType() == CardType.PERSON && !Villager.getSeenCards().contains(c)) {
+					unseenPeople.add(c.getCardName());
+				}
+			}
+			
 			Card picked = Villager.createSuggestion().getPerson();
-			assertTrue(allPeople.contains(picked.getCardName()));
+		
+			assertTrue(unseenPeople.contains(picked.getCardName()));
 		}
 		
 		@Test
