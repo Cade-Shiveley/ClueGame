@@ -35,6 +35,7 @@ public class MainGUI extends JFrame{
 		add(rightGUI.rightSideGUI(), BorderLayout.EAST);
 		
 		//splash screen
+		//https://www.geeksforgeeks.org/java/java-joptionpane/
 		JOptionPane.showMessageDialog(null, "You are Steve. \n Can you find the solution \n before the computer players?");
 		
 		setVisible(true);

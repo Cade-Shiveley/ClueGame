@@ -22,7 +22,14 @@ public class RightSideGUI extends JFrame {
 	private JTextField rSeen;
 	private JTextField wInHand;
 	private JTextField wSeen;
-//	private Player player;
+	private JPanel peopleInHand;
+	private JPanel peopleSeen;
+	private JPanel weaponsInHand;
+	private JPanel weaponsSeen;
+	private JPanel roomsInHand;
+	private JPanel roomsSeen;
+	
+	private Player player;
 	
 
 	
@@ -42,23 +49,21 @@ public class RightSideGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(rightSideGUI());
 		//update();
-		setVisible(true);
+//		setVisible(true);
 	}
 	
-	//private void update() {
+	private void update() {
+		//remove everything from all panels
+		//add labels in hand 
+		//adds in hand
+		//add seen label
+		//add seen
 		
-//	}
-	
-	//private List<Card> seen = new ArrayList<>();
-	
-///	public void addSeen(Card c) {
-	//	seen.add(c);
 		
-	//}
+		//check through all and call none
+	}
+
 	
-	//public LIst<Card> getSeen(){
-	//	return seen;
-//	}
 	public JPanel rightsidegui() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,1));
@@ -154,7 +159,7 @@ public class RightSideGUI extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new RightSideGUI();
+		new RightSideGUI();//set visible here
 
 		
 	}
