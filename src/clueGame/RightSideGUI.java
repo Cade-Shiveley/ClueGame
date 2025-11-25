@@ -22,6 +22,9 @@ public class RightSideGUI extends JFrame {
 	private JTextField rSeen;
 	private JTextField wInHand;
 	private JTextField wSeen;
+//	private Player player;
+	
+
 	
 	public JPanel rightSideGUI() {
 		JPanel panel = new JPanel();
@@ -35,12 +38,27 @@ public class RightSideGUI extends JFrame {
 	
 	public RightSideGUI() {
 		setTitle("right side gui");
-		setSize(150,500);
+		setSize(200,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(rightSideGUI());
+		//update();
 		setVisible(true);
 	}
 	
+	//private void update() {
+		
+//	}
+	
+	//private List<Card> seen = new ArrayList<>();
+	
+///	public void addSeen(Card c) {
+	//	seen.add(c);
+		
+	//}
+	
+	//public LIst<Card> getSeen(){
+	//	return seen;
+//	}
 	public JPanel rightsidegui() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,1));
