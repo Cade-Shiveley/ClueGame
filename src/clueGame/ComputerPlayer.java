@@ -28,7 +28,7 @@ public class ComputerPlayer extends Player {
 		List<Card> unseenWeapons = new ArrayList<>();
 		
 		for (Card c : board.getDeck()) {
-			if (getSeenCards().contains(c) || getHand().contains(c)) {
+			if (getSeenCards().containsKey(c) || getHand().contains(c)) {
 				continue;
 			}
 			
@@ -59,7 +59,7 @@ public class ComputerPlayer extends Player {
 			if (cell.isRoomCenter()) {
 				Card roomCard = new Card(Board.instance().getRoom(cell).getName(), CardType.ROOM);
 				
-				if (!getSeenCards().contains(roomCard)) {
+				if (!getSeenCards().containsKey(roomCard)) {
 					return cell;
 				}
 			}

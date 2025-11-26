@@ -24,15 +24,16 @@ public class MainGUI extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Board board = Board.getTheInstance();
+		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");
 		board.initialize();
 		//add(BoardGUI.BoardGUI(),BorderLayout.CENTER);
 		
 		
 		GUI bottomGUI = new GUI();
-		RightSideGUI rightGUI = new RightSideGUI();
+		RightSideGUI rightGUI = new RightSideGUI(board);
 		
 		add(bottomGUI.bigPanel(),BorderLayout.SOUTH);
-		add(rightGUI.rightSideGUI(), BorderLayout.EAST);
+		add(rightGUI.getPanel(), BorderLayout.EAST);
 		
 		//splash screen
 		//https://www.geeksforgeeks.org/java/java-joptionpane/

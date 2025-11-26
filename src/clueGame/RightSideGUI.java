@@ -3,7 +3,9 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Map;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,42 +16,22 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class RightSideGUI extends JFrame {
-	
-	private JTextField pInHand;
-	private JTextField pSeen;
-	private JTextField rInHand;
-	private JTextField rSeen;
-	private JTextField wInHand;
-	private JTextField wSeen;
-	private JPanel peopleInHand;
-	private JPanel peopleSeen;
-	private JPanel weaponsInHand;
-	private JPanel weaponsSeen;
-	private JPanel roomsInHand;
-	private JPanel roomsSeen;
+public class RightSideGUI {
 	
 	private Player player;
+	private JPanel peoplePanel;
+	private JPanel roomPanel;
+	private JPanel weaponPanel;
+	private JPanel mainPanel;
 	
-
-	
-	public JPanel rightSideGUI() {
-		JPanel panel = new JPanel();
-		panel.add(KnownCards());
-		return panel;
-		
-
-
-		
+	public RightSideGUI(Board board) {
+		this.player = board.getPlayers().get(0);
+		mainPanel = KnownCards();
+		update();
 	}
 	
-	public RightSideGUI() {
-		setTitle("right side gui");
-		setSize(200,600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(rightSideGUI());
-		//update();
-//		setVisible(true);
+	public JPanel getPanel() {
+		return mainPanel;
 	}
 	
 	private void update() {
@@ -58,19 +40,81 @@ public class RightSideGUI extends JFrame {
 		//adds in hand
 		//add seen label
 		//add seen
+		peoplePanel.removeAll();
+		roomPanel.removeAll();
+		weaponPanel.removeAll();
 		
+		peoplePanel.add(new JLabel("In Hand:"));
+		for (Card c : player.getHand()) {
+			if (c.getCardType() == CardType.PERSON) {
+				JTextField card = new JTextField(c.getCardName());
+				card.setEditable(false);
+				peoplePanel.add(card);
+			}
+		}
 		
+		peoplePanel.add(new JLabel("Seen:"));
+		for (Map.Entry<Card, Player> entry : player.getSeenCards().entrySet()) {
+			Card c = entry.getKey();
+			Player shower = entry.getValue();
+			
+			if (c.getCardType() == CardType.PERSON) {
+				JTextField card = new JTextField(c.getCardName());
+				card.setEditable(false);
+				card.setBackground(shower.getColor());
+				peoplePanel.add(card);
+			}
+		}
+		
+		roomPanel.add(new JLabel("In Hand:"));
+		for (Card c : player.getHand()) {
+			if (c.getCardType() == CardType.ROOM) {
+				JTextField card = new JTextField(c.getCardName());
+				card.setEditable(false);
+				roomPanel.add(card);
+			}
+		}
+		
+		roomPanel.add(new JLabel("Seen:"));
+		for (Map.Entry<Card, Player> entry : player.getSeenCards().entrySet()) {
+			Card c = entry.getKey();
+			Player shower = entry.getValue();
+			
+			if (c.getCardType() == CardType.ROOM) {
+				JTextField card = new JTextField(c.getCardName());
+				card.setEditable(false);
+				card.setBackground(shower.getColor());
+				roomPanel.add(card);
+			}
+		}
+		
+		weaponPanel.add(new JLabel("In Hand:"));
+		for (Card c : player.getHand()) {
+			if (c.getCardType() == CardType.WEAPON) {
+				JTextField card = new JTextField(c.getCardName());
+				card.setEditable(false);
+				weaponPanel.add(card);
+			}
+		}
+		
+		weaponPanel.add(new JLabel("Seen:"));
+		for (Map.Entry<Card, Player> entry : player.getSeenCards().entrySet()) {
+			Card c = entry.getKey();
+			Player shower = entry.getValue();
+			
+			if (c.getCardType() == CardType.WEAPON) {
+				JTextField card = new JTextField(c.getCardName());
+				card.setEditable(false);
+				card.setBackground(shower.getColor());
+				weaponPanel.add(card);
+			}
+		}
 		//check through all and call none
-	}
-
-	
-	public JPanel rightsidegui() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,1));
-		panel.add(KnownCards());
-		return panel;
 		
+		mainPanel.revalidate();
+		mainPanel.repaint();
 	}
+	
 	private JPanel KnownCards() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Known Cards")));
@@ -84,29 +128,18 @@ public class RightSideGUI extends JFrame {
 		panel.add(weapons(), BorderLayout.SOUTH);
 		
 		return panel;
-		
-		
+				
 	}
 	
 	private JPanel people() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("People")));
-		panel.setLayout(new GridLayout(4,1));
+		panel.setLayout(new GridLayout(0, 1));
 		
+		peoplePanel = new JPanel();
+		peoplePanel.setLayout(new GridLayout(0, 1));
 		
-		JLabel peopleInHand = new JLabel("In Hand: ");
-		pInHand = new JTextField(5);
-		JLabel peopleSeen = new JLabel("Seen: ");
-		pSeen = new JTextField(5);
-		
-		peopleInHand.setPreferredSize(new Dimension(200,75));
-		peopleSeen.setPreferredSize(new Dimension(200,75));
-
-		
-		panel.add(peopleInHand);
-		panel.add(pInHand);
-		panel.add(peopleSeen);
-		panel.add(pSeen);
+		panel.add(peoplePanel);
 		
 		return panel;
 	}
@@ -114,22 +147,12 @@ public class RightSideGUI extends JFrame {
 	private JPanel rooms() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Rooms")));
-		panel.setLayout(new GridLayout(4,1));
-
+		panel.setLayout(new GridLayout(0, 1));
 		
-		JLabel roomsInHand = new JLabel("In Hand: ");
-		rInHand = new JTextField(5);
-		JLabel roomsSeen = new JLabel("Seen: ");
-		rSeen= new JTextField(5);
+		roomPanel = new JPanel();
+		roomPanel.setLayout(new GridLayout(0, 1));
 		
-		roomsInHand.setPreferredSize(new Dimension(200,75));
-		roomsSeen.setPreferredSize(new Dimension(200,75));
-		
-
-		panel.add(roomsInHand);
-		panel.add(rInHand);
-		panel.add(roomsSeen);
-		panel.add(rSeen);
+		panel.add(roomPanel);
 		
 		return panel;
 	}
@@ -137,56 +160,25 @@ public class RightSideGUI extends JFrame {
 	private JPanel weapons() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), ("Weapons")));
-		panel.setLayout(new GridLayout(4,1));
+		panel.setLayout(new GridLayout(0, 1));
+		
+		weaponPanel = new JPanel();
+		weaponPanel.setLayout(new GridLayout(0, 1));
+		
+		panel.add(weaponPanel);
 
 		
-		JLabel weaponsInHand = new JLabel("In Hand: ");
-		wInHand = new JTextField(5);
-		JLabel weaponsSeen = new JLabel("Seen: ");
-		wSeen = new JTextField(5);
-		
-		weaponsInHand.setPreferredSize(new Dimension(200,75));
-		weaponsSeen.setPreferredSize(new Dimension(200,75));
-
-
-
-		panel.add(weaponsInHand);
-		panel.add(wInHand);
-		panel.add(weaponsSeen);
-		panel.add(wSeen);
+		//weaponsInHand.setPreferredSize(new Dimension(200,75));
+		//weaponsSeen.setPreferredSize(new Dimension(200,75));
 		
 		return panel;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		new RightSideGUI();//set visible here
 
 		
-	}
-
-	public void setpInHand(JTextField pInHand) {
-		this.pInHand = pInHand;
-	}
-
-	public void setpSeen(JTextField pSeen) {
-		this.pSeen = pSeen;
-	}
-
-	public void setrInHand(JTextField rInHand) {
-		this.rInHand = rInHand;
-	}
-
-	public void setrSeen(JTextField rSeen) {
-		this.rSeen = rSeen;
-	}
-
-	public void setwInHand(JTextField wInHand) {
-		this.wInHand = wInHand;
-	}
-
-	public void setwSeen(JTextField wSeen) {
-		this.wSeen = wSeen;
-	}
+	}*/
 	
 	
 	
