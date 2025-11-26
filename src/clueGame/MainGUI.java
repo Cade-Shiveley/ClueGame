@@ -28,6 +28,15 @@ public class MainGUI extends JFrame{
 		board.initialize();
 		//add(BoardGUI.BoardGUI(),BorderLayout.CENTER);
 		
+		// Testing Functionality
+		Player human = board.getPlayers().get(0);
+		
+		Player test = board.getPlayers().get(1);
+		Card testPerson = new Card("Villager", CardType.PERSON);
+		Card testWeapon = new Card("Diamond Sword", CardType.WEAPON);
+		
+		human.getSeenCards().put(testPerson, test);
+		human.getSeenCards().put(testWeapon, test);
 		
 		GUI bottomGUI = new GUI();
 		RightSideGUI rightGUI = new RightSideGUI(board);
