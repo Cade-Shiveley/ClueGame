@@ -174,9 +174,7 @@ public class RightSideGUI {
 		return panel;
 	}
 	
-	public static void main(String[] args) {
-		new RightSideGUI(null).setVisible(true);
-	}
+
 
 		
 	
