@@ -159,7 +159,7 @@ public class RightSideGUI extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new RightSideGUI();//set visible here
+		new RightSideGUI().setVisible(true);;//set visible here
 
 		
 	}
