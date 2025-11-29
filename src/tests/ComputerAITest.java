@@ -65,15 +65,15 @@ public class ComputerAITest {
 			Villager.getSeenCards().clear();
 			Villager.getHand().clear();
 
-			Villager.updateSeen(new Card("Diamond Sword", CardType.WEAPON));
-			Villager.updateSeen(new Card("Trident", CardType.WEAPON));
-			Villager.updateSeen(new Card("Netherite Axe", CardType.WEAPON));
-			Villager.updateSeen(new Card("Lava Bucket", CardType.WEAPON));
-			Villager.updateSeen(new Card("Fist", CardType.WEAPON));
+			Villager.updateSeen(new Card("Diamond Sword", CardType.WEAPON), null);
+			Villager.updateSeen(new Card("Trident", CardType.WEAPON), null);
+			Villager.updateSeen(new Card("Netherite Axe", CardType.WEAPON), null);
+			Villager.updateSeen(new Card("Lava Bucket", CardType.WEAPON), null);
+			Villager.updateSeen(new Card("Fist", CardType.WEAPON), null);
 			
 			List<String> unseenWeapons = new ArrayList<>();
 			for (Card c : board.getDeck()) {
-				if ( c.getCardType() == CardType.WEAPON && !Villager.getSeenCards().contains(c)) {
+				if ( c.getCardType() == CardType.WEAPON && !Villager.getSeenCards().containsKey(c)) {
 					unseenWeapons.add(c.getCardName());
 				}
 			}
@@ -88,14 +88,11 @@ public class ComputerAITest {
 			Villager.getSeenCards().clear();
 			Villager.getHand().clear();
 			
-			System.out.println("Cell 2,1 is center? " + board.getCell(2,1).isRoomCenter());
-			System.out.println("Room: " + board.getRoom(board.getCell(2,1)));
-			
-			Villager.updateSeen(new Card("Steve", CardType.PERSON));
+			Villager.updateSeen(new Card("Steve", CardType.PERSON), null);
 			
 			List<String> unseenPeople = new ArrayList<>();
 			for (Card c : board.getDeck()) {
-				if (c.getCardType() == CardType.PERSON && !Villager.getSeenCards().contains(c)) {
+				if (c.getCardType() == CardType.PERSON && !Villager.getSeenCards().containsKey(c)) {
 					unseenPeople.add(c.getCardName());
 				}
 			}
@@ -107,20 +104,18 @@ public class ComputerAITest {
 		
 		@Test
 		public void testMultipleWeaponsOneSelected() {
-			
-			//https://www.geeksforgeeks.org/java/initializing-a-list-in-java/
-		
+					
 			Villager.getSeenCards().clear();
 			Villager.getHand().clear();
 			
-			Villager.updateSeen(new Card("Diamond Sword", CardType.WEAPON));
-			Villager.updateSeen(new Card("Bow", CardType.WEAPON));
+			Villager.updateSeen(new Card("Diamond Sword", CardType.WEAPON), null);
+			Villager.updateSeen(new Card("Bow", CardType.WEAPON), null);
 			
 			Villager.setLocation(2, 1);
 			
 			Set<String> unseenWeapons = new HashSet<>();
 			for (Card c : board.getDeck()) {
-				if (c.getCardType() == CardType.WEAPON && !Villager.getSeenCards().contains(c)) {
+				if (c.getCardType() == CardType.WEAPON && !Villager.getSeenCards().containsKey(c)) {
 					unseenWeapons.add(c.getCardName());
 				}
 			}
@@ -135,13 +130,13 @@ public class ComputerAITest {
 			Villager.getSeenCards().clear();
 			Villager.getHand().clear();
 
-			Villager.updateSeen(new Card("Steve", CardType.PERSON));
+			Villager.updateSeen(new Card("Steve", CardType.PERSON), null);
 			
 			Villager.setLocation(2, 1);
 			
 			Set<String> unseenPeople = new HashSet<>();
 			for (Card c : board.getDeck()) {
-				if (c.getCardType() == CardType.PERSON && !Villager.getSeenCards().contains(c)) {
+				if (c.getCardType() == CardType.PERSON && !Villager.getSeenCards().containsKey(c)) {
 					unseenPeople.add(c.getCardName());
 				}
 			}

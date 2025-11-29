@@ -2,8 +2,10 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -12,7 +14,7 @@ public abstract class Player {
 	private Color color;
 	private BoardCell location;
 	private Set<Card> hand = new HashSet<>();
-	private Set<Card> seenCards = new HashSet<>();
+	private Map<Card, Player> seenCards = new HashMap<>();
 	
 	private int startRow;
 	private int startCol;
@@ -30,13 +32,11 @@ public abstract class Player {
 		hand.add(Card);
 	}
 
-	public void updateSeen(Card seenCard) {
-		if (seenCard != null) {
-			seenCards.add(seenCard);
-		}
+	public void updateSeen(Card seenCard, Player shower) {
+		seenCards.put(seenCard, shower);
 	}
 	
-	public Set<Card> getSeenCards() {
+	public Map<Card, Player> getSeenCards() {
 		return seenCards;
 	}
 
