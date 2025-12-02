@@ -33,6 +33,21 @@ public class BoardGUI extends JPanel{
 			}
 		}
 		
+		for(int r = 0; r < numRows; r++) {
+			for(int c=0; c <numCols; c++) {
+				BoardCell cell = board.getCell(r, c);
+				if(cell.isRoomLabel()) {
+					int x = c * cellSize;
+					int y = r * cellSize;
+					
+					String roomName = board.getRoom(cell.getInitial()).getName();
+					g.setColor(Color.BLACK);
+					g.drawString(roomName, x,y);
+					
+				}
+			}
+		}
+		
 		for (Player p : Board.instance().getPlayers()) {
 			BoardCell cell = p.getLocation();
 			int x = cell.getCol() * cellSize;
