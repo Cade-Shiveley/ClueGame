@@ -28,22 +28,15 @@ public class MainGUI extends JFrame{
 		board.initialize();
 		//add(BoardGUI.BoardGUI(),BorderLayout.CENTER);
 		
-		// Testing Functionality
-		Player human = board.getPlayers().get(0);
-		
-		Player test = board.getPlayers().get(1);
-		Card testPerson = new Card("Villager", CardType.PERSON);
-		Card testWeapon = new Card("Diamond Sword", CardType.WEAPON);
-		
-		human.getSeenCards().put(testPerson, test);
-		human.getSeenCards().put(testWeapon, test);
+		BoardGUI boardGUI = new BoardGUI(board);		
 		
 		GUI bottomGUI = new GUI();
 		RightSideGUI rightGUI = new RightSideGUI(board);
 		
 		add(bottomGUI.bigPanel(),BorderLayout.SOUTH);
 		add(rightGUI.getPanel(), BorderLayout.EAST);
-		
+		add(boardGUI, BorderLayout.CENTER);
+
 		//splash screen
 		//https://www.geeksforgeeks.org/java/java-joptionpane/
 		JOptionPane.showMessageDialog(null, "You are Steve. \n Can you find the solution \n before the computer players?");

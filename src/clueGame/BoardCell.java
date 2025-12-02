@@ -1,5 +1,7 @@
 package clueGame;
 import java.util.Set;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 
 //row: int
@@ -39,7 +41,46 @@ public class BoardCell {
 		secretPassage = ' ';
 		
 	}
-
+	
+	public void draw(Graphics g, int x, int y, int cellSize) {
+		if (isWalkway() || isDoorway) {
+			g.setColor(new Color(222, 204, 155));
+			g.fillRect(x,  y,  cellSize, cellSize);
+			
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, cellSize, cellSize);
+		}
+		else if (isRoom) {
+			g.setColor(Color.GRAY);
+			g.fillRect(x,  y,  cellSize, cellSize);
+		}
+		else {
+			g.setColor(Color.BLACK);
+			g.fillRect(x,  y,  cellSize, cellSize);
+		}
+		
+		if (isDoorway) {
+			g.setColor(Color.GREEN);
+			int thickness = cellSize / 10;
+			
+			switch (doorDirection) {
+				case DOWN:
+					g.fillRect(x, y + cellSize - thickness, cellSize, thickness);
+					break;
+				case UP:
+					g.fillRect(x, y, cellSize, thickness);
+					break;
+				case RIGHT:
+					g.fillRect(x + cellSize - thickness, y, thickness, cellSize);
+					break;
+				case LEFT:
+					g.fillRect(x, y, thickness, cellSize);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);
