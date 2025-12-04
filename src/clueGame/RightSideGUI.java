@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class RightSideGUI {
+public class RightSideGUI extends JFrame{
 	
 	private Player player;
 	private JPanel peoplePanel;

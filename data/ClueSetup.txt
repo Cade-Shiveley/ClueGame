@@ -14,7 +14,7 @@ Space, Walkway, W
 //Players
 Player, Steve, Blue, Human, 4, 0
 Player, Herobrine, Magenta, Computer, 0, 17
-Player, Villager, Orange, Computer, 13, 23
+Player, Villager, Orange, Computer, 12, 23
 Player, Enderman, Black, Computer, 20, 23
 Player, Zombie, Green, Computer, 24, 6
 Player, Chicken Jockey, Yellow, Computer, 18, 0
