@@ -518,7 +518,7 @@ public class Board {
     		cell.setHighlighted(true);
     	}
     	
-    	gui.repaint();
+    	boardGUI.repaint();
     }
     
     private void clearTargets() {
@@ -526,7 +526,7 @@ public class Board {
     		cell.setHighlighted(false);
     	}
     	
-    	gui.repaint();
+    	boardGUI.repaint();
     }
     
     public void setGUI(GUI gui) {
