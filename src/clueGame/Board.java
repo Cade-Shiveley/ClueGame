@@ -480,16 +480,22 @@ public class Board {
     public void nextPlayer() {
     	Player current = getCurrentPlayer();
     	if (current.isHuman() && !humanFinishedTurn) {
-    		gui.showErrorMessage("You must finish your turn.");
+    		if(gui != null) {
+    			gui.showErrorMessage("You must finish your turn.");
+    		}
     		return;
     	}
     	
     	currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     	Player next = players.get(currentPlayerIndex);
-    	gui.setCurrentPlayer(next);
+    	if(gui != null) {
+    		gui.setCurrentPlayer(next);
+    	}
     	
     	int roll = rollDie();
-    	gui.setDieRoll(roll);
+    	if(gui != null) {
+    		gui.setDieRoll(roll);
+    	}
     	
     	calcTargets(next.getLocation(), roll);
     	
@@ -507,6 +513,10 @@ public class Board {
     	}
     	
     	humanFinishedTurn = true;
+    	
+    	if(boardGUI != null) {
+    		boardGUI.repaint();
+    	}
     }
     
     private int rollDie() {
@@ -518,7 +528,10 @@ public class Board {
     		cell.setHighlighted(true);
     	}
     	
-    	boardGUI.repaint();
+    	
+    	if(boardGUI != null) { 
+    		boardGUI.repaint();
+    	}
     }
     
     private void clearTargets() {
@@ -526,12 +539,13 @@ public class Board {
     		cell.setHighlighted(false);
     	}
     	
+    	targets.clear();
     	boardGUI.repaint();
     }
     
     public void setGUI(GUI gui) {
     	this.gui = gui;
-    	if (!players.isEmpty()) {
+    	if (!players.isEmpty() && gui !=null) {
     		gui.setCurrentPlayer(players.get(currentPlayerIndex));
     	}
     }
