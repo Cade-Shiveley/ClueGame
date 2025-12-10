@@ -121,4 +121,8 @@ public abstract class Player {
 	public void setLocation(int row, int col) {
 		this.location = Board.instance().getCell(row, col);
 	}
+	
+	public boolean isHuman() {
+		return false;
+	}
 }

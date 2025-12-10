@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class GUI extends JFrame {
+public class GUI extends JPanel {
 	private JTextField guess;
 	private JTextField guessResult;
 	private JTextField dieRoll;
@@ -31,13 +31,10 @@ public class GUI extends JFrame {
 	
 	
 	public GUI() {
-		setTitle("ClueGame");
-		setSize(700,200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(bigPanel(),BorderLayout.CENTER);
+		setLayout(new GridLayout(2, 1));
 		
-		
-		
+		add(panel1());
+		add(panel2());
 	}
 	
 
@@ -101,6 +98,7 @@ public class GUI extends JFrame {
 		
 		player = new JTextField(10);
 		player.setPreferredSize(new Dimension(50,20));
+		player.setEditable(false);
 		add(current,BorderLayout.CENTER);
 		add(player,BorderLayout.CENTER);
 
@@ -116,6 +114,7 @@ public class GUI extends JFrame {
 		JPanel panel = new JPanel();
 		JLabel roll = new JLabel("Roll: ");
 		number = new JTextField(5);
+		number.setEditable(false);
 		
 		panel.add(roll);
 		panel.add(number);

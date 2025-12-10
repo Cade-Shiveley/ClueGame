@@ -27,10 +27,7 @@ public class BoardCell {
 	private boolean isRoom;
 	private boolean isOccupied;
 	private boolean isDoorway;
-	
-
-	
-	
+	private boolean highlighted = false;
 	
 	public BoardCell() {
 		super();
@@ -43,8 +40,17 @@ public class BoardCell {
 	}
 	
 	public void draw(Graphics g, int x, int y, int cellSize) {
+		if (highlighted) {
+			g.setColor(new Color(173, 216, 230));
+			g.fillRect(x,  y,  cellSize,  cellSize);
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, cellSize, cellSize);
+			return;
+		}
+		
 		if (isWalkway() || isDoorway) {
-			g.setColor(new Color(222, 204, 155));
+			// https://www.figma.com/colors/sand/ for sand RGB value
+			g.setColor(new Color(203, 189, 147));
 			g.fillRect(x,  y,  cellSize, cellSize);
 			
 			g.setColor(Color.BLACK);
@@ -207,6 +213,12 @@ public class BoardCell {
 		return initial == 'W';
 	}
 	
+	public boolean isHighlighted() {
+		return highlighted;
+	}
 	
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+	}
 
 }

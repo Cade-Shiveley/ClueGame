@@ -46,6 +46,12 @@ public class Board {
     private List<Card> deck = new ArrayList<>();
     private Solution answer;
     private List<Player> players = new ArrayList<>();
+    
+    private int currentPlayerIndex = 0;
+    private boolean humanFinishedTurn = true;
+    private GUI gui = null;
+    private Random rand = new Random();
+    private BoardGUI boardGUI;
 
     /*
      * variable and methods used for singleton pattern
@@ -471,7 +477,84 @@ public class Board {
     Handle suggestion
     Update the results display
     */
-
+    public void nextPlayer() {
+    	Player current = getCurrentPlayer();
+    	if (current.isHuman() && !humanFinishedTurn) {
+    		gui.showErrorMessage("You must finish your turn.");
+    		return;
+    	}
+    	
+    	currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    	Player next = players.get(currentPlayerIndex);
+    	gui.setCurrentPlayer(next);
+    	
+    	int roll = rollDie();
+    	gui.setDieRoll(roll);
+    	
+    	calcTargets(next.getLocation(), roll);
+    	
+    	if (next.isHuman()) {
+    		highlightTargets();
+    		humanFinishedTurn = false;
+    		return;
+    	}
+    	
+    	BoardCell target = next.selectTarget(getTargets());
+    	next.setLocation(target);
+    	
+    	if (target.isRoomCenter()) {
+    		handleComputerSuggestion(next, target);
+    	}
+    	
+    	humanFinishedTurn = true;
+    }
+    
+    private int rollDie() {
+    	return (int)(Math.random() * 6) + 1;
+    }
+    
+    private void highlightTargets() {
+    	for (BoardCell cell : targets) {
+    		cell.setHighlighted(true);
+    	}
+    	
+    	boardGUI.repaint();
+    }
+    
+    private void clearTargets() {
+    	for (BoardCell cell : targets) {
+    		cell.setHighlighted(false);
+    	}
+    	
+    	boardGUI.repaint();
+    }
+    
+    public void setGUI(GUI gui) {
+    	this.gui = gui;
+    	if (!players.isEmpty()) {
+    		gui.setCurrentPlayer(players.get(currentPlayerIndex));
+    	}
+    }
+    
+    public void setBoardGUI(BoardGUI boardGUI) {
+    	this.boardGUI = boardGUI;
+    }
+    
+    public int getCurrentPlayerIndex() {
+    	return currentPlayerIndex;
+    }
+    
+    public Player getCurrentPlayer() {
+    	if (players.isEmpty()) {
+    		return null;
+    	}
+    	
+    	return players.get(currentPlayerIndex);
+    }
+    
+    public boolean humanTurnFinished() {
+    	return humanFinishedTurn;
+    }
     
     private boolean isDoorDirection(char dir) {
     	return dir == '<' || dir == '>' || dir == 'v' || dir == '^';

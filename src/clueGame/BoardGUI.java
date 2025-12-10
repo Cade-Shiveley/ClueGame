@@ -48,7 +48,7 @@ public class BoardGUI extends JPanel{
 			}
 		}
 		
-		for (Player p : Board.instance().getPlayers()) {
+		for (Player p : board.getPlayers()) {
 			BoardCell cell = p.getLocation();
 			int x = cell.getCol() * cellSize;
 			int y = cell.getRow() * cellSize;
