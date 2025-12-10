@@ -19,7 +19,7 @@ public class MainGUI extends JFrame{
 	
 	public MainGUI() {
 		
-		
+		setTitle("Clue Game");
 		setSize(800,650);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
