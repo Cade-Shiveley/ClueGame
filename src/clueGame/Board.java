@@ -519,11 +519,11 @@ public class Board {
     	}
     }
     
-    private int rollDie() {
+    public int rollDie() {
     	return (int)(Math.random() * 6) + 1;
     }
     
-    private void highlightTargets() {
+    public void highlightTargets() {
     	for (BoardCell cell : targets) {
     		cell.setHighlighted(true);
     	}
@@ -534,7 +534,7 @@ public class Board {
     	}
     }
     
-    private void clearTargets() {
+    public void clearTargets() {
     	for (BoardCell cell : targets) {
     		cell.setHighlighted(false);
     	}
@@ -549,6 +549,8 @@ public class Board {
     		gui.setCurrentPlayer(players.get(currentPlayerIndex));
     	}
     }
+    
+    
     
     public void setBoardGUI(BoardGUI boardGUI) {
     	this.boardGUI = boardGUI;
