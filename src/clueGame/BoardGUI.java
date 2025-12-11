@@ -7,13 +7,27 @@ import javax.swing.JPanel;
 
 public class BoardGUI extends JPanel{
 	private Board board;
+	private int cellSize;
 	
 	public BoardGUI(Board board) {
 		this.board = board;
 	}
+
+	public int getCellSize() {
+		return cellSize;
+	}
 	
+	public void promptSuggestion(Boardcell roomcell) {
+		Room room = board.getRoom(roomcell);
+		if(room == null) {
+			return;
+		}
+		System.out.println(current.getName()+"make suggestion"+room.getName());
+		
+	}
+
 	@Override
-	protected void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		int boardW = getWidth();
@@ -21,7 +35,7 @@ public class BoardGUI extends JPanel{
 		int numRows = board.getNumRows();
 		int numCols = board.getNumColumns();
 		
-		int cellSize = Math.min(boardW/numCols, boardH/numRows);
+		cellSize = Math.min(boardW/numCols, boardH/numRows);
 		
 		for (int r = 0; r < numRows; r++) {
 			for (int c = 0; c < numCols; c++) {

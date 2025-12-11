@@ -540,7 +540,7 @@ public class Board {
     	}
     }
     
-    private void clearTargets() {
+    public void clearTargets() {
     	for (BoardCell cell : targets) {
     		cell.setHighlighted(false);
     	}
