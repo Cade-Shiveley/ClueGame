@@ -540,7 +540,7 @@ public class Board {
     	}
     }
     
-    public void clearTargets() {
+    private void clearTargets() {
     	for (BoardCell cell : targets) {
     		cell.setHighlighted(false);
     	}
@@ -555,8 +555,6 @@ public class Board {
     		gui.setCurrentPlayer(players.get(currentPlayerIndex));
     	}
     }
-    
-    
     
     public void setBoardGUI(BoardGUI boardGUI) {
     	this.boardGUI = boardGUI;
