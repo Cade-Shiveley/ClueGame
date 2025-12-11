@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -150,38 +152,20 @@ public class GUI extends JPanel {
 		return panel;
 	}
 	
-	private void handleNextTurn() {
-		Board board = Board.instance();
-		
-		if(!board.humanTurnFinished()) {
-			//show error message
-			JOptionPane.showMessageDialog(null, "Finish your turn");
-			return;
-		}
-		
-		board.nextPlayer();
-		Player current = board.getCurrentPlayer();
-		
-		int roll = board.rollDie();
-		
-		setCurrentPlayer(current);
-		setDieRoll(roll);
-		setGuess("");
-		setGuessResult("");
-		
-		if(current instanceof HumanPlayer) {
-			board.calcTargets(current.getLocation(), roll);
-			board.highlightTargets();
-		}
-		
-		else if(current instanceof ComputerPlayer) {
-			BoardCell target = current.selectTarget(board.getTargets());
-			current.setLocation(target);
-			if(target.isRoomCenter()) {
-				board.handleSuggestion(current, target);
+	private ActionListener handleNextTurn() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Board board = Board.instance();
+				
+				if (!board.humanTurnFinished()) {
+					JOptionPane.showMessageDialog(null,  "Finish your turn first.");
+					return;
+				}
+				
+				board.nextPlayer();
 			}
-		}
-		
+		};
 		
 	}
 	
@@ -261,8 +245,14 @@ public class GUI extends JPanel {
 	public void setNumber(JTextField number) {
 		this.number = number;
 	}
+
+
+
+	public void showErrorMessage(String message) {
+		JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+		
+	}
 	
 	
 	
 }
-

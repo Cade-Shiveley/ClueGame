@@ -35,5 +35,10 @@ public class Solution {
 	public void setWeapon(Card weapon) {
 		this.weapon = weapon;
 	}
+	
+	@Override
+	public String toString() {
+		return person.getCardName() + ", " + room.getCardName() + ", " + weapon.getCardName();
+	}
 
 }

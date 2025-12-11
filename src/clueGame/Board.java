@@ -509,7 +509,13 @@ public class Board {
     	next.setLocation(target);
     	
     	if (target.isRoomCenter()) {
-    		handleComputerSuggestion(next, target);
+    		Solution suggestion = ((ComputerPlayer) next).createSuggestion();
+    		Card shown = handleSuggestion(next, suggestion);
+    		
+    		if (gui != null) {
+    			gui.setGuess(suggestion.toString());
+    			gui.setGuessResult(shown.getCardName());
+    		}
     	}
     	
     	humanFinishedTurn = true;
