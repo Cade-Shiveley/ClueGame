@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 
@@ -35,6 +36,8 @@ public class GUI extends JPanel {
 		
 		add(panel1());
 		add(panel2());
+		
+		next.addActionListener(handleNextTurn());
 	}
 	
 
@@ -147,6 +150,41 @@ public class GUI extends JPanel {
 		return panel;
 	}
 	
+	private void handleNextTurn() {
+		Board board = Board.instance();
+		
+		if(!board.humanTurnFinished()) {
+			//show error message
+			JOptionPane.showMessageDialog(null, "Finish your turn");
+			return;
+		}
+		
+		board.nextPlayer();
+		Player current = board.getCurrentPlayer();
+		
+		int roll = board.rollDie();
+		
+		setCurrentPlayer(current);
+		setDieRoll(roll);
+		setGuess("");
+		setGuessResult("");
+		
+		if(current instanceof HumanPlayer) {
+			board.calcTargets(current.getLocation(), roll);
+			board.highlightTargets();
+		}
+		
+		else if(current instanceof ComputerPlayer) {
+			BoardCell target = current.selectTarget(board.getTargets());
+			current.setLocation(target);
+			if(target.isRoomCenter()) {
+				board.handleSuggestion(current, target);
+			}
+		}
+		
+		
+	}
+	
 	
 
 	public static void main(String[] args) {
@@ -185,6 +223,7 @@ public class GUI extends JPanel {
 		player.setBackground(players.getColor());
 		player.setForeground(Color.WHITE);
 		player.repaint();
+		
 	}
 
 
