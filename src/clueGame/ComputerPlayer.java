@@ -50,8 +50,8 @@ public class ComputerPlayer extends Player {
 		return new Solution(roomCard, person, weapon);
 	}
 	
-	public BoardCell selectTarget() {
-		Set<BoardCell> targets = Board.instance().getTargets();
+	@Override
+	public BoardCell selectTarget(Set<BoardCell> targets) {
 		Random rand = new Random();
 		
 		// Computer player to visit room first if unvisited room in targets

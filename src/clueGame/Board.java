@@ -508,20 +508,14 @@ public class Board {
     	BoardCell target = next.selectTarget(getTargets());
     	next.setLocation(target);
     	
-    	Solution suggestion = null;
-    	Card shown = null;
-    	
-    	if (target.isRoomCenter() && !next.isHuman()) {
-    		ComputerPlayer bot = (ComputerPlayer) next;
-    		suggestion = bot.createSuggestion();
-    		shown = handleSuggestion(bot, suggestion);
+    	if (target.isRoomCenter()) {
+    		Solution suggestion = ((ComputerPlayer) next).createSuggestion();
+    		Card shown = handleSuggestion(next, suggestion);
     		
-    		if (shown != null) {
-    			bot.updateSeen(shown, getOwner(shown));
+    		if (gui != null) {
+    			gui.setGuess(suggestion.toString());
+    			gui.setGuessResult(shown.getCardName());
     		}
-    		
-    		gui.setGuess(suggestion.toString());
-    		gui.setGuessResult(shown.getCardName());
     	}
     	
     	humanFinishedTurn = true;
@@ -531,21 +525,11 @@ public class Board {
     	}
     }
     
-    private Player getOwner(Card card) {
-    	for (Player p : players) {
-    		if (p.getHand().contains(card)) {
-    			return p;
-    		}
-    	}
-    	
-    	return null;
-    }
-    
-    private int rollDie() {
+    public int rollDie() {
     	return (int)(Math.random() * 6) + 1;
     }
     
-    private void highlightTargets() {
+    public void highlightTargets() {
     	for (BoardCell cell : targets) {
     		cell.setHighlighted(true);
     	}
