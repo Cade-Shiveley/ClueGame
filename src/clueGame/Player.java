@@ -125,4 +125,9 @@ public abstract class Player {
 	public boolean isHuman() {
 		return false;
 	}
+
+	public BoardCell selectTarget(Set<BoardCell> targets) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

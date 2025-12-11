@@ -502,11 +502,33 @@ public class Board {
     	BoardCell target = next.selectTarget(getTargets());
     	next.setLocation(target);
     	
-    	if (target.isRoomCenter()) {
-    		handleComputerSuggestion(next, target);
+    	Solution suggestion = null;
+    	Card shown = null;
+    	
+    	if (target.isRoomCenter() && !next.isHuman()) {
+    		ComputerPlayer bot = (ComputerPlayer) next;
+    		suggestion = bot.createSuggestion();
+    		shown = handleSuggestion(bot, suggestion);
+    		
+    		if (shown != null) {
+    			bot.updateSeen(shown, getOwner(shown));
+    		}
+    		
+    		gui.setGuess(suggestion.toString());
+    		gui.setGuessResult(shown.getCardName());
     	}
     	
     	humanFinishedTurn = true;
+    }
+    
+    private Player getOwner(Card card) {
+    	for (Player p : players) {
+    		if (p.getHand().contains(card)) {
+    			return p;
+    		}
+    	}
+    	
+    	return null;
     }
     
     private int rollDie() {

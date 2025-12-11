@@ -222,6 +222,13 @@ public class GUI extends JPanel {
 	public void setNumber(JTextField number) {
 		this.number = number;
 	}
+
+
+
+	public void showErrorMessage(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
