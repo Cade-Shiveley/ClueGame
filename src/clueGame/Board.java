@@ -556,6 +556,8 @@ public class Board {
     	}
     }
     
+
+    
     public void setBoardGUI(BoardGUI boardGUI) {
     	this.boardGUI = boardGUI;
     }
@@ -574,6 +576,10 @@ public class Board {
     
     public boolean humanTurnFinished() {
     	return humanFinishedTurn;
+    }
+    
+    public void setHumanTurnFinished(boolean finished) {
+    	this.humanFinishedTurn = finished;
     }
     
     private boolean isDoorDirection(char dir) {

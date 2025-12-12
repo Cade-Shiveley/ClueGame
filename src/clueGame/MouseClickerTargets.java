@@ -26,6 +26,7 @@ public class MouseClickerTargets implements MouseListener{
 		if (current == null || !current.isHuman() || board.humanTurnFinished()) {
 			return;
 		}
+		
 		int cellSize = gui.getCellSize();
 		int col = e.getX()/cellSize;
 		int row = e.getY()/cellSize;
@@ -41,15 +42,28 @@ public class MouseClickerTargets implements MouseListener{
 			current.setLocation(clickedCell);
 			
 			board.clearTargets();
-			board.humanTurnFinished();
+			board.setHumanTurnFinished(true);
 			
-			if(clickedCell.isRoomCenter()) {
-				gui.promptSuggestion(clickedCell);
-			}
 			
 			gui.repaint();
 			
 		}
 }
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+	
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	
+	
 
 }

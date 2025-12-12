@@ -11,18 +11,22 @@ public class BoardGUI extends JPanel{
 	
 	public BoardGUI(Board board) {
 		this.board = board;
+		addMouseListener(new MouseClickerTargets(board, this));
+		
 	}
 
 	public int getCellSize() {
 		return cellSize;
 	}
 	
-	public void promptSuggestion(Boardcell roomcell) {
+
+	
+	public void promptSuggestion(BoardCell roomcell) {
 		Room room = board.getRoom(roomcell);
 		if(room == null) {
 			return;
 		}
-		System.out.println(current.getName()+"make suggestion"+room.getName());
+		//System.out.println(current.getName()+"make suggestion"+room.getName());
 		
 	}
 
