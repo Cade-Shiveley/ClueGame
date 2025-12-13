@@ -1,5 +1,7 @@
 package clueGame;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -40,6 +42,8 @@ public class GUI extends JPanel {
 		add(panel2());
 		
 		next.addActionListener(handleNextTurn());
+		
+		guessing.addActionListener(e -> handleHumanSuggestion());
 	}
 	
 
@@ -169,6 +173,34 @@ public class GUI extends JPanel {
 		
 	}
 	
+	private void handleHumanSuggestion() {
+		Board board = Board.instance();
+		
+		Player current = board.getCurrentPlayer();
+		
+		if (!current.getLocation().isRoomCenter()) {
+			showErrorMessage("You must be in a room to make a suggestion.");
+			return;
+		}
+		
+		String text = guessing.getText();
+		if (text == null || !text.contains(", ")) {
+			showErrorMessage("Format: Person, Weapon");
+			return;
+		}
+		
+		String[] parts = text.split(",");
+		String person = parts[0].trim();
+		String weapon = parts[1].trim();
+		
+		Room room = board.getRoom(current.getLocation());
+		
+		Solution suggestion = new Solution(new Card(room.getName(), CardType.ROOM), new Card(person, CardType.PERSON), new Card(weapon, CardType.WEAPON));
+		
+		board.humanSuggestion(suggestion,  this);
+		
+		guessing.setText("");
+	}
 	
 
 	public static void main(String[] args) {

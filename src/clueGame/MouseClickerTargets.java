@@ -42,8 +42,13 @@ public class MouseClickerTargets implements MouseListener{
 			current.setLocation(clickedCell);
 			
 			board.clearTargets();
-			board.setHumanTurnFinished(true);
 			
+			if (clickedCell.isRoomCenter()) {
+				board.setHumanTurnFinished(false);
+			}
+			else {
+				board.setHumanTurnFinished(true);
+			}
 			
 			gui.repaint();
 			

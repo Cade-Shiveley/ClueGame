@@ -34,6 +34,7 @@ public class MainGUI extends JFrame{
 		
 		board.setGUI(bottomGUI);
 		board.setBoardGUI(boardGUI);
+		board.setRightSideGUI(rightGUI);
 		
 		add(bottomGUI,BorderLayout.SOUTH);
 		add(rightGUI.getPanel(), BorderLayout.EAST);

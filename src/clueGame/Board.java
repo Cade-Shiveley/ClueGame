@@ -52,6 +52,7 @@ public class Board {
     private GUI gui = null;
     private Random rand = new Random();
     private BoardGUI boardGUI;
+    private RightSideGUI rightSideGUI;
 
     /*
      * variable and methods used for singleton pattern
@@ -355,6 +356,8 @@ public class Board {
     
     
     public Card handleSuggestion(Player accusing, Solution solution) {
+    	moveSuggestedToRoom(accusing, solution.getPerson());
+    	
 		int startIndex = players.indexOf(accusing);
 		
 		for (int i = 1; i < players.size(); i++) {
@@ -362,12 +365,14 @@ public class Board {
 			Card counter = current.disproveSuggestion(solution);
 			
 			if (counter != null) {
+				accusing.updateSeen(counter, current);
 				return counter;
 			}
 		}
 		
 		return null;
     }
+    
 
     public void loadLayoutConfig() throws BadConfigFormatException {
         try {
@@ -514,7 +519,11 @@ public class Board {
     		
     		if (gui != null) {
     			gui.setGuess(suggestion.toString());
-    			gui.setGuessResult(shown.getCardName());
+    			if (shown != null) {
+    				gui.setGuessResult("Suggestion disproven");
+    			} else {
+    				gui.setGuessResult("No one could disprove");
+    			}
     		}
     	}
     	
@@ -523,6 +532,42 @@ public class Board {
     	if(boardGUI != null) {
     		boardGUI.repaint();
     	}
+    }
+    
+    private void moveSuggestedToRoom(Player suggester, Card person) {
+    	for (Player p : players) {
+    		if (p.getName().equals(person.getCardName())) {
+    			Room room = getRoom(suggester.getLocation());
+    			p.setLocation(room.getCenterCell());
+    			
+    			break;
+    		}
+    	}
+    }
+    
+    public void humanSuggestion(Solution suggestion, GUI gui) {
+    	
+    	Player human = getCurrentPlayer();
+    	
+    	if (!human.getLocation().isRoomCenter()) {
+    		gui.showErrorMessage("You must be in a room to make a suggestion.");
+    		return;
+    	}
+    	
+    	gui.setGuess(suggestion.toString());
+    	
+    	Card shown = handleSuggestion(human, suggestion);
+    	
+    	if (shown != null) {
+    		Player shower = human.getSeenCards().get(shown);
+    		gui.setGuessResult(shown.getCardName() + " shown by " + shower.getName());
+    	}
+    	else {
+    		gui.setGuessResult("No one could disprove");
+    	}
+    	
+    	setHumanTurnFinished(true);
+    	rightSideGUI.update();
     }
     
     public int rollDie() {
@@ -677,5 +722,9 @@ public class Board {
     
     public Solution getSolution() {
     	return answer;
+    }
+    
+    public void setRightSideGUI(RightSideGUI gui) {
+    	this.rightSideGUI = gui;
     }
 }

@@ -34,7 +34,7 @@ public class RightSideGUI extends JFrame{
 		return mainPanel;
 	}
 	
-	private void update() {
+	void update() {
 		//remove everything from all panels
 		//add labels in hand 
 		//adds in hand

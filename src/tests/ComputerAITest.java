@@ -158,7 +158,7 @@ public class ComputerAITest {
 			board.getTargets().clear();
 			board.getTargets().addAll(targets);
 			
-			BoardCell picked = Villager.selectTarget();
+			BoardCell picked = Villager.selectTarget(targets);
 			
 			assertTrue(targets.contains(picked));
 		}
@@ -176,7 +176,7 @@ public class ComputerAITest {
 			board.getTargets().clear();
 			board.getTargets().addAll(targets);
 			
-			BoardCell picked = Villager.selectTarget();
+			BoardCell picked = Villager.selectTarget(targets);
 			assertTrue(targets.contains(picked));
 		}
 		
@@ -192,7 +192,7 @@ public class ComputerAITest {
 			board.getTargets().clear();
 			board.getTargets().addAll(targets);
 			
-			BoardCell picked = Villager.selectTarget();
+			BoardCell picked = Villager.selectTarget(targets);
 			assertTrue(targets.contains(picked));
 			
 
